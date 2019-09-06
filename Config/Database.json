@@ -1,0 +1,6 @@
+{
+	"Host":"localhost"
+	, "DbName":"meals_generator"
+	, "Username":"root"
+	, "Password":""
+}

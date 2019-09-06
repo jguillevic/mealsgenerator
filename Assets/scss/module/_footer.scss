@@ -1,0 +1,17 @@
+.footer
+{
+	background-color: $main-dark;
+	color: $main-light;
+	padding-left: 1%;
+	padding-right: 1%;
+
+	&__copyright
+	{
+		position: absolute;
+		font-family: $text-font;
+		display: inline-block;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}

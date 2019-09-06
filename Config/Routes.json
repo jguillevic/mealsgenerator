@@ -1,0 +1,56 @@
+[
+	{
+		"Path": "/"
+		, "Controller": "Home\\HomeController"
+		, "Action": "Display"
+		, "Name": "DisplayHome"
+	}
+	, {
+		"Path": "/PlannifiedMeal/Display"
+		, "Controller": "Meal\\PlannifiedMealController"
+		, "Action": "Display"
+		, "Name": "DisplayPlannifiedMeals"
+	}
+	, {
+		"Path": "/PlannifiedMeal/Generate"
+		, "Controller": "Meal\\PlannifiedMealController"
+		, "Action": "Generate"
+		, "Name": "GeneratePlannifiedMeals"
+	}
+	, {
+		"Path": "/PlannifiedMeal/Add"
+		, "Controller": "Meal\\PlannifiedMealController"
+		, "Action": "Add"
+		, "Name": "AddPlannifiedMeals"
+	}
+	, {
+		"Path": "/Recipe/Display"
+		, "Controller": "Recipe\\RecipeController"
+		, "Action": "Display"
+		, "Name": "DisplayRecipe"
+	}
+	, {
+		"Path": "/ShoppingList/Display"
+		, "Controller": "ShoppingList\\ShoppingListController"
+		, "Action": "Display"
+		, "Name": "DisplayShoppingLists"
+	}
+	, {
+		"Path": "/ShoppingList/Generate"
+		, "Controller": "ShoppingList\\ShoppingListController"
+		, "Action": "Generate"
+		, "Name": "GenerateShoppingList"
+	}
+	, {
+		"Path": "/ShoppingListItem/UpdateIsHandled"
+		, "Controller": "ShoppingList\\ShoppingListItemController"
+		, "Action": "UpdateIsHandled"
+		, "Name": "ShoppingListItemUpdateIsHandled"
+	}
+	, {
+		"Path": "/Error/Display"
+		, "Controller": "Error\\ErrorController"
+		, "Action": "Display"
+		, "Name": "DisplayError"
+	}
+]

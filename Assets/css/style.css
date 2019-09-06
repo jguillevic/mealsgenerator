@@ -1,0 +1,1051 @@
+@charset "UTF-8";
+/* Tools */
+/* Colors */
+/* Fonts */
+/* Sizes */
+/* Others */
+/* Base */
+/*! normalize.scss v0.1.0 | MIT License | based on git.io/normalize */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Remove default margin.
+ */
+body {
+  margin: 0; }
+
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11
+ * and Firefox.
+ * Correct `block` display not defined for `main` in IE 11.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block; }
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
+ */
+[hidden],
+template {
+  display: none; }
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+a:active,
+a:hover {
+  outline: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold; }
+
+/**
+ * Address styling not present in Safari and Chrome.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+img {
+  border: 0; }
+
+/**
+ * Correct overflow not hidden in IE 9/10/11.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari.
+ */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+hr {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 0; }
+
+/**
+ * Contain overflow in all browsers.
+ */
+pre {
+  overflow: auto; }
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set.
+ */
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+  margin: 0;
+  /* 3 */ }
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10/11.
+ */
+button {
+  overflow: visible; }
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+ * Correct `select` style inheritance in Firefox.
+ */
+button,
+select {
+  text-transform: none; }
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */ }
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled],
+html input[disabled] {
+  cursor: default; }
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+input {
+  line-height: normal; }
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
+ *    (include `-moz` to future-proof).
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  -webkit-box-sizing: content-box;
+  /* 2 */
+  box-sizing: content-box; }
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+optgroup {
+  font-weight: bold; }
+
+/* Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+td,
+th {
+  padding: 0; }
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0; }
+
+button {
+  background: none;
+  border: none; }
+
+a {
+  text-decoration: none;
+  color: inherit; }
+
+ul {
+  list-style: none; }
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000; }
+
+option:not(:checked) {
+  color: black;
+  /* prevent <option>s from becoming transparent as well */ }
+
+/* Layout */
+.l-header {
+  width: 100%; }
+
+.l-footer {
+  height: 50px;
+  width: 100%;
+  position: relative; }
+
+.l-main {
+  min-height: 800px; }
+
+.l-content {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto; }
+
+.l-post-content {
+  width: 64%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 3%;
+  padding-bottom: 2%; }
+
+/* Module */
+.header {
+  background-color: transparent; }
+
+.footer {
+  background-color: #000000;
+  color: #FFFFFF;
+  padding-left: 1%;
+  padding-right: 1%; }
+  .footer__copyright {
+    position: absolute;
+    font-family: "Roboto";
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
+
+.nav {
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: "Open Sans";
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+  .nav__brand {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    text-align: left;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    .nav__brand__logo {
+      font-size: 3em;
+      font-weight: 700;
+      letter-spacing: -3px;
+      -webkit-transition: color 0.3s;
+      transition: color 0.3s; }
+      .nav__brand__logo:hover {
+        color: #FFA726; }
+    .nav__brand__complement {
+      font-size: 1.2em;
+      font-weight: 500;
+      letter-spacing: -2px;
+      color: #F0F0F0;
+      font-style: italic; }
+  .nav__menu {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    margin-left: 5em;
+    height: 100%; }
+    .nav__menu__item, .nav__menu__item--home, .nav__menu__item--meal, .nav__menu__item--generate, .nav__menu__item--shoppinglist {
+      display: inline-block;
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s;
+      font-size: 0.9em;
+      padding-top: 2.5em;
+      padding-bottom: 2.5em;
+      padding-left: 1em;
+      padding-right: 1em;
+      text-transform: uppercase;
+      text-align: center;
+      height: 100%;
+      width: 12em; }
+      .nav__menu__item:hover, .nav__menu__item--home:hover, .nav__menu__item--meal:hover, .nav__menu__item--generate:hover, .nav__menu__item--shoppinglist:hover {
+        background-color: #FFA726;
+        cursor: pointer; }
+      .nav__menu__item::before, .nav__menu__item--home::before, .nav__menu__item--meal::before, .nav__menu__item--generate::before, .nav__menu__item--shoppinglist::before {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 700;
+        font-size: 2em;
+        display: block;
+        padding-bottom: 0.3em; }
+    .nav__menu__item--home::before {
+      content: "\f015"; }
+    .nav__menu__item--meal::before {
+      content: "\f2e7"; }
+    .nav__menu__item--generate::before {
+      content: "\f013"; }
+    .nav__menu__item--shoppinglist::before {
+      content: "\f07a"; }
+  .nav__logo {
+    display: inline-block;
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: -3px;
+    margin-left: 30px;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s; }
+    .nav__logo:hover {
+      color: #FFA726; }
+  .nav__burger {
+    display: inline-block;
+    font-size: 1.4em;
+    margin-right: 30px;
+    padding-top: 15px;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s; }
+    .nav__burger:hover {
+      cursor: pointer;
+      color: #FFA726; }
+  .nav__overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    visibility: hidden;
+    z-index: 2;
+    right: 0;
+    top: 0;
+    background-color: black;
+    overflow-x: hidden;
+    -webkit-transition: width 0.3s, height 0.3s;
+    transition: width 0.3s, height 0.3s; }
+    .nav__overlay--open {
+      width: 20%;
+      visibility: visible; }
+    .nav__overlay__content {
+      width: 100%;
+      color: #FFFFFF;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      font-family: "Open Sans";
+      font-size: 1.5em; }
+      .nav__overlay__content > ul {
+        margin-top: 5em;
+        padding-left: 1em;
+        width: 100%; }
+        .nav__overlay__content > ul > li {
+          display: inline-block;
+          width: 100%;
+          font-weight: 700; }
+          .nav__overlay__content > ul > li > ul {
+            width: 100%;
+            padding-left: 1.2em; }
+            .nav__overlay__content > ul > li > ul > li {
+              color: #909090;
+              font-size: 0.8em; }
+    .nav__overlay__menu-item, .nav__overlay__menu-item-drop, .nav__overlay__menu-item-before, .nav__overlay__menu-item-home, .nav__overlay__menu-item-admin, .nav__overlay__menu-item-category, .nav__overlay__menu-item-about, .nav__overlay__menu-item-contact {
+      -webkit-transition: color 0.3s;
+      transition: color 0.3s; }
+      .nav__overlay__menu-item:hover, .nav__overlay__menu-item-drop:hover, .nav__overlay__menu-item-before:hover, .nav__overlay__menu-item-home:hover, .nav__overlay__menu-item-admin:hover, .nav__overlay__menu-item-category:hover, .nav__overlay__menu-item-about:hover, .nav__overlay__menu-item-contact:hover {
+        color: #FFA726;
+        cursor: pointer; }
+    .nav__overlay__menu-item-drop::after {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 700;
+      margin-left: 0.3em;
+      color: #FFFFFF;
+      -webkit-transition: color 0.3s;
+      transition: color 0.3s; }
+    .nav__overlay__menu-item-drop:hover::after {
+      color: #FFA726;
+      cursor: pointer; }
+    .nav__overlay__menu-item-drop--down::after {
+      content: "\f107"; }
+    .nav__overlay__menu-item-drop--up::after {
+      content: "\f106"; }
+    .nav__overlay__menu-item-before::before, .nav__overlay__menu-item-home::before, .nav__overlay__menu-item-admin::before, .nav__overlay__menu-item-category::before, .nav__overlay__menu-item-about::before, .nav__overlay__menu-item-contact::before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 700;
+      color: #FFFFFF;
+      -webkit-transition: color 0.3s;
+      transition: color 0.3s;
+      display: inline-block;
+      width: 1.8em; }
+    .nav__overlay__menu-item-before:hover::before, .nav__overlay__menu-item-home:hover::before, .nav__overlay__menu-item-admin:hover::before, .nav__overlay__menu-item-category:hover::before, .nav__overlay__menu-item-about:hover::before, .nav__overlay__menu-item-contact:hover::before {
+      color: #FFA726;
+      cursor: pointer; }
+    .nav__overlay__menu-item-home::before {
+      content: "\f015"; }
+    .nav__overlay__menu-item-admin::before {
+      content: "\f508"; }
+    .nav__overlay__menu-item-category::before {
+      content: "\f121"; }
+    .nav__overlay__menu-item-about::before {
+      content: "\f05a"; }
+    .nav__overlay__menu-item-contact::before {
+      content: "\f1fa"; }
+    .nav__overlay__menu-subitem-content {
+      height: 100%;
+      visibility: visible; }
+    .nav__overlay__close {
+      position: fixed;
+      right: 28px;
+      top: 19px;
+      font-size: 2em;
+      color: #FFFFFF;
+      -webkit-transition: color 0.3s;
+      transition: color 0.3s; }
+      .nav__overlay__close:hover {
+        color: #FFA726;
+        cursor: pointer; }
+
+.content {
+  background-color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.button, .button--danger, .button--reset, .button--delete, .button--save, .button--add, .button--edit, .button--submit {
+  display: inline-block;
+  font-family: "Roboto";
+  font-size: 1em;
+  color: #FFFFFF;
+  background-color: #FFA726;
+  padding: 0.7em;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  text-transform: uppercase; }
+  .button:hover, .button--danger:hover, .button--reset:hover, .button--delete:hover, .button--save:hover, .button--add:hover, .button--edit:hover, .button--submit:hover {
+    cursor: pointer;
+    background-color: #FFD95b; }
+  .button::before, .button--danger::before, .button--reset::before, .button--delete::before, .button--save::before, .button--add::before, .button--edit::before, .button--submit::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 0.6em; }
+
+.button--danger, .button--reset, .button--delete {
+  background-color: #DC3545; }
+  .button--danger:hover, .button--reset:hover, .button--delete:hover {
+    background-color: #E27C79; }
+
+.button--reset::before {
+  content: "\f0e2"; }
+
+.button--save::before {
+  content: "\f0c7"; }
+
+.button--add::before {
+  content: "\f067"; }
+
+.button--edit::before {
+  content: "\f044"; }
+
+.button--delete::before {
+  content: "\f1f8"; }
+
+.button--social, .button--facebook, .button--twitter, .button--youtube, .button--instagram, .button--linkedin, .button--mail {
+  font-size: 1.5em;
+  width: 100%;
+  height: 4em;
+  color: #FFFFFF;
+  position: relative;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  margin-left: 0.3em;
+  margin-right: 0.3em;
+  border-radius: 0.8em; }
+  .button--social::before, .button--facebook::before, .button--twitter::before, .button--youtube::before, .button--instagram::before, .button--linkedin::before, .button--mail::before {
+    font-family: "Font Awesome 5 Brands";
+    font-weight: 400;
+    font-size: 2em;
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
+  .button--social:hover, .button--facebook:hover, .button--twitter:hover, .button--youtube:hover, .button--instagram:hover, .button--linkedin:hover, .button--mail:hover {
+    cursor: pointer;
+    background-color: #FFA726; }
+
+.button--facebook {
+  background-color: #3B5998; }
+  .button--facebook::before {
+    content: "\f39e"; }
+
+.button--twitter {
+  background-color: #00ACED; }
+  .button--twitter::before {
+    content: "\f099"; }
+
+.button--youtube {
+  background-color: #E62117; }
+  .button--youtube::before {
+    content: "\f167"; }
+
+.button--instagram {
+  background-color: #DD2A7B; }
+  .button--instagram::before {
+    content: "\f16d"; }
+
+.button--linkedin {
+  background-color: #007BB6; }
+
+.button--mail {
+  background-color: #DD4B39; }
+
+.button--submit::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  content: "\f054";
+  margin-left: 0.6em; }
+
+/* Source : https://www.cssscript.com/pretty-checkbox-replacement-css/ */
+.checkbox {
+  line-height: 0;
+  /* Par défaut (small) */
+  /* tiny */
+  /* small */
+  /* medium */
+  /* large */
+  /* disabled */
+  /* rounded */ }
+  .checkbox .checkbox-container {
+    display: inline-block;
+    position: relative; }
+    .checkbox .checkbox-container input {
+      cursor: pointer;
+      opacity: 0;
+      position: absolute;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      z-index: 1; }
+      .checkbox .checkbox-container input:hover ~ .checkbox-checkmark::after {
+        display: block;
+        opacity: 0.5; }
+      .checkbox .checkbox-container input:checked ~ .checkbox-checkmark {
+        background: #FFA726;
+        border-color: transparent; }
+        .checkbox .checkbox-container input:checked ~ .checkbox-checkmark::after {
+          display: block;
+          opacity: 1;
+          border-color: white; }
+    .checkbox .checkbox-container .checkbox-checkmark {
+      background-color: #eee;
+      border: 1px #ddd solid; }
+      .checkbox .checkbox-container .checkbox-checkmark::after {
+        -webkit-box-sizing: inherit;
+                box-sizing: inherit;
+        cursor: pointer;
+        display: none;
+        position: absolute;
+        content: "";
+        border: solid #FFA726;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg); }
+      .checkbox .checkbox-container .checkbox-checkmark:hover::after {
+        display: block; }
+  .checkbox label {
+    display: inline;
+    padding-left: 0.5rem;
+    vertical-align: super; }
+    .checkbox label:hover ~ .checkbox-checkmark::after {
+      display: block;
+      opacity: 0.5; }
+  .checkbox label {
+    font-size: 1em; }
+  .checkbox .checkbox-container .checkbox-checkmark {
+    width: 26px;
+    height: 26px; }
+    .checkbox .checkbox-container .checkbox-checkmark::after {
+      height: 15.6px;
+      width: 7.8px;
+      left: 9.1px;
+      top: 3px;
+      border-width: 0 2px 4px 0; }
+  .checkbox.tiny label {
+    font-size: 1em; }
+  .checkbox.tiny .checkbox-container .checkbox-checkmark {
+    width: 20px;
+    height: 20px; }
+    .checkbox.tiny .checkbox-container .checkbox-checkmark::after {
+      height: 12px;
+      width: 6px;
+      left: 7px;
+      top: 3px;
+      border-width: 0 2px 3px 0; }
+  .checkbox.small label {
+    font-size: 1em; }
+  .checkbox.small .checkbox-container .checkbox-checkmark {
+    width: 26px;
+    height: 26px; }
+    .checkbox.small .checkbox-container .checkbox-checkmark::after {
+      height: 15.6px;
+      width: 7.8px;
+      left: 9.1px;
+      top: 3px;
+      border-width: 0 2px 4px 0; }
+  .checkbox.medium label {
+    font-size: 1.25em; }
+  .checkbox.medium .checkbox-container .checkbox-checkmark {
+    width: 34px;
+    height: 34px; }
+    .checkbox.medium .checkbox-container .checkbox-checkmark::after {
+      height: 20.4px;
+      width: 10.2px;
+      left: 11.9px;
+      top: 4px;
+      border-width: 0 3px 5px 0; }
+  .checkbox.large label {
+    font-size: 1.5em; }
+  .checkbox.large .checkbox-container .checkbox-checkmark {
+    width: 40px;
+    height: 40px; }
+    .checkbox.large .checkbox-container .checkbox-checkmark::after {
+      height: 24px;
+      width: 12px;
+      left: 14px;
+      top: 5px;
+      border-width: 0 3px 6px 0; }
+  .checkbox.disabled .checkbox-container input {
+    display: none; }
+  .checkbox.disabled .checkbox-container .checkbox-checkmark {
+    cursor: not-allowed;
+    background: #ddd;
+    border: 1px #ccc solid; }
+    .checkbox.disabled .checkbox-container .checkbox-checkmark::after {
+      display: block;
+      border-color: #bbb;
+      opacity: 0.5;
+      cursor: not-allowed; }
+  .checkbox.disabled .checkbox-container input:checked ~ .checkbox-checkmark {
+    background: #ddd; }
+  .checkbox.rounded-3 .checkbox-container .checkbox-checkmark {
+    border-radius: 3px; }
+  .checkbox.rounded-6 .checkbox-container .checkbox-checkmark {
+    border-radius: 6px; }
+  .checkbox.rounded-8 .checkbox-container .checkbox-checkmark {
+    border-radius: 8px; }
+  .checkbox.rounded-10 .checkbox-container .checkbox-checkmark {
+    border-radius: 10px; }
+  .checkbox.rounded-16 .checkbox-container .checkbox-checkmark {
+    border-radius: 16px; }
+  .checkbox.rounded-22 .checkbox-container .checkbox-checkmark {
+    border-radius: 22px; }
+
+.dm__form {
+  display: block;
+  width: 100%;
+  padding: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  border: 2px solid #FFA726; }
+  .dm__form__component {
+    display: inline;
+    margin-right: 2em;
+    font-family: "Roboto";
+    font-size: 1.2em; }
+  .dm__form__buttons {
+    display: inline; }
+.dm__info {
+  background-color: #DD2A7B;
+  color: #FFFFFF;
+  font-family: "Roboto";
+  font-size: 1.2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 2em;
+  position: relative;
+  /* alert */
+  /* success */ }
+  .dm__info > ul {
+    position: relative;
+    display: inline; }
+    .dm__info > ul::before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 4em;
+      content: "\f071";
+      position: absolute;
+      left: 0; }
+    .dm__info > ul > li > p {
+      position: relative;
+      left: 6em; }
+      .dm__info > ul > li > p:not(:first-child) {
+        margin-top: 0.3em; }
+  .dm__info.alert {
+    background-color: #DC3545; }
+    .dm__info.alert > ul::before {
+      content: "\f071";
+      bottom: -0.85em; }
+    .dm__info.alert > form {
+      display: inline;
+      position: absolute;
+      bottom: 2em;
+      right: 4em; }
+  .dm__info.success {
+    background-color: #5CB85C; }
+    .dm__info.success > ul::before {
+      content: "\f00c";
+      bottom: -0.7em; }
+    .dm__info.success > form {
+      display: inline;
+      position: absolute;
+      bottom: 1.3em;
+      right: 4em; }
+.dm__item {
+  width: 100%;
+  font-family: "Open Sans"; }
+  .dm__item td {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
+    height: 100px;
+    vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); }
+    .dm__item td:first-child {
+      margin-left: 0; }
+    .dm__item td:last-child {
+      margin-right: 0; }
+  .dm__item__date, .dm__item__date--monday, .dm__item__date--tuesday, .dm__item__date--wednesday, .dm__item__date--thursday, .dm__item__date--friday, .dm__item__date--saturday, .dm__item__date--sunday {
+    width: 26%;
+    background-color: #FFA726;
+    font-size: 1.2em;
+    color: #FFFFFF;
+    padding-top: 1em; }
+  .dm__item__date--monday {
+    background-color: #632E7D; }
+  .dm__item__date--tuesday {
+    background-color: #38407F; }
+  .dm__item__date--wednesday {
+    background-color: #3E7D66; }
+  .dm__item__date--thursday {
+    background-color: #C77F46; }
+  .dm__item__date--friday {
+    background-color: #CD9F3E; }
+  .dm__item__date--saturday {
+    background-color: #AE4E3E; }
+  .dm__item__date--sunday {
+    background-color: #AE2773; }
+  .dm__item__meal, .dm__item__meal--monday, .dm__item__meal--tuesday, .dm__item__meal--wednesday, .dm__item__meal--thursday, .dm__item__meal--friday, .dm__item__meal--saturday, .dm__item__meal--sunday {
+    width: 35%;
+    border: 2px solid #FFA726;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    .dm__item__meal__header, .dm__item__meal--monday__header, .dm__item__meal--tuesday__header, .dm__item__meal--wednesday__header, .dm__item__meal--thursday__header, .dm__item__meal--friday__header, .dm__item__meal--saturday__header, .dm__item__meal--sunday__header {
+      display: block;
+      background-color: #FFA726;
+      font-size: 1.2em;
+      color: #FFFFFF;
+      padding-top: 0.3em;
+      padding-bottom: 0.3em; }
+    .dm__item__meal__content {
+      padding-top: 1em;
+      display: block;
+      font-size: 1em;
+      font-family: "Roboto"; }
+      .dm__item__meal__content a {
+        color: #FFA726;
+        border-bottom: 1px solid #FFA726;
+        padding-bottom: 0; }
+  .dm__item__meal--monday {
+    border-color: #632E7D; }
+    .dm__item__meal--monday__header {
+      background-color: #632E7D; }
+  .dm__item__meal--tuesday {
+    border-color: #38407F; }
+    .dm__item__meal--tuesday__header {
+      background-color: #38407F; }
+  .dm__item__meal--wednesday {
+    border-color: #3E7D66; }
+    .dm__item__meal--wednesday__header {
+      background-color: #3E7D66; }
+  .dm__item__meal--thursday {
+    border-color: #C77F46; }
+    .dm__item__meal--thursday__header {
+      background-color: #C77F46; }
+  .dm__item__meal--friday {
+    border-color: #CD9F3E; }
+    .dm__item__meal--friday__header {
+      background-color: #CD9F3E; }
+  .dm__item__meal--saturday {
+    border-color: #AE4E3E; }
+    .dm__item__meal--saturday__header {
+      background-color: #AE4E3E; }
+  .dm__item__meal--sunday {
+    border-color: #AE2773; }
+    .dm__item__meal--sunday__header {
+      background-color: #AE2773; }
+
+.dsl__title {
+  font-family: "Open Sans";
+  letter-spacing: -2px;
+  text-align: center;
+  font-weight: 700; }
+.dsl__form {
+  display: block;
+  width: 100%;
+  padding: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  border: 2px solid #FFA726; }
+  .dsl__form__component {
+    display: inline;
+    margin-right: 2em;
+    font-family: "Roboto";
+    font-size: 1.2em; }
+  .dsl__form__buttons {
+    display: inline; }
+.dsl__item {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em; }
+
+/* Theme */
+
+/*# sourceMappingURL=style.css.map */
