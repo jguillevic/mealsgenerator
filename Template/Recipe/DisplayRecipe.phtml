@@ -1,0 +1,34 @@
+<?php
+$recipe = $params["Recipe"];
+?>
+
+<section class="l-content content">
+    <article>
+        <header>
+            <h1><?= $recipe->GetName(); ?></h1>
+            <p>Pour <?= $recipe->GetDefaultPersonNumber(); ?> personne(s)</p>
+            <p>Temps de préparation : <?= $recipe->GetPreparationTime(); ?> min</p>
+            <p>Temps de cuisson : <?= $recipe->GetCookingTime(); ?> min</p>
+        </header>
+
+        <section>
+<?php if (count($recipe->GetIngredients()) > 0): ?>
+            <h2>Ingrédients</h2>
+            <ul>
+    <?php foreach ($recipe->GetIngredients() as $ingredient): ?>
+                <li><?= $ingredient->GetQuantity() . " " . $ingredient->GetUnit()->GetCode() . " " . $ingredient->GetIngredient()->GetName(); ?></li>
+    <?php endforeach; ?>
+            </ul>
+<?php endif; ?>
+
+<?php if (count($recipe->GetInstructions()) > 0): ?>
+            <h2>Instructions</h2>
+            <ul>
+    <?php foreach ($recipe->GetInstructions() as $instruction): ?>
+                <li><?= $instruction->GetOrder() . ". " . $instruction->GetContent(); ?></li>
+    <?php endforeach; ?>
+            </ul>
+<?php endif; ?>
+        </section>
+    </article>
+</section>

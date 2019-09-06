@@ -1,0 +1,45 @@
+<?php
+use \Framework\Tools\Helper\RoutesHelper;
+use \Tools\Helper\UserHelper;
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Générateur de repas</title>
+	<link rel="stylesheet" type="text/css" href="../Assets/css/style.css"> 	
+	<script type="text/javascript" src="../Assets/js/jquery/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../Assets/js/jquery/jquery-migrate-1.4.1.min.js"></script>
+	<script src="../Assets/js/module/nav.js"></script>
+	<script src="../Assets/js/module/shoppinglist/shoppinglist.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700" rel="stylesheet">
+</head>
+<body>
+	<header class="l-header header">
+		<nav class="nav">
+			<section class="nav__brand">
+				<a class="nav__brand__logo" href="<?= RoutesHelper::Path("DisplayHome"); ?>">Générateur de repas</a>
+				<span class="nav__brand__complement">Pour générer les repas de la semaine</span>
+			</section>
+			<section class="nav__menu">
+				<a class="nav__menu__item--meal" href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Consulter les repas</a>
+				<a class="nav__menu__item--generate" href="<?= RoutesHelper::Path("GeneratePlannifiedMeals"); ?>">Générer des repas</a>
+				<a class="nav__menu__item--shoppinglist" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Consulter la liste des courses</a>
+			</section>
+		</nav>
+	</header>
+	<main class="l-main main">
+		<?php
+			if (isset($this->content))
+				include($this->content);
+		?>
+	</main>
+	<footer class="l-footer footer">
+		<p class="footer__copyright">
+			Générateur de repas © Copyright 2019
+		</p>
+	</footer>
+</body>
+</html>

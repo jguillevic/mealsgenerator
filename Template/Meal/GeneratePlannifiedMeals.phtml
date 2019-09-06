@@ -1,0 +1,124 @@
+<?php
+use Framework\Tools\Helper\RoutesHelper;
+use Framework\Tools\Json\JsonHelper;
+use Framework\Tools\Helper\DateHelper;
+use Model\Meal\Meal;
+use Model\Meal\MealMealPart;
+use Model\Meal\MealPart;
+use Model\Meal\MealKind;
+
+$plannifiedMealsByDate = $params["PlannifiedMealsByDate"];
+$plannifiedMeals = $params["PlannifiedMeals"];
+$startingDate = $params["StartingDate"]->format("Y-m-d");
+$endingDate = $params["EndingDate"]->format("Y-m-d");
+$personNumber = $params["PersonNumber"];
+?>
+
+<section class="l-content content">
+    <form class="dm__form" action="<?= RoutesHelper::Path("GeneratePlannifiedMeals") ?>" method="GET">
+        <span class="dm__form__component">
+            <label for="StartingDate">À partir du ?</label>
+            <input type="date" id="StartingDate" name="StartingDate" value="<?= $startingDate ?>">
+        </span>
+
+        <span class="dm__form__component">
+            <label for="EndingDate">Jusqu'au ?</label>
+            <input type="date" id="EndingDate" name="EndingDate" value="<?= $endingDate ?>">
+        </span>
+
+        <span class="dm__form__component">
+            <label for="PersonNumber">Vous serez ?</label>
+            <input type="number" id="PersonNumber" name="PersonNumber" min="1" max="10" value="<?= $personNumber ?>">
+        </span>
+
+        <span class="dm__form__buttons">
+            <button class="button">Générer les menus</button>
+        </span>
+    </form>
+
+    <section class="dm__info <?= $params["IsExisting"] ? "alert" : "success"; ?>">
+        <ul>
+            <li>
+                <?php if ($params["IsExisting"]): ?>
+                    <p>Des repas ont déjà été plannifiés pour ces dates.</p>
+                    <p>L'enregistrement les remplacera par ceux ci-dessous.</p>
+                <?php else: ?>
+                    <p>Aucun repas n'a encore été plannifié pour ces dates.</p>
+                <?php endif; ?>
+            </li>
+        </ul>
+
+        <form action="<?= RoutesHelper::Path("AddPlannifiedMeals") ?>" method="POST">
+            <input type="hidden" name="plannifiedMeals" value="<?= htmlspecialchars(JsonHelper::SerializeArrayToJson($plannifiedMeals)); ?>">
+            <span>
+                <button class="button--save">Enregistrer les repas</button>
+            </span>
+        </form>
+    </section>  
+
+    <table>
+<?php foreach ($plannifiedMealsByDate as $plannifiedMealsByDate): ?>
+<?php $dayOfWeek = DateHelper::GetDayFromDate($plannifiedMealsByDate["Date"]); ?>
+    
+    <tr class="dm__item">
+
+        <td class="dm__item__date--<?= $dayOfWeek; ?>">
+            <?= mb_strtoupper(strftime("%A", $plannifiedMealsByDate["Date"]->getTimeStamp())) . "<br>" . $plannifiedMealsByDate["Date"]->format("d/m/Y"); ?>
+        </td>
+
+<?php if (array_key_exists(MealKind::LUNCH, $plannifiedMealsByDate)): ?>
+    <?php $plannifiedMeal = $plannifiedMealsByDate[MealKind::LUNCH]; ?>
+        <td class="dm__item__meal--<?= $dayOfWeek; ?>">
+            <article>
+                <header class="dm__item__meal--<?= $dayOfWeek; ?>__header"><!--
+                    --><?= mb_strtoupper($plannifiedMeal->GetKind()->GetName()); ?><!--
+                --></header>
+                <section class="dm__item__meal__content">
+    <?php
+    $i = 0;
+    $count = count($plannifiedMeal->GetMeal()->GetParts());
+    foreach ($plannifiedMeal->GetMeal()->GetParts() as $part): 
+    ?>
+                <span><?= $part->GetMealPart()->GetName() ?></span>
+        <?php if ($i < $count - 1): ?>
+            +
+        <?php endif; ?>
+    <?php
+    $i++; 
+    endforeach; 
+    ?>
+                </section>
+            </article>
+        </td>
+<?php endif; ?>
+
+<?php if (array_key_exists(MealKind::DINNER, $plannifiedMealsByDate)): ?>
+    <?php $plannifiedMeal = $plannifiedMealsByDate[MealKind::DINNER]; ?>
+        <td class="dm__item__meal--<?= $dayOfWeek; ?>">
+            <article>
+                <header class="dm__item__meal--<?= $dayOfWeek; ?>__header"><!--
+                    --><?= mb_strtoupper($plannifiedMeal->GetKind()->GetName()); ?><!--
+                --></header>
+                <section class="dm__item__meal__content">
+    <?php
+    $i = 0;
+    $count = count($plannifiedMeal->GetMeal()->GetParts());
+    foreach ($plannifiedMeal->GetMeal()->GetParts() as $part): 
+    ?>
+                <span><?= $part->GetMealPart()->GetName() ?></span>
+        <?php if ($i < $count - 1): ?>
+            +
+        <?php endif; ?>
+    <?php
+    $i++; 
+    endforeach; 
+    ?>
+                </section>
+            </article>
+        </td>
+<?php endif; ?>
+
+    </tr>
+<?php endforeach; ?>
+    </table>
+</section>
