@@ -35,7 +35,11 @@ class ShoppingListItemDAL
 
             $query .= " ORDER BY SLI.Id;";
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
+
+            $this->db->Commit();
 
             $shoppingListItems = [];
 
@@ -59,6 +63,8 @@ class ShoppingListItemDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     } 
@@ -68,6 +74,8 @@ class ShoppingListItemDAL
         try
         {
             $query = "INSERT INTO ShoppingListItem (ShoppingListId, Content, IsHandled) VALUES (:ShoppingListId, :Content, :IsHandled);";
+
+            $this->db->BeginTransaction();
 
             foreach ($shoppingListItems as $shoppingListId => $value)
             {
@@ -82,9 +90,13 @@ class ShoppingListItemDAL
                     $this->db->Execute($query, $params);
                 }
             }
+
+            $this->db->Commit();
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
@@ -105,10 +117,16 @@ class ShoppingListItemDAL
 
             $query .= ";";
 
+            $this->db->BeginTransaction();
+
             $this->db->Execute($query, $params);
+
+            $this->db->Commit();
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
@@ -123,10 +141,16 @@ class ShoppingListItemDAL
             $params[":Id"] = $id;
             $params[":IsHandled"] = $value ? 1 : 0;
 
+            $this->db->BeginTransaction();
+
             $this->db->Execute($query, $params);
+
+            $this->db->Commit();
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

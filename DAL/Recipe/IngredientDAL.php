@@ -35,10 +35,14 @@ class IngredientDAL
 
             $query .= ";";
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
 
             $unitDAL = new UnitDAL($this->db);
             $units = $unitDAL->Load();
+
+            $this->db->Commit();
 
             $ingredients = [];
 
@@ -57,6 +61,8 @@ class IngredientDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

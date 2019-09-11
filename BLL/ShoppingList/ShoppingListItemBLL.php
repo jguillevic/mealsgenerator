@@ -2,19 +2,30 @@
 
 namespace BLL\ShoppingList;
 
+use Framework\DAL\Database;
+use Framework\Tools\Error\ErrorManager;
 use DAL\ShoppingList\ShoppingListItemDAL;
 
 class ShoppingListItemBLL
 {
-    private $shoppingListItemDAL;
-
-	public function __construct()
-	{
-		$this->shoppingListItemDAL = new ShoppingListItemDAL();
-    }
-
     public function UpdateIsHandled($id, $value)
     {
-        $this->shoppingListItemDAL->UpdateIsHandled($id, $value === "true");
+        try
+        {
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $shoppingListItemDAL = new ShoppingListItemDAL($db);
+            $shoppingListItemDAL->UpdateIsHandled($id, $value === "true");
+
+            $db->Commit();
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
     }
 }

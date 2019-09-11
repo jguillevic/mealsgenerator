@@ -33,6 +33,8 @@ class RecipeIngredientDAL
 
 			$query .= " ORDER BY R_I.RecipeId;";
 
+			$this->db->BeginTransaction();
+
 			$rows = $this->db->Read($query, $params);
 
 			$unitDAL = new UnitDAL($this->db);
@@ -59,9 +61,10 @@ class RecipeIngredientDAL
 			}
 
 			$ingredientDAL = new IngredientDAL($this->db);
-
 			$ingredients = $ingredientDAL->Load($ingredientIds);
 
+			$this->db->Commit();
+		
 			foreach ($recipeIngredients as $key1 => $value1)
 			{
 				foreach ($value1 as $key2 => $value2)
@@ -75,6 +78,8 @@ class RecipeIngredientDAL
 		}
 		catch (\Exception $e)
         {
+			$this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
 	}

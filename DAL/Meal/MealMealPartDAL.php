@@ -31,6 +31,8 @@ class MealMealPartDAL
 
             $query .= " ORDER BY M_MP.MealId;";
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
 
             $mealMealParts = [];
@@ -54,6 +56,8 @@ class MealMealPartDAL
             $mealPartDAL = new MealPartDAL($this->db);
             $mealParts = $mealPartDAL->Load($mealPartIds);
 
+            $this->db->Commit();
+
             foreach ($mealMealParts as $key1 => $value1)
             {
                 foreach ($value1 as $key2 => $value2)
@@ -67,6 +71,8 @@ class MealMealPartDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
