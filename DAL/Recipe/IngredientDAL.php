@@ -4,6 +4,7 @@ namespace DAL\Recipe;
 
 use Framework\DAL\Database;
 use Framework\DAL\DALHelper;
+use Framework\Tools\Error\ErrorManager;
 use Model\Recipe\Ingredient;
 use DAL\Unit\UnitDAL;
 
@@ -21,35 +22,42 @@ class IngredientDAL
 
     public function Load($ingredientIds)
     {
-        $query = "SELECT I.Id
-                  , I.Name
-                  , I.DefaultUnitId
-                  FROM Ingredient AS I
-                  WHERE ";
-
-        $params = [];
-        $query .= DALHelper::SetArrayParams($ingredientIds, "I", "Id", $params);
-
-        $query .= ";";
-
-        $rows = $this->db->Read($query, $params);
-
-        $unitDAL = new UnitDAL($this->db);
-        $units = $unitDAL->Load();
-
-        $ingredients = [];
-
-        foreach ($rows as $row)
+        try
         {
-            $ingredient = new Ingredient();
-            
-            $ingredient->SetId($row["Id"]);
-            $ingredient->SetName($row["Name"]);
-            $ingredient->SetDefaultUnit($units[$row["DefaultUnitId"]]);
+            $query = "SELECT I.Id
+                    , I.Name
+                    , I.DefaultUnitId
+                    FROM Ingredient AS I
+                    WHERE ";
 
-            $ingredients[$ingredient->GetId()] = $ingredient;
+            $params = [];
+            $query .= DALHelper::SetArrayParams($ingredientIds, "I", "Id", $params);
+
+            $query .= ";";
+
+            $rows = $this->db->Read($query, $params);
+
+            $unitDAL = new UnitDAL($this->db);
+            $units = $unitDAL->Load();
+
+            $ingredients = [];
+
+            foreach ($rows as $row)
+            {
+                $ingredient = new Ingredient();
+                
+                $ingredient->SetId($row["Id"]);
+                $ingredient->SetName($row["Name"]);
+                $ingredient->SetDefaultUnit($units[$row["DefaultUnitId"]]);
+
+                $ingredients[$ingredient->GetId()] = $ingredient;
+            }
+
+            return $ingredients;
         }
-
-        return $ingredients;
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

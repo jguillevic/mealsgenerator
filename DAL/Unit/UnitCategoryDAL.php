@@ -3,6 +3,7 @@
 namespace DAL\Unit;
 
 use Framework\DAL\Database;
+use Framework\Tools\Error\ErrorManager;
 use Model\Unit\UnitCategory;
 
 class UnitCategoryDAL
@@ -19,22 +20,29 @@ class UnitCategoryDAL
 
     public function Load()
     {
-        $query = "SELECT UC.Id, UC.Code FROM UnitCategory AS UC;";
-
-        $rows = $this->db->Read($query);
-
-        $unitCategories = [];
-
-        foreach ($rows as $row)
+        try
         {
-            $unitCategory = new UnitCategory();
+            $query = "SELECT UC.Id, UC.Code FROM UnitCategory AS UC;";
 
-            $unitCategory->SetId($row["Id"]);
-            $unitCategory->SetCode($row["Code"]);
+            $rows = $this->db->Read($query);
 
-            $unitCategories[$unitCategory->GetId()] = $unitCategory;
+            $unitCategories = [];
+
+            foreach ($rows as $row)
+            {
+                $unitCategory = new UnitCategory();
+
+                $unitCategory->SetId($row["Id"]);
+                $unitCategory->SetCode($row["Code"]);
+
+                $unitCategories[$unitCategory->GetId()] = $unitCategory;
+            }
+
+            return $unitCategories;
         }
-
-        return $unitCategories;
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

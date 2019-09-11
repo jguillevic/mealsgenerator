@@ -4,6 +4,7 @@ namespace DAL\ShoppingList;
 
 use Framework\DAL\Database;
 use Framework\DAL\DALHelper;
+use Framework\Tools\Error\ErrorManager;
 use Model\ShoppingList\ShoppingList;
 use DAL\ShoppingList\ShoppingListItemDAL;
 
@@ -21,82 +22,103 @@ class ShoppingListDAL
 
     public function Load()
     {
-        $query = "SELECT SL.Id
-                  , SL.Name 
-                  FROM ShoppingList SL;";
-
-        $rows = $this->db->Read($query);
-
-        $shoppingLists = [];
-        $shoppingListIds = [];
-
-        foreach ($rows as $row)
+        try
         {
-            $shoppingList = new ShoppingList();
+            $query = "SELECT SL.Id
+                    , SL.Name 
+                    FROM ShoppingList SL;";
 
-            $shoppingList->SetId($row["Id"]);
-            $shoppingList->SetName($row["Name"]);
+            $rows = $this->db->Read($query);
 
-            $shoppingListIds[] = $shoppingList->GetId();
-            $shoppingLists[$shoppingList->GetId()] = $shoppingList;
+            $shoppingLists = [];
+            $shoppingListIds = [];
+
+            foreach ($rows as $row)
+            {
+                $shoppingList = new ShoppingList();
+
+                $shoppingList->SetId($row["Id"]);
+                $shoppingList->SetName($row["Name"]);
+
+                $shoppingListIds[] = $shoppingList->GetId();
+                $shoppingLists[$shoppingList->GetId()] = $shoppingList;
+            }
+
+            $shoppingListItems= [];
+
+            if (count($shoppingListIds) > 0)
+            {
+                $shoppingListItemDAL = new ShoppingListItemDAL($this->db);
+                $shoppingListItems = $shoppingListItemDAL->Load($shoppingListIds);
+            }
+
+            foreach ($shoppingLists as $id => $shoppingList)
+            {
+                if (array_key_exists($id, $shoppingListItems))
+                    $shoppingList->SetItems($shoppingListItems[$id]);
+            }
+
+            return $shoppingLists;
         }
-
-        $shoppingListItems= [];
-
-        if (count($shoppingListIds) > 0)
+        catch (\Exception $e)
         {
-            $shoppingListItemDAL = new ShoppingListItemDAL($this->db);
-            $shoppingListItems = $shoppingListItemDAL->Load($shoppingListIds);
+            ErrorManager::Manage($e);
         }
-
-        foreach ($shoppingLists as $id => $shoppingList)
-        {
-            if (array_key_exists($id, $shoppingListItems))
-                $shoppingList->SetItems($shoppingListItems[$id]);
-        }
-
-        return $shoppingLists;
     }
 
     public function Add($shoppingLists)
     {
-        $query = "INSERT INTO ShoppingList (Name) VALUES (:Name);";
-
-        $shoppingListItems = [];
-
-        foreach ($shoppingLists as $shoppingList)
+        try
         {
-            $params = [];
-            $params[":Name"] = $shoppingList->GetName();
+            $query = "INSERT INTO ShoppingList (Name) VALUES (:Name);";
 
-            $this->db->Execute($query, $params);
+            $shoppingListItems = [];
 
-            $shoppingListId = intval($this->db->GetLastInsertId()); 
+            foreach ($shoppingLists as $shoppingList)
+            {
+                $params = [];
+                $params[":Name"] = $shoppingList->GetName();
 
-            $shoppingListItems[$shoppingListId] = $shoppingList->GetItems();
+                $this->db->Execute($query, $params);
+
+                $shoppingListId = intval($this->db->GetLastInsertId()); 
+
+                $shoppingListItems[$shoppingListId] = $shoppingList->GetItems();
+            }
+
+            $shoppingListItemDAL = new ShoppingListItemDAL($this->db);
+            $shoppingListItemDAL->Add($shoppingListItems);
         }
-
-        $shoppingListItemDAL = new ShoppingListItemDAL($this->db);
-        $shoppingListItemDAL->Add($shoppingListItems);
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Delete($ids = null)
     {
-        $shoppingListItemDAL = new ShoppingListItemDAL($this->db);
-        $shoppingListItemDAL->Delete($ids);
-
-        $query = "DELETE SL FROM ShoppingList AS SL";
-
-        $params = null;
-
-        if ($ids != null)
+        try
         {
-            $params = [];
-            $query .= " WHERE " . DALHelper::SetArrayParams($ids, "SL", "Id", $params);
+            $shoppingListItemDAL = new ShoppingListItemDAL($this->db);
+            $shoppingListItemDAL->Delete($ids);
+
+            $query = "DELETE SL FROM ShoppingList AS SL";
+
+            $params = null;
+
+            if ($ids != null)
+            {
+                $params = [];
+                $query .= " WHERE " . DALHelper::SetArrayParams($ids, "SL", "Id", $params);
+            }
+
+            $query .= ";";
+
+            $this->db->Execute($query, $params);
         }
-
-        $query .= ";";
-
-        $this->db->Execute($query, $params);
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }
