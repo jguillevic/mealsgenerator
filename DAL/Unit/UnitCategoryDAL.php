@@ -24,7 +24,11 @@ class UnitCategoryDAL
         {
             $query = "SELECT UC.Id, UC.Code FROM UnitCategory AS UC;";
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query);
+
+            $this->db->Commit();
 
             $unitCategories = [];
 
@@ -42,6 +46,8 @@ class UnitCategoryDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

@@ -30,10 +30,14 @@ class UnitDAL
                     , U.CategoryId 
                     FROM Unit AS U;";
             
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query);
 
             $unitCategoryDAL = new UnitCategoryDAL($this->db);
-            $unitCategories = $unitCategoryDAL->LOad();
+            $unitCategories = $unitCategoryDAL->Load();
+
+            $this->db->Commit();
 
             $units = [];
 
@@ -56,6 +60,8 @@ class UnitDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

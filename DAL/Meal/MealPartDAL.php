@@ -29,6 +29,8 @@ class MealPartDAL
             $params = [];
             $query .= DALHelper::SetArrayParams($mealPartIds, "MP", "Id", $params);
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
 
             $mealParts = [];
@@ -57,10 +59,14 @@ class MealPartDAL
                 $mealParts[$mealPartId]->SetRecipe($recipe);
             }
 
+            $this->db->Commit();
+
             return $mealParts;
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

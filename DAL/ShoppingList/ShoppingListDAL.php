@@ -28,6 +28,8 @@ class ShoppingListDAL
                     , SL.Name 
                     FROM ShoppingList SL;";
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query);
 
             $shoppingLists = [];
@@ -52,6 +54,8 @@ class ShoppingListDAL
                 $shoppingListItems = $shoppingListItemDAL->Load($shoppingListIds);
             }
 
+            $this->db->Commit();
+
             foreach ($shoppingLists as $id => $shoppingList)
             {
                 if (array_key_exists($id, $shoppingListItems))
@@ -62,6 +66,8 @@ class ShoppingListDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
@@ -73,6 +79,8 @@ class ShoppingListDAL
             $query = "INSERT INTO ShoppingList (Name) VALUES (:Name);";
 
             $shoppingListItems = [];
+
+            $this->db->BeginTransaction();
 
             foreach ($shoppingLists as $shoppingList)
             {
@@ -88,9 +96,13 @@ class ShoppingListDAL
 
             $shoppingListItemDAL = new ShoppingListItemDAL($this->db);
             $shoppingListItemDAL->Add($shoppingListItems);
+
+            $this->db->Commit();
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
@@ -114,10 +126,16 @@ class ShoppingListDAL
 
             $query .= ";";
 
+            $this->db->BeginTransaction();
+
             $this->db->Execute($query, $params);
+
+            $this->db->Commit();
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

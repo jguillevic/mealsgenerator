@@ -36,6 +36,8 @@ class MealDAL
                 $query .= " WHERE " . DALHelper::SetArrayParams($ids, "M", "Id", $params);
             }
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
 
             $meals = [];
@@ -56,6 +58,8 @@ class MealDAL
             $mealMealKindDAL = new MealMealKindDAL($this->db);
             $mealMealKinds = $mealMealKindDAL->Load($mealIds);
 
+            $this->db->Commit();
+        
             foreach ($meals as $meal)
             {
                 $parts = $mealMealParts[$meal->GetId()];
@@ -69,6 +73,8 @@ class MealDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

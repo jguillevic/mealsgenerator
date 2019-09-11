@@ -24,8 +24,12 @@ class MealKindDAL
         {
             $query = "SELECT MK.Id, MK.Code, MK.Name FROM MealKind AS MK;";
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query);
 
+            $this->db->Commit();
+        
             $mealKinds = [];
 
             foreach ($rows as $row)
@@ -43,6 +47,8 @@ class MealKindDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

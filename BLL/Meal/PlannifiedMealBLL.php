@@ -2,6 +2,8 @@
 
 namespace BLL\Meal;
 
+use Framework\DAL\Database;
+use Framework\Tools\Error\ErrorManager;
 use Model\Meal\PlannifiedMeal;
 use Model\Meal\MealKind;
 use Model\Meal\MealMealPart;
@@ -11,195 +13,268 @@ use DAL\Meal\MealDAL;
 use DAL\Meal\MealKindDAL;
 
 class PlannifiedMealBLL
-{
-    // Période en jours de non répétition des repas.
-    const NoMealRepeatPeriod = 7;
-
-    private $plannifiedMealDAL;
-
-	public function __construct()
-	{
-		$this->plannifiedMealDAL = new PlannifiedMealDAL();
-    }
-    
+{   
     public function Load($startingDate, $endingDate)
     {
-        return $this->plannifiedMealDAL->Load($startingDate, $endingDate);
+        try
+        {
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $plannifiedMealDAL = new PlannifiedMealDAL($db);
+            $plannifiedMeals = $plannifiedMealDAL->Load($startingDate, $endingDate);
+
+            $db->Commit();
+
+            return $plannifiedMeals;
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Add($plannifiedMeals)
     {
-        $this->plannifiedMealDAL->Add($plannifiedMeals);
+        try
+        {
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $plannifiedMealDAL = new PlannifiedMealDAL($db);
+            $plannifiedMealDAL->Add($plannifiedMeals);
+
+            $db->Commit();
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Delete($startingDate, $endingDate)
     {
-        $this->plannifiedMealDAL->Delete($startingDate, $endingDate);
+        try
+        {
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $plannifiedMealDAL = new PlannifiedMealDAL($db);
+            $plannifiedMealDAL->Delete($startingDate, $endingDate);
+
+            $db->Commit();
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Exists($startingDate, $endingDate)
     {
-        return $this->plannifiedMealDAL->Exists($startingDate, $endingDate);
+        try
+        {
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $plannifiedMealDAL = new PlannifiedMealDAL($db);
+            $exists = $plannifiedMealDAL->Exists($startingDate, $endingDate);
+
+            $db->Commit();
+
+            return $exists;
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Generate($startingDate, $endingDate, $personNumber)
     {
-        // Chargement de l'ensemble des repas connus.
-        $mealDAL = new MealDAL();
-        $meals = $mealDAL->Load();
-
-        $mealIds = array_keys($meals);
-        $minMealId = min($mealIds);
-        $maxMealId = max($mealIds);
-
-        // Chargement des types de repas.
-        $mealKindDAL = new MealKindDAL();
-        $mealKinds = $mealKindDAL->Load();
-
-        // Détermination du nombre de jours d'écart.
-        $numberOfDays = $endingDate->diff($startingDate)->format("%a") + 1;
-
-        $plannifiedMeals = [];
-        $plannifiedMealIds = [];
-        $plannifiedMealPartCount = [];
-
-        for ($i = 0; $i < $numberOfDays; $i++)
+        try
         {
-            // Construction de la date en cours de traitement.
-            $currentDate = new \DateTime($startingDate->format("Y-m-d"));
-            $currentDate->modify("+" . $i . " day");
+            $db = new Database();
+            $db->BeginTransaction();
 
-            // Génération du déjeuner.
-            $plannifiedMeal = new PlannifiedMeal();
-            $plannifiedMeal->SetDate($currentDate);
-            $plannifiedMeal->SetPersonNumber($personNumber);
-            $mealKind = $mealKinds["LUNCH"];
-            $plannifiedMeal->SetKind($mealKind);
+            // Chargement de l'ensemble des repas connus.
+            $mealDAL = new MealDAL($db);
+            $meals = $mealDAL->Load();
 
-            $mealFound = false;
-            while (!$mealFound)
+            $mealIds = array_keys($meals);
+            $minMealId = min($mealIds);
+            $maxMealId = max($mealIds);
+
+            // Chargement des types de repas.
+            $mealKindDAL = new MealKindDAL($db);
+            $mealKinds = $mealKindDAL->Load();
+
+            $db->Commit();
+
+            // Détermination du nombre de jours d'écart.
+            $numberOfDays = $endingDate->diff($startingDate)->format("%a") + 1;
+
+            $plannifiedMeals = [];
+            $plannifiedMealIds = [];
+            $plannifiedMealPartCount = [];
+
+            for ($i = 0; $i < $numberOfDays; $i++)
             {
-                $mealId = rand($minMealId, $maxMealId);
+                // Construction de la date en cours de traitement.
+                $currentDate = new \DateTime($startingDate->format("Y-m-d"));
+                $currentDate->modify("+" . $i . " day");
 
-                // Si l'identifiant de repas n'existe pas.
-                if (!array_key_exists($mealId, $meals))
-                    $mealFound = false;
-                else 
+                // Génération du déjeuner.
+                $plannifiedMeal = new PlannifiedMeal();
+                $plannifiedMeal->SetDate($currentDate);
+                $plannifiedMeal->SetPersonNumber($personNumber);
+                $mealKind = $mealKinds["LUNCH"];
+                $plannifiedMeal->SetKind($mealKind);
+
+                $mealFound = false;
+                while (!$mealFound)
                 {
-                    $meal = $meals[$mealId];
+                    $mealId = rand($minMealId, $maxMealId);
 
-                    // Si le repas n'est pas compatible avec le type de repas en cours de génération. 
-                    if (!array_key_exists($plannifiedMeal->GetKind()->GetId(), $meal->GetPotentialKinds()))
-                    {
+                    // Si l'identifiant de repas n'existe pas.
+                    if (!array_key_exists($mealId, $meals))
                         $mealFound = false;
-                    }
                     else 
                     {
-                        // Si le repas n'a pas déjà été plannifié.
-                        if (in_array($mealId, $plannifiedMealIds))
-                            $mealFound = false;
-                        else
-                        {
-                            $isPartsOk = true;
-                            foreach ($meal->GetParts() as $part)
-                            {
-                                if (array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount) 
-                                && $plannifiedMealPartCount[$part->GetMealPart()->GetId()] >= $part->GetMealPart()->GetWeekProposedMaxCount())
-                                {
-                                    $isPartsOk = false;
-                                    break;
-                                }
-                            }
+                        $meal = $meals[$mealId];
 
-                            // Si les repas précédents contiennent déjà un des composants.
-                            if (!$isPartsOk)
+                        // Si le repas n'est pas compatible avec le type de repas en cours de génération. 
+                        if (!array_key_exists($plannifiedMeal->GetKind()->GetId(), $meal->GetPotentialKinds()))
+                        {
+                            $mealFound = false;
+                        }
+                        else 
+                        {
+                            // Si le repas n'a pas déjà été plannifié.
+                            if (in_array($mealId, $plannifiedMealIds))
                                 $mealFound = false;
                             else
-                                $mealFound = true;
+                            {
+                                $isPartsOk = true;
+                                foreach ($meal->GetParts() as $part)
+                                {
+                                    if (array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount) 
+                                    && $plannifiedMealPartCount[$part->GetMealPart()->GetId()] >= $part->GetMealPart()->GetWeekProposedMaxCount())
+                                    {
+                                        $isPartsOk = false;
+                                        break;
+                                    }
+                                }
+
+                                // Si les repas précédents contiennent déjà un des composants.
+                                if (!$isPartsOk)
+                                    $mealFound = false;
+                                else
+                                    $mealFound = true;
+                            }
                         }
                     }
                 }
-            }
 
-            $plannifiedMeal->SetMeal($meals[$mealId]);
+                $plannifiedMeal->SetMeal($meals[$mealId]);
 
-            $plannifiedMeals[] = $plannifiedMeal;
-            $meal = $plannifiedMeal->GetMeal();
-            $plannifiedMealIds[] = $meal->GetId();
-            foreach ($meal->GetParts() as $part)
-            {
-                if (!array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount))
-                    $plannifiedMealPartCount[$part->GetMealPart()->GetId()] = 0;
-
-                $plannifiedMealPartCount[$part->GetMealPart()->GetId()]++;
-            }
-
-            // Génération du dîner.
-            $plannifiedMeal = new PlannifiedMeal();
-            $plannifiedMeal->SetDate($currentDate);
-            $plannifiedMeal->SetPersonNumber($personNumber);
-            $mealKind = $mealKinds["DINNER"];
-            $plannifiedMeal->SetKind($mealKind);
-
-            $mealFound = false;
-            while (!$mealFound)
-            {
-                $mealId = rand($minMealId, $maxMealId);
-
-                // Si l'identifiant de repas n'existe pas.
-                if (!array_key_exists($mealId, $meals))
-                    $mealFound = false;
-                else 
+                $plannifiedMeals[] = $plannifiedMeal;
+                $meal = $plannifiedMeal->GetMeal();
+                $plannifiedMealIds[] = $meal->GetId();
+                foreach ($meal->GetParts() as $part)
                 {
-                    $meal = $meals[$mealId];
+                    if (!array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount))
+                        $plannifiedMealPartCount[$part->GetMealPart()->GetId()] = 0;
 
-                    // Si le repas n'est pas compatible avec le type de repas en cours de génération. 
-                    if (!array_key_exists($plannifiedMeal->GetKind()->GetId(), $meal->GetPotentialKinds()))
-                    {
+                    $plannifiedMealPartCount[$part->GetMealPart()->GetId()]++;
+                }
+
+                // Génération du dîner.
+                $plannifiedMeal = new PlannifiedMeal();
+                $plannifiedMeal->SetDate($currentDate);
+                $plannifiedMeal->SetPersonNumber($personNumber);
+                $mealKind = $mealKinds["DINNER"];
+                $plannifiedMeal->SetKind($mealKind);
+
+                $mealFound = false;
+                while (!$mealFound)
+                {
+                    $mealId = rand($minMealId, $maxMealId);
+
+                    // Si l'identifiant de repas n'existe pas.
+                    if (!array_key_exists($mealId, $meals))
                         $mealFound = false;
-                    }
                     else 
                     {
-                        // Si le repas n'a pas déjà été plannifié.
-                        if (in_array($mealId, $plannifiedMealIds))
-                            $mealFound = false;
-                        else
-                        {
-                            $isPartsOk = true;
-                            foreach ($meal->GetParts() as $part)
-                            {
-                                if (array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount) 
-                                && $plannifiedMealPartCount[$part->GetMealPart()->GetId()] >= $part->GetMealPart()->GetWeekProposedMaxCount())
-                                {
-                                    $isPartsOk = false;
-                                    break;
-                                }
-                            }
+                        $meal = $meals[$mealId];
 
-                            // Si les repas précédents contiennent déjà un des composants.
-                            if (!$isPartsOk)
+                        // Si le repas n'est pas compatible avec le type de repas en cours de génération. 
+                        if (!array_key_exists($plannifiedMeal->GetKind()->GetId(), $meal->GetPotentialKinds()))
+                        {
+                            $mealFound = false;
+                        }
+                        else 
+                        {
+                            // Si le repas n'a pas déjà été plannifié.
+                            if (in_array($mealId, $plannifiedMealIds))
                                 $mealFound = false;
                             else
-                                $mealFound = true;
+                            {
+                                $isPartsOk = true;
+                                foreach ($meal->GetParts() as $part)
+                                {
+                                    if (array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount) 
+                                    && $plannifiedMealPartCount[$part->GetMealPart()->GetId()] >= $part->GetMealPart()->GetWeekProposedMaxCount())
+                                    {
+                                        $isPartsOk = false;
+                                        break;
+                                    }
+                                }
+
+                                // Si les repas précédents contiennent déjà un des composants.
+                                if (!$isPartsOk)
+                                    $mealFound = false;
+                                else
+                                    $mealFound = true;
+                            }
                         }
                     }
                 }
+
+                $plannifiedMeal->SetMeal($meals[$mealId]);
+
+                $plannifiedMeals[] = $plannifiedMeal;
+                $meal = $plannifiedMeal->GetMeal();
+                $plannifiedMealIds[] = $meal->GetId();
+                foreach ($meal->GetParts() as $part)
+                {
+                    if (!array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount))
+                        $plannifiedMealPartCount[$part->GetMealPart()->GetId()] = 0;
+
+                    $plannifiedMealPartCount[$part->GetMealPart()->GetId()]++;
+                }
             }
 
-            $plannifiedMeal->SetMeal($meals[$mealId]);
-
-            $plannifiedMeals[] = $plannifiedMeal;
-            $meal = $plannifiedMeal->GetMeal();
-            $plannifiedMealIds[] = $meal->GetId();
-            foreach ($meal->GetParts() as $part)
-            {
-                if (!array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount))
-                    $plannifiedMealPartCount[$part->GetMealPart()->GetId()] = 0;
-
-                $plannifiedMealPartCount[$part->GetMealPart()->GetId()]++;
-            }
+            return $plannifiedMeals;
         }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
 
-        return $plannifiedMeals;
+            ErrorManager::Manage($e);
+        }
     }
 }
