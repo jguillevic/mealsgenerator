@@ -4,6 +4,7 @@ namespace DAL\Recipe;
 
 use Framework\DAL\Database;
 use Framework\DAL\DALHelper;
+use Framework\Tools\Error\ErrorManager;
 use Model\Recipe\Instruction;
 
 class InstructionDAL
@@ -20,32 +21,39 @@ class InstructionDAL
 
     public function Load($recipeIds)
     {
-        $query = "SELECT I.Id, I.Order, I.Content, I.RecipeId FROM Instruction AS I WHERE ";
-
-        $params = [];
-        $query .= DALHelper::SetArrayParams($recipeIds, "I", "RecipeId", $params);
-
-        $query .= " ORDER BY I.RecipeId, I.Order;";
-
-        $rows = $this->db->Read($query, $params);
-
-        $instructions = [];
-
-        foreach ($rows as $row)
+        try
         {
-            $instruction = new Instruction();
-            $instruction->SetId($row["Id"]);
-            $instruction->SetOrder($row["Order"]);
-            $instruction->SetContent($row["Content"]);
+            $query = "SELECT I.Id, I.Order, I.Content, I.RecipeId FROM Instruction AS I WHERE ";
 
-            $recipeId = $row["RecipeId"];
+            $params = [];
+            $query .= DALHelper::SetArrayParams($recipeIds, "I", "RecipeId", $params);
 
-            if (!array_key_exists($recipeId, $instructions))
-                $instructions[$recipeId] = [];
-            
-            $instructions[$recipeId][$instruction->GetId()] = $instruction;
+            $query .= " ORDER BY I.RecipeId, I.Order;";
+
+            $rows = $this->db->Read($query, $params);
+
+            $instructions = [];
+
+            foreach ($rows as $row)
+            {
+                $instruction = new Instruction();
+                $instruction->SetId($row["Id"]);
+                $instruction->SetOrder($row["Order"]);
+                $instruction->SetContent($row["Content"]);
+
+                $recipeId = $row["RecipeId"];
+
+                if (!array_key_exists($recipeId, $instructions))
+                    $instructions[$recipeId] = [];
+                
+                $instructions[$recipeId][$instruction->GetId()] = $instruction;
+            }
+
+            return $instructions;
         }
-
-        return $instructions;
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

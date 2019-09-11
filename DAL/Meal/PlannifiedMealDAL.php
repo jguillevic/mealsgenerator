@@ -4,6 +4,7 @@ namespace DAL\Meal;
 
 use Framework\DAL\Database;
 use Model\Meal\PlannifiedMeal;
+use Framework\Tools\Error\ErrorManager;
 use DAL\Meal\MealKindDAL;
 use DAL\Meal\MealDAL;
 
@@ -21,103 +22,131 @@ class PlannifiedMealDAL
 
     public function Load($startingDate, $endingDate)
     {
-        $query = "SELECT PM.Id
-                  , PM.Date
-                  , PM.PersonNumber
-                  , PM.KindId
-                  , PM.MealId
-                  FROM PlannifiedMeal AS PM
-                  WHERE PM.Date >= :StartingDate 
-                  AND PM.Date <= :EndingDate
-                  ORDER BY PM.Date, PM.KindId;";
-        
-        $params = [
-            "StartingDate" => $startingDate->format("Y-m-d")
-            , "EndingDate" => $endingDate->format("Y-m-d")
-        ];
-
-        $rows = $this->db->Read($query, $params);
-
-        $plannifiedMeals = [];
-
-        $mealKindDAL = new MealKindDAL($this->db);
-        $mealKinds = $mealKindDAL->Load();
-
-        $mealIds = [];
-
-        foreach ($rows as $row)
+        try
         {
-            $plannifiedMeal = new PlannifiedMeal();
-            $plannifiedMeal->SetId($row["Id"]);
-            $plannifiedMeal->SetPersonNumber($row["PersonNumber"]);
-            $plannifiedMeal->SetDate(new \DateTime($row["Date"]));
-            $plannifiedMeal->SetKind($mealKinds[$row["KindId"]]);
+            $query = "SELECT PM.Id
+                    , PM.Date
+                    , PM.PersonNumber
+                    , PM.KindId
+                    , PM.MealId
+                    FROM PlannifiedMeal AS PM
+                    WHERE PM.Date >= :StartingDate 
+                    AND PM.Date <= :EndingDate
+                    ORDER BY PM.Date, PM.KindId;";
+            
+            $params = [
+                "StartingDate" => $startingDate->format("Y-m-d")
+                , "EndingDate" => $endingDate->format("Y-m-d")
+            ];
 
-            $mealIds[$plannifiedMeal->GetId()] = $row["MealId"];
+            $rows = $this->db->Read($query, $params);
 
-            $plannifiedMeals[$plannifiedMeal->GetId()] = $plannifiedMeal;
-        }
+            $plannifiedMeals = [];
 
-        if (count($mealIds) > 0)
-        {
-            $mealDAL = new MealDAL($this->db);
-            $meals = $mealDAL->Load($mealIds);
+            $mealKindDAL = new MealKindDAL($this->db);
+            $mealKinds = $mealKindDAL->Load();
 
-            foreach ($mealIds as $id => $mealId)
+            $mealIds = [];
+
+            foreach ($rows as $row)
             {
-                $plannifiedMeal = $plannifiedMeals[$id];
-                $plannifiedMeal->SetMeal($meals[$mealId]);
-            }
-        }
+                $plannifiedMeal = new PlannifiedMeal();
+                $plannifiedMeal->SetId($row["Id"]);
+                $plannifiedMeal->SetPersonNumber($row["PersonNumber"]);
+                $plannifiedMeal->SetDate(new \DateTime($row["Date"]));
+                $plannifiedMeal->SetKind($mealKinds[$row["KindId"]]);
 
-        return $plannifiedMeals;
+                $mealIds[$plannifiedMeal->GetId()] = $row["MealId"];
+
+                $plannifiedMeals[$plannifiedMeal->GetId()] = $plannifiedMeal;
+            }
+
+            if (count($mealIds) > 0)
+            {
+                $mealDAL = new MealDAL($this->db);
+                $meals = $mealDAL->Load($mealIds);
+
+                foreach ($mealIds as $id => $mealId)
+                {
+                    $plannifiedMeal = $plannifiedMeals[$id];
+                    $plannifiedMeal->SetMeal($meals[$mealId]);
+                }
+            }
+
+            return $plannifiedMeals;
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Add($plannifiedMeals)
     {
-        $query = "INSERT INTO PlannifiedMeal (Date, PersonNumber, KindId, MealId)
-                  VALUES (:Date, :PersonNumber, :KindId, :MealId);";
-
-        foreach ($plannifiedMeals as $plannifiedMeal)
+        try
         {
-            $params = [];
-            $params[":Date"] = $plannifiedMeal->GetDate()->format("Y-m-d");
-            $params[":PersonNumber"] = $plannifiedMeal->GetPersonNumber();
-            $params[":KindId"] = $plannifiedMeal->GetKind()->GetId();
-            $params[":MealId"] = $plannifiedMeal->GetMeal()->GetId();
+            $query = "INSERT INTO PlannifiedMeal (Date, PersonNumber, KindId, MealId)
+                    VALUES (:Date, :PersonNumber, :KindId, :MealId);";
 
-            $this->db->Execute($query, $params);
+            foreach ($plannifiedMeals as $plannifiedMeal)
+            {
+                $params = [];
+                $params[":Date"] = $plannifiedMeal->GetDate()->format("Y-m-d");
+                $params[":PersonNumber"] = $plannifiedMeal->GetPersonNumber();
+                $params[":KindId"] = $plannifiedMeal->GetKind()->GetId();
+                $params[":MealId"] = $plannifiedMeal->GetMeal()->GetId();
+
+                $this->db->Execute($query, $params);
+            }
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
         }
     }
 
     public function Delete($startingDate, $endingDate)
     {
-        $query = "DELETE FROM PlannifiedMeal
-                  WHERE Date >= :StartingDate
-                  AND Date <= :EndingDate;";
+        try
+        {
+            $query = "DELETE FROM PlannifiedMeal
+                    WHERE Date >= :StartingDate
+                    AND Date <= :EndingDate;";
 
-        $params = [];
-        $params[":StartingDate"] = $startingDate->format("Y-m-d");
-        $params[":EndingDate"] = $endingDate->format("Y-m-d");
+            $params = [];
+            $params[":StartingDate"] = $startingDate->format("Y-m-d");
+            $params[":EndingDate"] = $endingDate->format("Y-m-d");
 
-        $this->db->Execute($query, $params);
+            $this->db->Execute($query, $params);
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Exists($startingDate, $endingDate)
     {
-        $query = "SELECT COUNT(1) AS Count 
-                  FROM PlannifiedMeal
-                  WHERE Date >= :StartingDate
-                  AND Date <= :EndingDate;";
-        
-        $params = [];
-        $params[":StartingDate"] = $startingDate->format("Y-m-d");
-        $params[":EndingDate"] = $endingDate->format("Y-m-d");
+        try
+        {
+            $query = "SELECT COUNT(1) AS Count 
+                    FROM PlannifiedMeal
+                    WHERE Date >= :StartingDate
+                    AND Date <= :EndingDate;";
+            
+            $params = [];
+            $params[":StartingDate"] = $startingDate->format("Y-m-d");
+            $params[":EndingDate"] = $endingDate->format("Y-m-d");
 
-        $rows = $this->db->Read($query, $params);
+            $rows = $this->db->Read($query, $params);
 
-        $row = array_pop($rows);
+            $row = array_pop($rows);
 
-        return $row["Count"] > 0; 
+            return $row["Count"] > 0;
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace DAL\Meal;
 
 use Framework\DAL\Database;
 use Framework\DAL\DALHelper;
+use Framework\Tools\Error\ErrorManager;
 use Model\Meal\MealPart;
 use DAL\Recipe\RecipeDAL;
 
@@ -21,39 +22,46 @@ class MealPartDAL
 
     public function Load($mealPartIds)
     {
-        $query = "SELECT MP.Id, MP.Name, MP.WeekProposedMaxCount, MP.RecipeId FROM MealPart AS MP WHERE ";
-
-        $params = [];
-        $query .= DALHelper::SetArrayParams($mealPartIds, "MP", "Id", $params);
-
-        $rows = $this->db->Read($query, $params);
-
-        $mealParts = [];
-        $recipeIds = [];
-
-        foreach ($rows as $row)
+        try
         {
-            $mealPart = new MealPart();
-            $mealPart->SetId($row["Id"]);
-            $mealPart->SetName($row["Name"]);
-            $mealPart->SetWeekProposedMaxCount($row["WeekProposedMaxCount"]);
+            $query = "SELECT MP.Id, MP.Name, MP.WeekProposedMaxCount, MP.RecipeId FROM MealPart AS MP WHERE ";
 
-            $recipeId = $row["RecipeId"];
-            if ($recipeId != null)
-                $recipeIds[$mealPart->GetId()] = $row["RecipeId"];
+            $params = [];
+            $query .= DALHelper::SetArrayParams($mealPartIds, "MP", "Id", $params);
 
-            $mealParts[$mealPart->GetId()] = $mealPart;
+            $rows = $this->db->Read($query, $params);
+
+            $mealParts = [];
+            $recipeIds = [];
+
+            foreach ($rows as $row)
+            {
+                $mealPart = new MealPart();
+                $mealPart->SetId($row["Id"]);
+                $mealPart->SetName($row["Name"]);
+                $mealPart->SetWeekProposedMaxCount($row["WeekProposedMaxCount"]);
+
+                $recipeId = $row["RecipeId"];
+                if ($recipeId != null)
+                    $recipeIds[$mealPart->GetId()] = $row["RecipeId"];
+
+                $mealParts[$mealPart->GetId()] = $mealPart;
+            }
+
+            $recipeDAL = new RecipeDAL($this->db);
+            $recipes = $recipeDAL->Load($recipeIds);
+
+            foreach ($recipeIds as $mealPartId => $recipeId)
+            {
+                $recipe = $recipes[$recipeId];
+                $mealParts[$mealPartId]->SetRecipe($recipe);
+            }
+
+            return $mealParts;
         }
-
-        $recipeDAL = new RecipeDAL($this->db);
-        $recipes = $recipeDAL->Load($recipeIds);
-
-        foreach ($recipeIds as $mealPartId => $recipeId)
+        catch (\Exception $e)
         {
-            $recipe = $recipes[$recipeId];
-            $mealParts[$mealPartId]->SetRecipe($recipe);
+            ErrorManager::Manage($e);
         }
-
-        return $mealParts;
     }
 }
