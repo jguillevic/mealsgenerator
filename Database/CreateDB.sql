@@ -10,23 +10,14 @@ CREATE TABLE ShoppingCategory
 	, Code NVARCHAR(20) NOT NULL
 	, Name NVARCHAR(200) NOT NULL
 	, PRIMARY KEY (Id)
-);
-
-CREATE TABLE Aliment
-(
-	Id INT NOT NULL AUTO_INCREMENT
-	, Name NVARCHAR(200) NOT NULL
-	, ShoppingCategoryId INT NOT NULL
-	, PRIMARY KEY (Id)
-	, FOREIGN KEY (ShoppingCategoryId) REFERENCES ShoppingCategory(Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE UnitCategory
 (
 	Id INT NOT NULL AUTO_INCREMENT
 	, Code NVARCHAR(20) NOT NULL
 	, PRIMARY KEY (Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE Unit
 (
@@ -37,7 +28,7 @@ CREATE TABLE Unit
 	, CategoryId INT NOT NULL
 	, PRIMARY KEY (Id)
 	, FOREIGN KEY (CategoryId) REFERENCES UnitCategory(Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE Ingredient
 (
@@ -46,7 +37,7 @@ CREATE TABLE Ingredient
 	, DefaultUnitId INT NOT NULL
 	, PRIMARY KEY (Id)
 	, FOREIGN KEY (DefaultUnitId) REFERENCES Unit(Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE Recipe
 (
@@ -56,7 +47,7 @@ CREATE TABLE Recipe
 	, PreparationTime INT NOT NULL
 	, CookingTime INT NOT NULL
 	, PRIMARY KEY (Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE Instruction
 (
@@ -66,7 +57,7 @@ CREATE TABLE Instruction
 	, `Order` INT NOT NULL
 	, PRIMARY KEY (Id)
 	, FOREIGN KEY (RecipeId) REFERENCES Recipe(Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE Recipe_Ingredient
 (
@@ -78,7 +69,7 @@ CREATE TABLE Recipe_Ingredient
 	, FOREIGN KEY (RecipeId) REFERENCES Recipe(Id)
 	, FOREIGN KEY (IngredientId) REFERENCES Ingredient(Id)
 	, FOREIGN KEY (UnitId) REFERENCES Unit(Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE MealKind
 (
@@ -86,7 +77,7 @@ CREATE TABLE MealKind
 	, Code NVARCHAR(20) NOT NULL
 	, Name NVARCHAR(200) NOT NULL
 	, PRIMARY KEY (Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE MealPart
 (
@@ -95,27 +86,27 @@ CREATE TABLE MealPart
 	, WeekProposedMaxCount INT NOT NULL
 	, RecipeId INT NULL
 	, PRIMARY KEY (Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE Meal
 (
 	Id INT NOT NULL AUTO_INCREMENT
 	, PRIMARY KEY (Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE Meal_MealKind
 (
 	MealId INT NOT NULL
 	, MealKindId INT NOT NULL
 	, PRIMARY KEY (MealId, MealKindId)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE Meal_MealPart
 (
 	MealId INT NOT NULL 
 	, MealPartId INT NOT NULL
 	, PRIMARY KEY (MealId, MealPartId)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE PlannifiedMeal
 (
@@ -127,14 +118,14 @@ CREATE TABLE PlannifiedMeal
 	, PRIMARY KEY (Id)
 	, FOREIGN KEY (KindId) REFERENCES MealKind(Id)
 	, FOREIGN KEY (MealId) REFERENCES Meal(Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE ShoppingList
 (
 	Id INT NOT NULL AUTO_INCREMENT
 	, Name NVARCHAR(200) NOT NULL
 	, PRIMARY KEY (Id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE ShoppingListItem
 (
@@ -144,4 +135,4 @@ CREATE TABLE ShoppingListItem
 	, IsHandled TINYINT(1) NOT NULL
 	, PRIMARY KEY (Id)
 	, FOREIGN KEY (ShoppingListId) REFERENCES ShoppingList(Id)
-);
+) ENGINE=InnoDB;

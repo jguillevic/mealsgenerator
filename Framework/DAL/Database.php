@@ -5,6 +5,7 @@ namespace Framework\DAL;
 class Database
 {
 	private $connect;
+	private $transactionCount = 0;
 
 	public function __construct()
 	{
@@ -12,6 +13,13 @@ class Database
 
 		self::SetCharacterSetUTF8($this->connect);
 		self::SetErrorMode($this->connect);
+		self::SetAutoCommit($this->connect);
+	}
+
+	public function __destruct()
+	{
+		if ($this->transactionCount > 0)
+			self::Rollback();
 	}
 
 	private static function GetConfig()
@@ -47,18 +55,19 @@ class Database
 		$connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 	}
 
+	private static function SetAutoCommit($connect)
+	{
+		$connect->setAttribute(\PDO::ATTR_AUTOCOMMIT, 0);
+	}
+
 	public function Execute($query, $params = null)
 	{
 		$stmt = $this->connect->prepare($query);
 
 		if (isset($params))
-		{
 			$stmt->execute($params);
-		}
 		else
-		{
 			$stmt->execute();
-		}
 
 		return $stmt;
 	}
@@ -70,5 +79,28 @@ class Database
 		$result = $stmt->fetchAll();
 
 		return $result;
+	}
+
+	public function BeginTransaction()
+	{
+		if ($this->transactionCount == 0)
+			$this->connect->beginTransaction();
+
+		$this->transactionCount++;
+	}
+
+	public function Commit()
+	{
+		$this->transactionCount--;
+
+		if ($this->transactionCount == 0)
+			$this->connect->commit();
+	}
+
+	public function Rollback()
+	{
+		$this->connect->rollback();
+
+		$this->transactionCount = 0;
 	}
 }

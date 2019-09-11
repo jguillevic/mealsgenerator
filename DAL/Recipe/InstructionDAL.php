@@ -30,7 +30,11 @@ class InstructionDAL
 
             $query .= " ORDER BY I.RecipeId, I.Order;";
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
+
+            $this->db->Commit();
 
             $instructions = [];
 
@@ -53,6 +57,8 @@ class InstructionDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

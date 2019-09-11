@@ -1,7 +1,6 @@
 + Remplacer "Parts" par "Items".
 + Gérer un ordre sur les éléments des listes.
 + Ne plus gérer de dates de dispo sur Ingredient mais sur MealPart/MealItem.
-+ Gérer des transactions dans les DAL + connexions et transactions dans les BLL.
 + Est-ce à ShoppingListDAL d'appeler ShoppingListItemDAL lors de l'ajout ? BLL ?
 + Est-ce que la génération de ShoppingList doit gérer l'ajout ? Même question pour PlannifiedMeal.
 + Entre le fichier Layout/Base et les visuels enfants, pouvoir gérer des blocs comme avec Symfony.

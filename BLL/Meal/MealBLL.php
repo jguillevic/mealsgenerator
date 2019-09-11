@@ -2,19 +2,32 @@
 
 namespace BLL\Meal;
 
-use \DAL\Meal\MealDAL;
+use Framework\DAL\Database;
+use Framework\Tools\Error\ErrorManager;
+use DAL\Meal\MealDAL;
 
 class MealBLL
-{
-    private $mealDAL;
-
-	public function __construct()
-	{
-		$this->mealDAL = new MealDAL();
-    }
-    
+{  
     public function Load()
     {
-        return $this->mealDAL->Load();
+        try
+        {
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $mealDAL = new MealDAL($db);
+            $meals = $mealDAL->Load();
+
+            $db->Commit();
+
+            return $meals;
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
     }
 }

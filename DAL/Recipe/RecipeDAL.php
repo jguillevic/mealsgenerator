@@ -43,6 +43,8 @@ class RecipeDAL
 
             $query .= ";";
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
 
             $recipes = [];
@@ -70,6 +72,8 @@ class RecipeDAL
             $recipeIngredientDAL = new RecipeIngredientDAL($this->db);
             $ingredients = $recipeIngredientDAL->Load($recipeIds);
 
+            $this->db->Commit();
+
             // Affectation des instructions/ingrédients aux recettes précédemment chargées.
             foreach ($recipes as $recipeId => $recipe)
             {
@@ -81,6 +85,8 @@ class RecipeDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }

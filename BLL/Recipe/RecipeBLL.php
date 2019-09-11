@@ -2,19 +2,32 @@
 
 namespace BLL\Recipe;
 
+use Framework\DAL\Database;
+use Framework\Tools\Error\ErrorManager;
 use DAL\Recipe\RecipeDAL;
 
 class RecipeBLL
-{
-    private $recipeDAL;
-
-	public function __construct()
-	{
-		$this->recipeDAL = new RecipeDAL();
-    }
-    
+{   
     public function Load($ids = null)
     {
-        return $this->recipeDAL->Load($ids);
+        try
+        {
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $recipeDAL = new RecipeDAL($db);
+            $recipes = $recipeDAL->Load($ids);
+
+            $db->Commit();
+
+            return $recipes;
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
     }
 }

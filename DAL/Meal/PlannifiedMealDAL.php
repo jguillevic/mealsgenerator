@@ -39,6 +39,8 @@ class PlannifiedMealDAL
                 , "EndingDate" => $endingDate->format("Y-m-d")
             ];
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
 
             $plannifiedMeals = [];
@@ -73,10 +75,14 @@ class PlannifiedMealDAL
                 }
             }
 
+            $this->db->Commit();
+
             return $plannifiedMeals;
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
@@ -88,6 +94,8 @@ class PlannifiedMealDAL
             $query = "INSERT INTO PlannifiedMeal (Date, PersonNumber, KindId, MealId)
                     VALUES (:Date, :PersonNumber, :KindId, :MealId);";
 
+            $this->db->BeginTransaction();
+
             foreach ($plannifiedMeals as $plannifiedMeal)
             {
                 $params = [];
@@ -98,9 +106,13 @@ class PlannifiedMealDAL
 
                 $this->db->Execute($query, $params);
             }
+
+            $this->db->Commit();  
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
@@ -117,10 +129,16 @@ class PlannifiedMealDAL
             $params[":StartingDate"] = $startingDate->format("Y-m-d");
             $params[":EndingDate"] = $endingDate->format("Y-m-d");
 
+            $this->db->BeginTransaction();
+
             $this->db->Execute($query, $params);
+
+            $this->db->Commit();
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
@@ -138,7 +156,11 @@ class PlannifiedMealDAL
             $params[":StartingDate"] = $startingDate->format("Y-m-d");
             $params[":EndingDate"] = $endingDate->format("Y-m-d");
 
+            $this->db->BeginTransaction();
+
             $rows = $this->db->Read($query, $params);
+
+            $this->db->Commit();
 
             $row = array_pop($rows);
 
@@ -146,6 +168,8 @@ class PlannifiedMealDAL
         }
         catch (\Exception $e)
         {
+            $this->db->Rollback();
+
             ErrorManager::Manage($e);
         }
     }
