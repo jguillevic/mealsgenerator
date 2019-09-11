@@ -4,6 +4,7 @@ namespace DAL\Meal;
 
 use Framework\DAL\Database;
 use Framework\DAL\DALHelper;
+use Framework\Tools\Error\ErrorManager;
 use DAL\Meal\MealKindDAL;
 use Model\Meal\MealMealKind;
 
@@ -21,38 +22,45 @@ class MealMealKindDAL
 
     public function Load($mealIds)
     {
-        $query = "SELECT M_MK.MealId
-                  , M_MK.MealKindId
-                  FROM Meal_MealKind AS M_MK
-                  WHERE ";
-
-        $params = [];
-        $query .= DALHelper::SetArrayParams($mealIds, "M_MK", "MealId", $params);
-
-        $query .= " ORDER BY M_MK.MealId;";
-
-        $rows = $this->db->Read($query, $params);
-
-        $mealMealKinds = [];
-        
-        $mealKindDAL = new MealKindDAL($this->db);
-        $mealKinds = $mealKindDAL->Load();
-
-        foreach ($rows as $row)
+        try
         {
-            $mealMealKind = new MealMealKind();
+            $query = "SELECT M_MK.MealId
+                    , M_MK.MealKindId
+                    FROM Meal_MealKind AS M_MK
+                    WHERE ";
 
-            $mealId = $row["MealId"];
-            $mealKindId = $row["MealKindId"];
+            $params = [];
+            $query .= DALHelper::SetArrayParams($mealIds, "M_MK", "MealId", $params);
 
-            $mealMealKind->SetKind($mealKinds[$mealKindId]);
+            $query .= " ORDER BY M_MK.MealId;";
 
-            if (!array_key_exists($mealId, $mealMealKinds))
-                $mealMealKinds[$mealId] = [];
+            $rows = $this->db->Read($query, $params);
 
-            $mealMealKinds[$mealId][$mealKindId] = $mealMealKind;
+            $mealMealKinds = [];
+            
+            $mealKindDAL = new MealKindDAL($this->db);
+            $mealKinds = $mealKindDAL->Load();
+
+            foreach ($rows as $row)
+            {
+                $mealMealKind = new MealMealKind();
+
+                $mealId = $row["MealId"];
+                $mealKindId = $row["MealKindId"];
+
+                $mealMealKind->SetKind($mealKinds[$mealKindId]);
+
+                if (!array_key_exists($mealId, $mealMealKinds))
+                    $mealMealKinds[$mealId] = [];
+
+                $mealMealKinds[$mealId][$mealKindId] = $mealMealKind;
+            }
+
+            return $mealMealKinds;
         }
-
-        return $mealMealKinds;
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }
