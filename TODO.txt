@@ -9,4 +9,3 @@
 + Ajouter des catégories dans la liste de courses.
 + Pouvoir ajouter un élément dans la liste des courses.
 + Au moment de la génération des repas, voir si l'on souhaite ou non faire soit même la recette dans le cas où elle existe.
-+ Gérer les code (ex : DINNER/LUNCH) dans une classe.

@@ -140,7 +140,7 @@ class PlannifiedMealBLL
                 $plannifiedMeal = new PlannifiedMeal();
                 $plannifiedMeal->SetDate($currentDate);
                 $plannifiedMeal->SetPersonNumber($personNumber);
-                $mealKind = $mealKinds["LUNCH"];
+                $mealKind = $mealKinds[MealKInd::LUNCH_CODE];
                 $plannifiedMeal->SetKind($mealKind);
 
                 $mealFound = false;
@@ -205,7 +205,7 @@ class PlannifiedMealBLL
                 $plannifiedMeal = new PlannifiedMeal();
                 $plannifiedMeal->SetDate($currentDate);
                 $plannifiedMeal->SetPersonNumber($personNumber);
-                $mealKind = $mealKinds["DINNER"];
+                $mealKind = $mealKinds[MealKind::DINNER_CODE];
                 $plannifiedMeal->SetKind($mealKind);
 
                 $mealFound = false;

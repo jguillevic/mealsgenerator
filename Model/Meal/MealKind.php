@@ -6,9 +6,9 @@ use Framework\Tools\Json\IJsonSerializable;
 
 class MealKind implements IJsonSerializable
 {
-    const BREAKFAST = "BREAKFAST";
-    const LUNCH = "LUNCH";
-    const DINNER = "DINNER";
+    const BREAKFAST_CODE = "BREAKFAST";
+    const LUNCH_CODE = "LUNCH";
+    const DINNER_CODE = "DINNER";
 
     private $id = -1;
     private $code;

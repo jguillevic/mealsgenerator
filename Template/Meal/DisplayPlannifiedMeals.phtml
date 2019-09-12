@@ -38,8 +38,8 @@ $endingDate = $params["EndingDate"]->format("Y-m-d");
                 <?= mb_strtoupper(strftime("%A", $plannifiedMealsByDate["Date"]->getTimeStamp())) . "<br>" . $plannifiedMealsByDate["Date"]->format("d/m/Y"); ?>
             </td>
 
-    <?php if (array_key_exists(MealKind::LUNCH, $plannifiedMealsByDate)): ?>
-        <?php $plannifiedMeal = $plannifiedMealsByDate[MealKind::LUNCH]; ?>
+    <?php if (array_key_exists(MealKind::LUNCH_CODE, $plannifiedMealsByDate)): ?>
+        <?php $plannifiedMeal = $plannifiedMealsByDate[MealKind::LUNCH_CODE]; ?>
             <td class="dm__item__meal--<?= $dayOfWeek; ?>">
                 <article>
                     <header class="dm__item__meal--<?= $dayOfWeek; ?>__header"><!--
@@ -68,8 +68,8 @@ $endingDate = $params["EndingDate"]->format("Y-m-d");
             </td>
     <?php endif; ?>
 
-    <?php if (array_key_exists(MealKind::DINNER, $plannifiedMealsByDate)): ?>
-        <?php $plannifiedMeal = $plannifiedMealsByDate[MealKind::DINNER]; ?>
+    <?php if (array_key_exists(MealKind::DINNER_CODE, $plannifiedMealsByDate)): ?>
+        <?php $plannifiedMeal = $plannifiedMealsByDate[MealKind::DINNER_CODE]; ?>
             <td class="dm__item__meal--<?= $dayOfWeek; ?>">
                 <article>
                     <header class="dm__item__meal--<?= $dayOfWeek; ?>__header"><!--
