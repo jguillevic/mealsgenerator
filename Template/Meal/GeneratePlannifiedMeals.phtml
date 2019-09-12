@@ -3,8 +3,8 @@ use Framework\Tools\Helper\RoutesHelper;
 use Framework\Tools\Json\JsonHelper;
 use Framework\Tools\Helper\DateHelper;
 use Model\Meal\Meal;
-use Model\Meal\MealMealPart;
-use Model\Meal\MealPart;
+use Model\Meal\MealMealItem;
+use Model\Meal\MealItem;
 use Model\Meal\MealKind;
 
 $plannifiedMealsByDate = $params["PlannifiedMealsByDate"];
@@ -76,10 +76,10 @@ $personNumber = $params["PersonNumber"];
                 <section class="dm__item__meal__content">
     <?php
     $i = 0;
-    $count = count($plannifiedMeal->GetMeal()->GetParts());
-    foreach ($plannifiedMeal->GetMeal()->GetParts() as $part): 
+    $count = count($plannifiedMeal->GetMeal()->GetItems());
+    foreach ($plannifiedMeal->GetMeal()->GetItems() as $item): 
     ?>
-                <span><?= $part->GetMealPart()->GetName() ?></span>
+                <span><?= $item->GetMealItem()->GetName() ?></span>
         <?php if ($i < $count - 1): ?>
             +
         <?php endif; ?>
@@ -102,10 +102,10 @@ $personNumber = $params["PersonNumber"];
                 <section class="dm__item__meal__content">
     <?php
     $i = 0;
-    $count = count($plannifiedMeal->GetMeal()->GetParts());
-    foreach ($plannifiedMeal->GetMeal()->GetParts() as $part): 
+    $count = count($plannifiedMeal->GetMeal()->GetItems());
+    foreach ($plannifiedMeal->GetMeal()->GetItems() as $item): 
     ?>
-                <span><?= $part->GetMealPart()->GetName() ?></span>
+                <span><?= $item->GetMealItem()->GetName() ?></span>
         <?php if ($i < $count - 1): ?>
             +
         <?php endif; ?>

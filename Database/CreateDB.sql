@@ -79,7 +79,7 @@ CREATE TABLE MealKind
 	, PRIMARY KEY (Id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE MealPart
+CREATE TABLE MealItem
 (
 	Id INT NOT NULL AUTO_INCREMENT
 	, Name NVARCHAR(200) NOT NULL
@@ -101,11 +101,11 @@ CREATE TABLE Meal_MealKind
 	, PRIMARY KEY (MealId, MealKindId)
 ) ENGINE=InnoDB;
 
-CREATE TABLE Meal_MealPart
+CREATE TABLE Meal_MealItem
 (
 	MealId INT NOT NULL 
-	, MealPartId INT NOT NULL
-	, PRIMARY KEY (MealId, MealPartId)
+	, MealItemId INT NOT NULL
+	, PRIMARY KEY (MealId, MealItemId)
 ) ENGINE=InnoDB;
 
 CREATE TABLE PlannifiedMeal

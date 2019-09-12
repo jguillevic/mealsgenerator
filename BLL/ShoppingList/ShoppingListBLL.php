@@ -48,23 +48,23 @@ class ShoppingListBLL
             $unitDAL = new UnitDAL($db);
             $units = $unitDAL->Load();
 
-            $mealPartsCount = [];
+            $mealItemsCount = [];
             $ingredientsQuantity = [];
 
             foreach ($plannifiedMeals as $plannifiedMeal)
             {
-                foreach ($plannifiedMeal->GetMeal()->GetParts() as $mealPart)
+                foreach ($plannifiedMeal->GetMeal()->GetItems() as $mealItem)
                 {   
-                    $recipe = $mealPart->GetMealPart()->GetRecipe();
+                    $recipe = $mealItem->GetMealItem()->GetRecipe();
 
                     if ($recipe == null)
                     {
-                        $mealPartId = $mealPart->GetMealPart()->GetId();
+                        $mealItemId = $mealItem->GetMealItem()->GetId();
 
-                        if (!array_key_exists($mealPartId, $mealPartsCount))
-                            $mealPartsCount[$mealPartId] = [ "MealPart" => $mealPart->GetMealPart(), "Count" => 0 ];
+                        if (!array_key_exists($mealItemId, $mealItemsCount))
+                            $mealItemsCount[$mealItemId] = [ "MealItem" => $mealItem->GetMealItem(), "Count" => 0 ];
                     
-                        $mealPartsCount[$mealPartId]["Count"] += $plannifiedMeal->GetPersonNumber();
+                        $mealItemsCount[$mealItemId]["Count"] += $plannifiedMeal->GetPersonNumber();
                     }
                     // Dans le cas où il y a une recette associée, on récupère les ingrédients.
                     else
@@ -100,11 +100,11 @@ class ShoppingListBLL
             $name = "Liste des courses du " . $startingDate->format("d/m/Y") . " au " . $endingDate->format("d/m/Y");
             $shoppingList->SetName($name);
 
-            foreach ($mealPartsCount as $mealPartCount)
+            foreach ($mealItemsCount as $mealItemCount)
             {
                 $shoppingListItem = new ShoppingListItem();
 
-                $shoppingListItem->SetContent($mealPartCount["Count"] . " part(s) de " . $mealPartCount["MealPart"]->GetName());
+                $shoppingListItem->SetContent($mealItemCount["Count"] . " portions(s) de " . $mealItemCount["MealItem"]->GetName());
 
                 $shoppingList->AddItems([ $shoppingListItem ]);
             }
