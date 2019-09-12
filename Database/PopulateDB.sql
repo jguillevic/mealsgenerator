@@ -239,7 +239,7 @@ VALUES (1, 'BREAKFAST', 'Petit-déjeuner')
 , (3, 'DINNER', 'Dîner')
 ;
 
-INSERT INTO MealPart (Id, Name, WeekProposedMaxCount, RecipeId)
+INSERT INTO MealItem (Id, Name, WeekProposedMaxCount, RecipeId)
 VALUES (1, 'Boudin noir', 1, NULL)
 , (2, 'Riz', 2, NULL)
 , (3, 'Spaghettis', 2, NULL)
@@ -311,7 +311,7 @@ VALUES (1) -- Boudin noir + Riz
 , (34) -- Boudin noir + Purée de carottes
 ;
 
-INSERT INTO Meal_MealPart (MealId, MealPartId)
+INSERT INTO Meal_MealItem (MealId, MealItemId)
 VALUES (1, 1)
 , (1, 2)
 , (2, 3)

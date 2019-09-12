@@ -11,8 +11,8 @@ class Autoloader
 
 	private function LoadClass($fullClassName)
 	{
-		$classNameParts = explode('\\', $fullClassName);
-		$path = join(DIRECTORY_SEPARATOR, $classNameParts);
+		$classNameItems = explode('\\', $fullClassName);
+		$path = join(DIRECTORY_SEPARATOR, $classNameItems);
 		$path = join(DIRECTORY_SEPARATOR, array(__DIR__, '..', '..', $path . '.php'));
 		
 		if (file_exists($path))

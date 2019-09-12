@@ -10,11 +10,11 @@ class QueryParameterHelper
 	{
 		$parameters = array();
 
-		$queryParts = explode("&", $query);
+		$queryItems = explode("&", $query);
 
-		foreach ($queryParts as $queryPart) 
+		foreach ($queryItems as $queryItem) 
 		{
-			$explode = explode("=", $queryPart);
+			$explode = explode("=", $queryItem);
 			$key = $explode[0];
 			$value = $explode[1];
 			$queryParameter = new QueryParameter($key, $value);

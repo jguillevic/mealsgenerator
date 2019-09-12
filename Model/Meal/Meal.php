@@ -5,18 +5,18 @@ namespace Model\Meal;
 use Framework\Tools\Json\IJsonSerializable;
 use Framework\Tools\Json\JsonHelper;
 use Model\Meal\MealMealKind;
-use Model\Meal\MealMealPart;
+use Model\Meal\MealMealItem;
 
 class Meal implements IJsonSerializable
 {
     private $id = -1;
     private $potentialKinds;
-    private $parts;
+    private $items;
 
     public function __construct()
     {
         $potentialKinds;
-        $parts = [];
+        $items = [];
     }
 
     public function GetId()
@@ -43,14 +43,14 @@ class Meal implements IJsonSerializable
         return $this;
     }
 
-    public function GetParts()
+    public function GetItems()
     {
-        return $this->parts;
+        return $this->items;
     }
 
-    public function SetParts($parts)
+    public function SetItems($items)
     {
-        $this->parts = $parts;
+        $this->items = $items;
 
         return $this;
     }
@@ -59,7 +59,7 @@ class Meal implements IJsonSerializable
     {
         $json = "{\"Id\":" . $this->GetId()
             . ",\"PotentialKinds\":" . JsonHelper::SerializeArrayToJson($this->GetPotentialKinds())
-            . ",\"Parts\":" . JsonHelper::SerializeArrayToJson($this->GetParts())
+            . ",\"Items\":" . JsonHelper::SerializeArrayToJson($this->GetItems())
             . "}";
 
         return $json;
@@ -75,10 +75,10 @@ class Meal implements IJsonSerializable
             $this->GetPotentialKinds()[] = $potentialKind;
         }
 
-        foreach ($object->Parts as $value)
+        foreach ($object->Items as $value)
         {
-            $part = (new MealMealPart())->SetFromStdClass($value);
-            $this->GetParts()[] = $part;
+            $item = (new MealMealItem())->SetFromStdClass($value);
+            $this->GetItems()[] = $item;
         }
 
         return $this;
