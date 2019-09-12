@@ -6,8 +6,8 @@ use Framework\DAL\Database;
 use Framework\Tools\Error\ErrorManager;
 use Model\Meal\PlannifiedMeal;
 use Model\Meal\MealKind;
-use Model\Meal\MealMealPart;
-use Model\Meal\MealPart;
+use Model\Meal\MealMealItem;
+use Model\Meal\MealItem;
 use DAL\Meal\PlannifiedMealDAL;
 use DAL\Meal\MealDAL;
 use DAL\Meal\MealKindDAL;
@@ -128,7 +128,7 @@ class PlannifiedMealBLL
 
             $plannifiedMeals = [];
             $plannifiedMealIds = [];
-            $plannifiedMealPartCount = [];
+            $plannifiedMealItemCount = [];
 
             for ($i = 0; $i < $numberOfDays; $i++)
             {
@@ -167,19 +167,19 @@ class PlannifiedMealBLL
                                 $mealFound = false;
                             else
                             {
-                                $isPartsOk = true;
-                                foreach ($meal->GetParts() as $part)
+                                $isItemsOk = true;
+                                foreach ($meal->GetItems() as $item)
                                 {
-                                    if (array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount) 
-                                    && $plannifiedMealPartCount[$part->GetMealPart()->GetId()] >= $part->GetMealPart()->GetWeekProposedMaxCount())
+                                    if (array_key_exists($item->GetMealItem()->GetId(), $plannifiedMealItemCount) 
+                                    && $plannifiedMealItemCount[$item->GetMealItem()->GetId()] >= $item->GetMealItem()->GetWeekProposedMaxCount())
                                     {
-                                        $isPartsOk = false;
+                                        $isItemsOk = false;
                                         break;
                                     }
                                 }
 
                                 // Si les repas précédents contiennent déjà un des composants.
-                                if (!$isPartsOk)
+                                if (!$isItemsOk)
                                     $mealFound = false;
                                 else
                                     $mealFound = true;
@@ -193,12 +193,12 @@ class PlannifiedMealBLL
                 $plannifiedMeals[] = $plannifiedMeal;
                 $meal = $plannifiedMeal->GetMeal();
                 $plannifiedMealIds[] = $meal->GetId();
-                foreach ($meal->GetParts() as $part)
+                foreach ($meal->GetItems() as $item)
                 {
-                    if (!array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount))
-                        $plannifiedMealPartCount[$part->GetMealPart()->GetId()] = 0;
+                    if (!array_key_exists($item->GetMealItem()->GetId(), $plannifiedMealItemCount))
+                        $plannifiedMealItemCount[$item->GetMealItem()->GetId()] = 0;
 
-                    $plannifiedMealPartCount[$part->GetMealPart()->GetId()]++;
+                    $plannifiedMealItemCount[$item->GetMealItem()->GetId()]++;
                 }
 
                 // Génération du dîner.
@@ -232,19 +232,19 @@ class PlannifiedMealBLL
                                 $mealFound = false;
                             else
                             {
-                                $isPartsOk = true;
-                                foreach ($meal->GetParts() as $part)
+                                $isItemsOk = true;
+                                foreach ($meal->GetItems() as $item)
                                 {
-                                    if (array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount) 
-                                    && $plannifiedMealPartCount[$part->GetMealPart()->GetId()] >= $part->GetMealPart()->GetWeekProposedMaxCount())
+                                    if (array_key_exists($item->GetMealItem()->GetId(), $plannifiedMealItemCount) 
+                                    && $plannifiedMealItemCount[$item->GetMealItem()->GetId()] >= $item->GetMealItem()->GetWeekProposedMaxCount())
                                     {
-                                        $isPartsOk = false;
+                                        $isItemsOk = false;
                                         break;
                                     }
                                 }
 
                                 // Si les repas précédents contiennent déjà un des composants.
-                                if (!$isPartsOk)
+                                if (!$isItemsOk)
                                     $mealFound = false;
                                 else
                                     $mealFound = true;
@@ -258,12 +258,12 @@ class PlannifiedMealBLL
                 $plannifiedMeals[] = $plannifiedMeal;
                 $meal = $plannifiedMeal->GetMeal();
                 $plannifiedMealIds[] = $meal->GetId();
-                foreach ($meal->GetParts() as $part)
+                foreach ($meal->GetItems() as $item)
                 {
-                    if (!array_key_exists($part->GetMealPart()->GetId(), $plannifiedMealPartCount))
-                        $plannifiedMealPartCount[$part->GetMealPart()->GetId()] = 0;
+                    if (!array_key_exists($item->GetMealItem()->GetId(), $plannifiedMealItemCount))
+                        $plannifiedMealItemCount[$item->GetMealItem()->GetId()] = 0;
 
-                    $plannifiedMealPartCount[$part->GetMealPart()->GetId()]++;
+                    $plannifiedMealItemCount[$item->GetMealItem()->GetId()]++;
                 }
             }
 

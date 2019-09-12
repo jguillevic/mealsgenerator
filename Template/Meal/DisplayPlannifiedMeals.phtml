@@ -2,8 +2,8 @@
 use \Framework\Tools\Helper\RoutesHelper;
 use Framework\Tools\Helper\DateHelper;
 use Model\Meal\Meal;
-use Model\Meal\MealMealPart;
-use Model\Meal\MealPart;
+use Model\Meal\MealMealItem;
+use Model\Meal\MealItem;
 use Model\Meal\MealKind;
 
 $plannifiedMeals = $params["PlannifiedMeals"];
@@ -14,7 +14,7 @@ $endingDate = $params["EndingDate"]->format("Y-m-d");
 <section class="l-content content">
     <form class="dm__form" class="form" action="<?= RoutesHelper::Path("DisplayPlannifiedMeals") ?>" method="GET">
         <span class="dm__form__component">
-            <label for="StartingDate">À partir du ?</label>
+            <label for="StartingDate">À itemir du ?</label>
             <input type="date" id="StartingDate" name="StartingDate" value="<?= $startingDate ?>">
         </span>
 
@@ -48,13 +48,13 @@ $endingDate = $params["EndingDate"]->format("Y-m-d");
                     <section class="dm__item__meal__content">
         <?php
         $i = 0;
-        $count = count($plannifiedMeal->GetMeal()->GetParts());
-        foreach ($plannifiedMeal->GetMeal()->GetParts() as $part): 
+        $count = count($plannifiedMeal->GetMeal()->GetItems());
+        foreach ($plannifiedMeal->GetMeal()->GetItems() as $item): 
         ?>
                         <span>
-                            <?= $part->GetMealPart()->GetRecipe() != null ? "<a href=\"" . RoutesHelper::Path("DisplayRecipe", [ "Id" => $part->GetMealPart()->GetRecipe()->GetId() ]) . "\">" : ""; ?><!--
-                                --><?= $part->GetMealPart()->GetName(); ?><!--
-                            --><?= $part->GetMealPart()->GetRecipe() != null ? "</a>" : ""; ?>
+                            <?= $item->GetMealItem()->GetRecipe() != null ? "<a href=\"" . RoutesHelper::Path("DisplayRecipe", [ "Id" => $item->GetMealItem()->GetRecipe()->GetId() ]) . "\">" : ""; ?><!--
+                                --><?= $item->GetMealItem()->GetName(); ?><!--
+                            --><?= $item->GetMealItem()->GetRecipe() != null ? "</a>" : ""; ?>
                         </span>
             <?php if ($i < $count - 1): ?>
                 +
@@ -78,13 +78,13 @@ $endingDate = $params["EndingDate"]->format("Y-m-d");
                     <section class="dm__item__meal__content">
         <?php
         $i = 0;
-        $count = count($plannifiedMeal->GetMeal()->GetParts());
-        foreach ($plannifiedMeal->GetMeal()->GetParts() as $part): 
+        $count = count($plannifiedMeal->GetMeal()->GetItems());
+        foreach ($plannifiedMeal->GetMeal()->GetItems() as $item): 
         ?>
                             <span>
-                                <?= $part->GetMealPart()->GetRecipe() != null ? "<a href=\"" . RoutesHelper::Path("DisplayRecipe", [ "Id" => $part->GetMealPart()->GetRecipe()->GetId() ]) . "\">" : ""; ?><!--
-                                    --><?= $part->GetMealPart()->GetName(); ?><!--
-                                --><?= $part->GetMealPart()->GetRecipe() != null ? "</a>" : ""; ?>
+                                <?= $item->GetMealItem()->GetRecipe() != null ? "<a href=\"" . RoutesHelper::Path("DisplayRecipe", [ "Id" => $item->GetMealItem()->GetRecipe()->GetId() ]) . "\">" : ""; ?><!--
+                                    --><?= $item->GetMealItem()->GetName(); ?><!--
+                                --><?= $item->GetMealItem()->GetRecipe() != null ? "</a>" : ""; ?>
                         </span>
             <?php if ($i < $count - 1): ?>
                 +

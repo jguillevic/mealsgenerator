@@ -6,7 +6,7 @@ use Framework\DAL\Database;
 use Framework\DAL\DALHelper;
 use Framework\Tools\Error\ErrorManager;
 use Model\Meal\Meal;
-use DAL\Meal\MealMealPartDAL;
+use DAL\Meal\MealMealItemDAL;
 use DAL\Meal\MealMealKindDAL;
 
 class MealDAL
@@ -52,8 +52,8 @@ class MealDAL
                 $meals[$meal->GetId()] = $meal;
             }
 
-            $mealMealPartDAL = new MealMealPartDAL($this->db);
-            $mealMealParts = $mealMealPartDAL->Load($mealIds);
+            $mealMealItemDAL = new MealMealItemDAL($this->db);
+            $mealMealItems = $mealMealItemDAL->Load($mealIds);
 
             $mealMealKindDAL = new MealMealKindDAL($this->db);
             $mealMealKinds = $mealMealKindDAL->Load($mealIds);
@@ -62,8 +62,8 @@ class MealDAL
         
             foreach ($meals as $meal)
             {
-                $parts = $mealMealParts[$meal->GetId()];
-                $meal->SetParts($parts);
+                $items = $mealMealItems[$meal->GetId()];
+                $meal->SetItems($items);
 
                 $potentialKinds = $mealMealKinds[$meal->GetId()];
                 $meal->SetPotentialKinds($potentialKinds);
