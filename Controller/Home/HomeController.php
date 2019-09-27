@@ -10,6 +10,9 @@ class HomeController
 {
 	public function Display($queryParameters)
 	{
-		RoutesHelper::Redirect("DisplayPlannifiedMeals");
+		$path = PathHelper::GetPath([ "Home", "DisplayHome" ]);
+		$view = new View($path);
+		
+		return $view->Render();
 	}
 }

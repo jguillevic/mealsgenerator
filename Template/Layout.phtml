@@ -19,16 +19,36 @@ use \Tools\Helper\UserHelper;
 <body>
 	<header class="l-header header">
 		<nav class="nav">
-			<section class="nav__brand">
-				<a class="nav__brand__logo" href="<?= RoutesHelper::Path("DisplayHome"); ?>">Générateur de repas</a>
-				<span class="nav__brand__complement">Pour générer les repas de la semaine</span>
-			</section>
-			<section class="nav__menu">
-				<a class="nav__menu__item--meal" href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Consulter les repas</a>
-				<a class="nav__menu__item--generate" href="<?= RoutesHelper::Path("GeneratePlannifiedMeals"); ?>">Générer des repas</a>
-				<a class="nav__menu__item--shoppinglist" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Consulter la liste des courses</a>
-			</section>
+			<a class="nav__logo" href="<?= RoutesHelper::Path("DisplayHome"); ?>">Générateur de repas</a>
+			<div>
+				<span class="nav__user"></span>
+				<span class="nav__burger"></span>
+			<div>
 		</nav>
+		<section id="nav__overlay" class="nav__overlay">
+			<section class="nav__overlay__content">
+				<ul><!--
+					--><li><a class="nav__overlay__menu-item-home" href="<?= RoutesHelper::Path("DisplayHome"); ?>">Accueil</a></li><!--
+					--><li><span class="nav__overlay__menu-item-drop nav__overlay__menu-item-drop--down nav__overlay__menu-item-meal">Repas</span><!--
+						--><ul class="nav__overlay__menu-subitem-content">
+							<li><a class="nav__overlay__menu-item" href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Consulter</a></li><!--
+							--><li><a class="nav__overlay__menu-item" href="<?= RoutesHelper::Path("GeneratePlannifiedMeals"); ?>">Générer</a></li><!--
+						--></ul>
+					</li><!--
+					--><li><span class="nav__overlay__menu-item-drop nav__overlay__menu-item-drop--down nav__overlay__menu-item-shoppinglist">Liste de courses</span><!--
+						--><ul class="nav__overlay__menu-subitem-content">
+						<li><a class="nav__overlay__menu-item" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Consulter</a></li><!--
+							--><li><a class="nav__overlay__menu-item" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Générer</a></li><!--
+						--></ul><!--
+					--></li><!--
+					--><li><a class="nav__overlay__menu-item-contact" href="">Contact</a></li><!--
+					--><li><a class="nav__overlay__menu-item-about" href="">A propos</a></li><!--
+				--></ul>
+			</section>
+			<div class="nav__overlay__close">
+				<i class="fas fa-times"></i>
+			</div>
+		</section>
 	</header>
 	<main class="l-main main">
 		<?php

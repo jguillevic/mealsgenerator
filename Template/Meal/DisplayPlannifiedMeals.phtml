@@ -14,7 +14,7 @@ $endingDate = $params["EndingDate"]->format("Y-m-d");
 <section class="l-content content">
     <form class="dm__form" class="form" action="<?= RoutesHelper::Path("DisplayPlannifiedMeals") ?>" method="GET">
         <span class="dm__form__component">
-            <label for="StartingDate">À itemir du ?</label>
+            <label for="StartingDate">À partir du ?</label>
             <input type="date" id="StartingDate" name="StartingDate" value="<?= $startingDate ?>">
         </span>
 
