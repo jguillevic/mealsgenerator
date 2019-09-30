@@ -11,29 +11,26 @@
 
 		padding-top: 30px;
 		padding-bottom: 30px;
+		padding-left: 8%;
+		padding-right: 8%;
 
-		display: grid;
-		grid-template-columns: repeat(12, 100px);
-		grid-column-gap: 16px;
-		justify-content: center;
-		align-content: start;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 
 	&__brand
 	{
-		grid-column-start: 1;
-
 		color: $main-dark;
 		font-family: $title-font;
 		font-weight: 700;
 		font-size: 1em;
+
+		text-align: left;
 	}
 
 	&__menu-user-wrapper
 	{
-		grid-column-start: 3;
-		grid-column-end: 12;
-		align-content: end;
 		text-align: right;
 	}
 

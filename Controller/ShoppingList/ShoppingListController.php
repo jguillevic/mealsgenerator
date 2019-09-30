@@ -36,7 +36,8 @@ class ShoppingListController
                     "ShoppingLists" => $shoppingLists
                     , "StartingDate" => $startingDate
                     , "EndingDate" => $endingDate 
-                ]);
+                ]
+            );
         }
 
         RoutesHelper::Redirect("DisplayError");

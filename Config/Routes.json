@@ -6,6 +6,12 @@
 		, "Name": "DisplayHome"
 	}
 	, {
+		"Path": "/User/Login"
+		, "Controller": "User\\UserController"
+		, "Action": "Login"
+		, "Name": "UserLogin"
+	}
+	, {
 		"Path": "/PlannifiedMeal/Display"
 		, "Controller": "Meal\\PlannifiedMealController"
 		, "Action": "Display"
