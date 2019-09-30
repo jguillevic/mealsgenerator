@@ -1,14 +1,17 @@
 .footer
 {
+	width: 100%;
+	display: block;
 	background-color: $main-color;
-	color: $main-light;
-	padding-left: 1%;
-	padding-right: 1%;
 
 	&__copyright
 	{
+		color: $main-light;
+		font-family: $title-font;
+		font-weight: 400;
+		font-size: 1em;
+
 		position: absolute;
-		font-family: $text-font;
 		display: inline-block;
 		top: 50%;
 		left: 50%;

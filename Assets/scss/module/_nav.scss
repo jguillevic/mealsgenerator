@@ -1,290 +1,83 @@
 .nav
 {
-	background-color: $main-color;
-	color: $main-light;
-	font-family: $title-font;
 	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding-top: 5px;
-	padding-bottom: 15px;
+	display: block;
 
-	&--top
+	&__wrapper
 	{
-		position: fixed;
-		top: 0;
-		left: 0;
+		width: 100%;
+
+		background-color: $main-light;
+
+		padding-top: 30px;
+		padding-bottom: 30px;
+
+		display: grid;
+		grid-template-columns: repeat(12, 100px);
+		grid-column-gap: 16px;
+		justify-content: center;
+		align-content: start;
 	}
 
-	&__logo
+	&__brand
 	{
-		display: inline-block;
-		font-size: 2.5em;
-		font-weight: 700;
-		letter-spacing: -3px;
-		margin-left: 30px;
-		transition: color 0.3s;
+		grid-column-start: 1;
 
-		&:hover
+		color: $main-dark;
+		font-family: $title-font;
+		font-weight: 700;
+		font-size: 1em;
+	}
+
+	&__menu-user-wrapper
+	{
+		grid-column-start: 3;
+		grid-column-end: 12;
+		align-content: end;
+		text-align: right;
+	}
+
+	&__menu
+	{
+		color: $main-dark;
+		font-family: $title-font;
+		font-weight: 400;
+		font-size: 1em;
+
+		& > a:not(:last-child)
 		{
-			color: $secondary-color;
+			margin-right: 45px;
+		}
+
+		& > a:last-child
+		{
+			margin-right: 80px;
 		}
 	}
 
 	&__user
 	{
-		display: inline-block;
-		font-size: 1.8em;
-		margin-right: 1em;
-		padding-top: 0.5em;
-		transition: color 0.3s;
+		color: $main-dark;
+		font-family: $title-font;
+		font-weight: 400;
+		font-size: 1em;
+		position: relative;
+		margin-left: 30px;
 
-		&::after
+		& > a
 		{
-			font-family: "Font Awesome 5 Free"; 
-			font-weight: 700;
-			content: "\f007";
-		}
-
-		&:hover
-		{
-			cursor: pointer;
-			color: $secondary-color;
-		}
-	}
-	
-	&__burger
-	{
-		display: inline-block;
-		font-size: 1.8em;
-		margin-right: 1.5em;
-		padding-top: 0.5em;
-		transition: color 0.3s;
-
-		&::after
-		{
-			font-family: "Font Awesome 5 Free"; 
-			font-weight: 700;
-			content: "\f0c9";
-		}
-
-		&:hover
-		{
-			cursor: pointer;
-			color: $secondary-color;
-		}
-	}
-
-	&__overlay
-	{ 
-    	height: 100%;
-    	width: 0;
-    	position: fixed;
-    	visibility: hidden;
-    	z-index: 2;
-    	right: 0;
-    	top: 0;
-    	background-color: rgba($color: $main-dark, $alpha: 0.5);
-    	overflow-x: hidden;
-    	transition: width 0.3s, height 0.3s;
-		
-		&--open
-		{
-			width: 20%;
-			visibility: visible;
-		}
-
-    	&__content
-    	{
-    		width: 100%;
-    		color: $main-light;
-    		display: flex;
-    		flex-direction: column;
-    		font-family: $title-font;
-    		font-size: 1.5em;
-
-			& > ul
-			{
-				margin-top: 5em;
-				padding-left: 1em;
-				width: 100%;
-
-				& > li
-				{
-					display: inline-block;
-					width: 100%;
-					font-weight: 700;
-
-					& > ul
-					{
-						width: 100%;
-						padding-left: 1.2em;
-
-						& > li 
-						{
-							color: $main-light;
-							font-size: 0.8em;	
-						}
-					}
-				}
-			}
-		}
-		
-		&__menu-item
-		{
-			transition: color 0.3s;
-
-			&:hover
-			{
-				color: $secondary-color;
-				cursor: pointer;
-			}
-		}
-
-		&__menu-item-drop
-		{
-			@extend .nav__overlay__menu-item;
-
-			&::after
-			{
-				font-family: "Font Awesome 5 Free"; 
-				font-weight: 700;
-				margin-left: 0.3em;
-				color: $main-light;
-				transition: color 0.3s;
-			}
-
-			&:hover
-			{
-				&::after
-				{
-					color: $secondary-color;
-					cursor: pointer;
-				}
-			}
-
-			&--down
-			{
-				&::after
-				{
-					content: "\f107";
-				}
-			}
-
-			&--up
-			{
-				&::after
-				{
-					content: "\f106";
-				}
-			}
-		}
-
-		&__menu-item-before
-		{
-			@extend .nav__overlay__menu-item;
-
 			&::before
 			{
-				font-family: "Font Awesome 5 Free"; 
-				font-weight: 700;
-				color: $main-light;
-				transition: color 0.3s;
+				content: "";
+				background-image: url("..//images//icons//user.svg");
+				background-size: 100%;
+				height: 25px;
+				width: 25px;
 				display: inline-block;
-				width: 1.8em;
-			}
-
-			&:hover
-			{
-				&::before
-				{
-					color: $secondary-color;
-					cursor: pointer;
-				}
+				position: absolute;
+				left: -35px;
+				top: -4px;
 			}
 		}
-
-		&__menu-item-home
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f015";
-			}
-		}
-
-		&__menu-item-admin
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f508";
-			}
-		}
-
-		&__menu-item-meal
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f2e7";
-			}
-		}
-
-		&__menu-item-shoppinglist
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f07a";
-			}
-		}
-
-		&__menu-item-about
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f05a";
-			}
-		}
-
-		&__menu-item-contact
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f1fa";
-			}
-		}
-
-		&__menu-subitem-content
-		{
-			height: 100%;
-			visibility: visible;
-		}
-
-    	&__close
-    	{
-			position: fixed;
-			font-size: 2em;
-    		right: 1.4em;
-    		top: 0.7em;
-			color: $main-light;
-    		transition: color 0.3s;
-
-    		&:hover
-    		{
-    			color: $secondary-color;
-    			cursor: pointer;
-    		}
-    	}
 	}
 }

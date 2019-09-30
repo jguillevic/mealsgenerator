@@ -7,48 +7,37 @@ use \Tools\Helper\UserHelper;
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Générateur de repas</title>
+	<title>MyMeals</title>
 	<link rel="stylesheet" type="text/css" href="../Assets/css/style.css"> 	
 	<script type="text/javascript" src="../Assets/js/jquery/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="../Assets/js/jquery/jquery-migrate-1.4.1.min.js"></script>
 	<script src="../Assets/js/module/nav.js"></script>
 	<script src="../Assets/js/module/shoppinglist/shoppinglist.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,700" rel="stylesheet">
 </head>
 <body>
 	<header class="l-header header">
 		<nav class="nav">
-			<a class="nav__logo" href="<?= RoutesHelper::Path("DisplayHome"); ?>">Générateur de repas</a>
-			<div>
-				<span class="nav__user"></span>
-				<span class="nav__burger"></span>
-			<div>
-		</nav>
-		<section id="nav__overlay" class="nav__overlay">
-			<section class="nav__overlay__content">
-				<ul><!--
-					--><li><a class="nav__overlay__menu-item-home" href="<?= RoutesHelper::Path("DisplayHome"); ?>">Accueil</a></li><!--
-					--><li><span class="nav__overlay__menu-item-drop nav__overlay__menu-item-drop--down nav__overlay__menu-item-meal">Repas</span><!--
-						--><ul class="nav__overlay__menu-subitem-content">
-							<li><a class="nav__overlay__menu-item" href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Consulter</a></li><!--
-							--><li><a class="nav__overlay__menu-item" href="<?= RoutesHelper::Path("GeneratePlannifiedMeals"); ?>">Générer</a></li><!--
-						--></ul>
-					</li><!--
-					--><li><span class="nav__overlay__menu-item-drop nav__overlay__menu-item-drop--down nav__overlay__menu-item-shoppinglist">Liste de courses</span><!--
-						--><ul class="nav__overlay__menu-subitem-content">
-						<li><a class="nav__overlay__menu-item" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Consulter</a></li><!--
-							--><li><a class="nav__overlay__menu-item" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Générer</a></li><!--
-						--></ul><!--
-					--></li><!--
-					--><li><a class="nav__overlay__menu-item-contact" href="">Contact</a></li><!--
-					--><li><a class="nav__overlay__menu-item-about" href="">A propos</a></li><!--
-				--></ul>
+			<section class="nav__wrapper">
+				<span class="nav__brand">
+					<a href="<?= RoutesHelper::Path("DisplayHome"); ?>">MyMeals</a>
+				</span>
+
+				<span class="nav__menu-user-wrapper">
+					<span class="nav__menu">
+						<a href="<?= RoutesHelper::Path("DisplayHome"); ?>">Accueil</a>
+						<a href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Repas</a>
+						<a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Liste</a>
+						<a href="">Contact</a>
+					</span>
+
+					<span class="nav__user">
+						<a href="">Se connecter</a>
+					</span>
+				</span>
 			</section>
-			<div class="nav__overlay__close">
-				<i class="fas fa-times"></i>
-			</div>
-		</section>
+		</nav>
 	</header>
 	<main class="l-main main">
 		<?php
@@ -58,7 +47,7 @@ use \Tools\Helper\UserHelper;
 	</main>
 	<footer class="l-footer footer">
 		<p class="footer__copyright">
-			Générateur de repas © Copyright 2019
+			MyMeals © Copyright 2019
 		</p>
 	</footer>
 </body>

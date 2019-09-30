@@ -1,55 +1,59 @@
 .home
 {
-    &__content
+    width: 100%;
+	display: block;
+
+    &__wrapper
     {
         width: 100%;
+
+        background-color: $main-light;
+
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: column;
     }
 
-    &__tile
+    &__images
     {
-        width: 46%;
-        color: $main-light;
-        background-color: $main-color;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        padding-top: 10em;
+
+        width: 100%;
+
+        & > img
+        {
+            width: 12em;
+        }
+    }
+
+    &__title
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         text-align: center;
-        margin-top: 2em;
-        margin-bottom: 2em;
-        padding-top: 2em;
-        padding-bottom: 2em;
-        min-height: 10em;
-        transition: transform 0.3s;
 
-        &:hover
-        {
-            transform: scale(1.1);
-        }
+        width: 100%;
 
-        & > h1
+        &__main
         {
+            color: $main-dark;
             font-family: $title-font;
-            font-size: 1.5em;
+            font-weight: 700;
+            font-size: 3em;
 
-            &::before
-            {
-                display: block;
-                font-family: "Font Awesome 5 Free"; 
-                font-weight: 700;
-                font-size: 2.5em;
-                content: "\f007";
-                margin-bottom: 0.3em;
-            }
+            margin-bottom: 0.35em;
         }
 
-        &:nth-child(even)
+        &__secondary
         {
-            margin-left: 2%;
-        }
-
-        &:nth-child(odd)
-        {
-            margin-right: 2%;
+            color: $main-dark;
+            font-family: $title-font;
+            font-weight: 400;
+            font-size: 1.2em;
         }
     }
 }

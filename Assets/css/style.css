@@ -420,13 +420,15 @@ option:not(:checked) {
   background-color: transparent; }
 
 .footer {
-  background-color: #00cec9;
-  color: #FFFFFF;
-  padding-left: 1%;
-  padding-right: 1%; }
+  width: 100%;
+  display: block;
+  background-color: #8BDC7F; }
   .footer__copyright {
+    color: #FFFFFF;
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 1em;
     position: absolute;
-    font-family: "Roboto";
     display: inline-block;
     top: 50%;
     left: 50%;
@@ -434,179 +436,66 @@ option:not(:checked) {
             transform: translate(-50%, -50%); }
 
 .nav {
-  background-color: #00cec9;
-  color: #FFFFFF;
-  font-family: "Open Sans";
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding-top: 5px;
-  padding-bottom: 15px; }
-  .nav--top {
-    position: fixed;
-    top: 0;
-    left: 0; }
-  .nav__logo {
-    display: inline-block;
-    font-size: 2.5em;
+  display: block; }
+  .nav__wrapper {
+    width: 100%;
+    background-color: #FFFFFF;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(12, 100px);
+    grid-column-gap: 16px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-line-pack: start;
+        align-content: start; }
+  .nav__brand {
+    grid-column-start: 1;
+    color: #000000;
+    font-family: "Montserrat";
     font-weight: 700;
-    letter-spacing: -3px;
-    margin-left: 30px;
-    -webkit-transition: color 0.3s;
-    transition: color 0.3s; }
-    .nav__logo:hover {
-      color: #81ecec; }
+    font-size: 1em; }
+  .nav__menu-user-wrapper {
+    grid-column-start: 3;
+    grid-column-end: 12;
+    -ms-flex-line-pack: end;
+        align-content: end;
+    text-align: right; }
+  .nav__menu {
+    color: #000000;
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 1em; }
+    .nav__menu > a:not(:last-child) {
+      margin-right: 45px; }
+    .nav__menu > a:last-child {
+      margin-right: 80px; }
   .nav__user {
-    display: inline-block;
-    font-size: 1.8em;
-    margin-right: 1em;
-    padding-top: 0.5em;
-    -webkit-transition: color 0.3s;
-    transition: color 0.3s; }
-    .nav__user::after {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 700;
-      content: "\f007"; }
-    .nav__user:hover {
-      cursor: pointer;
-      color: #81ecec; }
-  .nav__burger {
-    display: inline-block;
-    font-size: 1.8em;
-    margin-right: 1.5em;
-    padding-top: 0.5em;
-    -webkit-transition: color 0.3s;
-    transition: color 0.3s; }
-    .nav__burger::after {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 700;
-      content: "\f0c9"; }
-    .nav__burger:hover {
-      cursor: pointer;
-      color: #81ecec; }
-  .nav__overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    visibility: hidden;
-    z-index: 2;
-    right: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    overflow-x: hidden;
-    -webkit-transition: width 0.3s, height 0.3s;
-    transition: width 0.3s, height 0.3s; }
-    .nav__overlay--open {
-      width: 20%;
-      visibility: visible; }
-    .nav__overlay__content {
-      width: 100%;
-      color: #FFFFFF;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-              flex-direction: column;
-      font-family: "Open Sans";
-      font-size: 1.5em; }
-      .nav__overlay__content > ul {
-        margin-top: 5em;
-        padding-left: 1em;
-        width: 100%; }
-        .nav__overlay__content > ul > li {
-          display: inline-block;
-          width: 100%;
-          font-weight: 700; }
-          .nav__overlay__content > ul > li > ul {
-            width: 100%;
-            padding-left: 1.2em; }
-            .nav__overlay__content > ul > li > ul > li {
-              color: #FFFFFF;
-              font-size: 0.8em; }
-    .nav__overlay__menu-item, .nav__overlay__menu-item-drop, .nav__overlay__menu-item-before, .nav__overlay__menu-item-home, .nav__overlay__menu-item-admin, .nav__overlay__menu-item-meal, .nav__overlay__menu-item-shoppinglist, .nav__overlay__menu-item-about, .nav__overlay__menu-item-contact {
-      -webkit-transition: color 0.3s;
-      transition: color 0.3s; }
-      .nav__overlay__menu-item:hover, .nav__overlay__menu-item-drop:hover, .nav__overlay__menu-item-before:hover, .nav__overlay__menu-item-home:hover, .nav__overlay__menu-item-admin:hover, .nav__overlay__menu-item-meal:hover, .nav__overlay__menu-item-shoppinglist:hover, .nav__overlay__menu-item-about:hover, .nav__overlay__menu-item-contact:hover {
-        color: #81ecec;
-        cursor: pointer; }
-    .nav__overlay__menu-item-drop::after {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 700;
-      margin-left: 0.3em;
-      color: #FFFFFF;
-      -webkit-transition: color 0.3s;
-      transition: color 0.3s; }
-    .nav__overlay__menu-item-drop:hover::after {
-      color: #81ecec;
-      cursor: pointer; }
-    .nav__overlay__menu-item-drop--down::after {
-      content: "\f107"; }
-    .nav__overlay__menu-item-drop--up::after {
-      content: "\f106"; }
-    .nav__overlay__menu-item-before::before, .nav__overlay__menu-item-home::before, .nav__overlay__menu-item-admin::before, .nav__overlay__menu-item-meal::before, .nav__overlay__menu-item-shoppinglist::before, .nav__overlay__menu-item-about::before, .nav__overlay__menu-item-contact::before {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 700;
-      color: #FFFFFF;
-      -webkit-transition: color 0.3s;
-      transition: color 0.3s;
+    color: #000000;
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 1em;
+    position: relative;
+    margin-left: 30px; }
+    .nav__user > a::before {
+      content: "";
+      background-image: url("..//images//icons//user.svg");
+      background-size: 100%;
+      height: 25px;
+      width: 25px;
       display: inline-block;
-      width: 1.8em; }
-    .nav__overlay__menu-item-before:hover::before, .nav__overlay__menu-item-home:hover::before, .nav__overlay__menu-item-admin:hover::before, .nav__overlay__menu-item-meal:hover::before, .nav__overlay__menu-item-shoppinglist:hover::before, .nav__overlay__menu-item-about:hover::before, .nav__overlay__menu-item-contact:hover::before {
-      color: #81ecec;
-      cursor: pointer; }
-    .nav__overlay__menu-item-home::before {
-      content: "\f015"; }
-    .nav__overlay__menu-item-admin::before {
-      content: "\f508"; }
-    .nav__overlay__menu-item-meal::before {
-      content: "\f2e7"; }
-    .nav__overlay__menu-item-shoppinglist::before {
-      content: "\f07a"; }
-    .nav__overlay__menu-item-about::before {
-      content: "\f05a"; }
-    .nav__overlay__menu-item-contact::before {
-      content: "\f1fa"; }
-    .nav__overlay__menu-subitem-content {
-      height: 100%;
-      visibility: visible; }
-    .nav__overlay__close {
-      position: fixed;
-      font-size: 2em;
-      right: 1.4em;
-      top: 0.7em;
-      color: #FFFFFF;
-      -webkit-transition: color 0.3s;
-      transition: color 0.3s; }
-      .nav__overlay__close:hover {
-        color: #81ecec;
-        cursor: pointer; }
-
-.content {
-  background-color: transparent;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column; }
+      position: absolute;
+      left: -35px;
+      top: -4px; }
 
 .button, .button--danger, .button--reset, .button--delete, .button--save, .button--add, .button--edit, .button--submit {
   display: inline-block;
   font-family: "Roboto";
   font-size: 1em;
   color: #FFFFFF;
-  background-color: #00cec9;
+  background-color: #8BDC7F;
   padding: 0.7em;
   -webkit-transition: background-color 0.3s, color 0.3s;
   transition: background-color 0.3s, color 0.3s;
@@ -662,7 +551,7 @@ option:not(:checked) {
             transform: translate(-50%, -50%); }
   .button--social:hover, .button--facebook:hover, .button--twitter:hover, .button--youtube:hover, .button--instagram:hover, .button--linkedin:hover, .button--mail:hover {
     cursor: pointer;
-    background-color: #00cec9; }
+    background-color: #8BDC7F; }
 
 .button--facebook {
   background-color: #3B5998; }
@@ -722,7 +611,7 @@ option:not(:checked) {
         display: block;
         opacity: 0.5; }
       .checkbox .checkbox-container input:checked ~ .checkbox-checkmark {
-        background: #00cec9;
+        background: #8BDC7F;
         border-color: transparent; }
         .checkbox .checkbox-container input:checked ~ .checkbox-checkmark::after {
           display: block;
@@ -738,7 +627,7 @@ option:not(:checked) {
         display: none;
         position: absolute;
         content: "";
-        border: solid #00cec9;
+        border: solid #8BDC7F;
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg); }
       .checkbox .checkbox-container .checkbox-checkmark:hover::after {
@@ -831,48 +720,58 @@ option:not(:checked) {
   .checkbox.rounded-22 .checkbox-container .checkbox-checkmark {
     border-radius: 22px; }
 
-.home__content {
+.home {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
-.home__tile {
-  width: 46%;
-  color: #FFFFFF;
-  background-color: #00cec9;
-  text-align: center;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  padding-top: 2em;
-  padding-bottom: 2em;
-  min-height: 10em;
-  -webkit-transition: -webkit-transform 0.3s;
-  transition: -webkit-transform 0.3s;
-  transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s; }
-  .home__tile:hover {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1); }
-  .home__tile > h1 {
-    font-family: "Open Sans";
-    font-size: 1.5em; }
-    .home__tile > h1::before {
-      display: block;
-      font-family: "Font Awesome 5 Free";
+  display: block; }
+  .home__wrapper {
+    width: 100%;
+    background-color: #FFFFFF;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+  .home__images {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding-top: 10em;
+    width: 100%; }
+    .home__images > img {
+      width: 12em; }
+  .home__title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    text-align: center;
+    width: 100%; }
+    .home__title__main {
+      color: #000000;
+      font-family: "Montserrat";
       font-weight: 700;
-      font-size: 2.5em;
-      content: "\f007";
-      margin-bottom: 0.3em; }
-  .home__tile:nth-child(even) {
-    margin-left: 2%; }
-  .home__tile:nth-child(odd) {
-    margin-right: 2%; }
+      font-size: 3em;
+      margin-bottom: 0.35em; }
+    .home__title__secondary {
+      color: #000000;
+      font-family: "Montserrat";
+      font-weight: 400;
+      font-size: 1.2em; }
 
 .dm__form {
   display: block;
@@ -880,7 +779,7 @@ option:not(:checked) {
   padding: 1em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  border: 2px solid #00cec9; }
+  border: 2px solid #8BDC7F; }
   .dm__form__component {
     display: inline;
     margin-right: 2em;
@@ -936,7 +835,7 @@ option:not(:checked) {
       right: 4em; }
 .dm__item {
   width: 100%;
-  font-family: "Open Sans"; }
+  font-family: "Montserrat"; }
   .dm__item td {
     margin-top: 1%;
     margin-bottom: 1%;
@@ -954,7 +853,7 @@ option:not(:checked) {
       margin-right: 0; }
   .dm__item__date, .dm__item__date--monday, .dm__item__date--tuesday, .dm__item__date--wednesday, .dm__item__date--thursday, .dm__item__date--friday, .dm__item__date--saturday, .dm__item__date--sunday {
     width: 26%;
-    background-color: #00cec9;
+    background-color: #8BDC7F;
     font-size: 1.2em;
     color: #FFFFFF;
     padding-top: 1em; }
@@ -974,7 +873,7 @@ option:not(:checked) {
     background-color: #AE2773; }
   .dm__item__meal, .dm__item__meal--monday, .dm__item__meal--tuesday, .dm__item__meal--wednesday, .dm__item__meal--thursday, .dm__item__meal--friday, .dm__item__meal--saturday, .dm__item__meal--sunday {
     width: 35%;
-    border: 2px solid #00cec9;
+    border: 2px solid #8BDC7F;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -984,7 +883,7 @@ option:not(:checked) {
             flex-direction: column; }
     .dm__item__meal__header, .dm__item__meal--monday__header, .dm__item__meal--tuesday__header, .dm__item__meal--wednesday__header, .dm__item__meal--thursday__header, .dm__item__meal--friday__header, .dm__item__meal--saturday__header, .dm__item__meal--sunday__header {
       display: block;
-      background-color: #00cec9;
+      background-color: #8BDC7F;
       font-size: 1.2em;
       color: #FFFFFF;
       padding-top: 0.3em;
@@ -995,8 +894,8 @@ option:not(:checked) {
       font-size: 1em;
       font-family: "Roboto"; }
       .dm__item__meal__content a {
-        color: #00cec9;
-        border-bottom: 1px solid #00cec9;
+        color: #8BDC7F;
+        border-bottom: 1px solid #8BDC7F;
         padding-bottom: 0; }
   .dm__item__meal--monday {
     border-color: #632E7D; }
@@ -1028,7 +927,7 @@ option:not(:checked) {
       background-color: #AE2773; }
 
 .dsl__title {
-  font-family: "Open Sans";
+  font-family: "Montserrat";
   letter-spacing: -2px;
   text-align: center;
   font-weight: 700; }
@@ -1038,7 +937,7 @@ option:not(:checked) {
   padding: 1em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  border: 2px solid #00cec9; }
+  border: 2px solid #8BDC7F; }
   .dsl__form__component {
     display: inline;
     margin-right: 2em;
