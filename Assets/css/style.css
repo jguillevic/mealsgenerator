@@ -176,8 +176,8 @@ figure {
  * Address differences between Firefox and other browsers.
  */
 hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   height: 0; }
 
 /**
@@ -283,7 +283,8 @@ input {
  */
 input[type="checkbox"],
 input[type="radio"] {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */ }
@@ -305,7 +306,6 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
-  -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   /* 2 */
   box-sizing: content-box; }
@@ -364,7 +364,8 @@ th {
   padding: 0; }
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   outline: none;
   margin: 0;
   padding: 0; }
@@ -431,7 +432,8 @@ option:not(:checked) {
     display: inline-block;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); }
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
 
 .nav {
   width: 100%;
@@ -443,9 +445,16 @@ option:not(:checked) {
     padding-bottom: 30px;
     padding-left: 8%;
     padding-right: 8%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between; }
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
   .nav__brand {
     color: #000000;
     font-family: "Montserrat";
@@ -484,12 +493,11 @@ option:not(:checked) {
 .button {
   font-family: "Montserrat";
   font-weight: 600;
-  font-size: 1.3em;
+  font-size: 1.4em;
   padding-left: 18px;
   padding-right: 18px;
   padding-top: 9px;
-  padding-bottom: 9px;
-  margin: 15px; }
+  padding-bottom: 9px; }
 
 .text-button {
   color: #8BDC7E; }
@@ -498,6 +506,42 @@ option:not(:checked) {
   color: #FFFFFF;
   background-color: #8BDC7E;
   border-radius: 18px; }
+  .contained-button-facebook {
+    position: relative;
+    text-align: left;
+    display: block;
+    width: 100%;
+    background-color: #3B5998;
+    font-size: 1.2em;
+    padding-left: 60px; }
+    .contained-button-facebook::before {
+      content: "";
+      background-image: url("..//images//icons//square-facebook.svg");
+      background-size: 100%;
+      height: 27px;
+      width: 27px;
+      display: inline-block;
+      position: absolute;
+      left: 20px;
+      top: 8px; }
+  .contained-button-twitter {
+    position: relative;
+    text-align: left;
+    display: block;
+    width: 100%;
+    background-color: #00ACED;
+    font-size: 1.2em;
+    padding-left: 60px; }
+    .contained-button-twitter::before {
+      content: "";
+      background-image: url("..//images//icons//twitter.svg");
+      background-size: 100%;
+      height: 30px;
+      width: 30px;
+      display: inline-block;
+      position: absolute;
+      left: 20px;
+      top: 6px; }
 
 /* Source : https://www.cssscript.com/pretty-checkbox-replacement-css/ */
 .checkbox {
@@ -535,14 +579,14 @@ option:not(:checked) {
       background-color: #eee;
       border: 1px #ddd solid; }
       .checkbox .checkbox-container .checkbox-checkmark::after {
-        box-sizing: inherit;
+        -webkit-box-sizing: inherit;
+                box-sizing: inherit;
         cursor: pointer;
         display: none;
         position: absolute;
         content: "";
         border: solid #8BDC7E;
         -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
         transform: rotate(45deg); }
       .checkbox .checkbox-container .checkbox-checkmark:hover::after {
         display: block; }
@@ -642,7 +686,6 @@ option:not(:checked) {
   padding-bottom: 10px;
   padding-left: 15px;
   padding-right: 15px;
-  margin-bottom: 40px;
   color: #000000;
   font-family: "Montserrat";
   font-weight: 500;
@@ -678,24 +721,96 @@ option:not(:checked) {
     display: inline-block;
     position: absolute;
     left: 7px;
-    top: 0px; }
+    top: -2px; }
   .input-password > input {
     margin-left: 45px; }
 
-.wrapper-row-center {
+.wrapper-row-center, .login__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  justify-content: center; }
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.wrapper-row-spacebetween, .login__helpers-wrapper, .login__buttons-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
 
 .login {
   width: 100%;
   display: block;
-  margin-top: 10%; }
-  .login__wrapper {
+  margin-top: 4%; }
+  .login__inputs-wrapper__input {
+    margin-bottom: 12%; }
+  .login__helpers-wrapper {
+    margin-top: 14%;
+    position: relative; }
+    .login__helpers-wrapper__stay-connected > label {
+      color: #000000;
+      font-family: "Montserrat";
+      font-weight: 600;
+      font-size: 1em;
+      position: absolute;
+      top: 52%; }
+    .login__helpers-wrapper__forgotten-password {
+      color: #000000;
+      font-family: "Montserrat";
+      font-weight: 400;
+      font-style: italic;
+      font-size: 0.9em;
+      position: absolute;
+      right: 0;
+      top: 16%; }
+  .login__buttons-wrapper {
+    margin-top: 12%; }
+  .login__separator {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    justify-content: center; }
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    position: relative;
+    margin-top: 7%;
+    margin-bottom: 7%; }
+    .login__separator__border {
+      position: absolute;
+      width: 45%;
+      display: inline-block;
+      border-top: 1px #909090 solid; }
+      .login__separator__border-left {
+        left: 0; }
+      .login__separator__border-right {
+        right: 0; }
+    .login__separator__text {
+      position: absolute;
+      left: 45%;
+      top: -10px;
+      width: 10%;
+      display: inline-block;
+      text-align: center;
+      color: #909090;
+      font-family: "Montserrat";
+      font-weight: 400;
+      font-style: regular;
+      font-size: 1em; }
+  .login__social-buttons-wrapper > button:first-child {
+    margin-bottom: 3%; }
 
 .home {
   width: 100%;
@@ -703,20 +818,39 @@ option:not(:checked) {
   .home__wrapper {
     width: 100%;
     background-color: #FFFFFF;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column; }
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
   .home__images {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     padding-top: 10em;
     width: 100%; }
     .home__images > img {
       width: 12em; }
   .home__title {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     text-align: center;
     width: 100%; }
     .home__title__main {
@@ -803,7 +937,8 @@ option:not(:checked) {
     vertical-align: middle;
     display: inline-block;
     text-align: center;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); }
+    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); }
     .dm__item td:first-child {
       margin-left: 0; }
     .dm__item td:last-child {
@@ -831,8 +966,13 @@ option:not(:checked) {
   .dm__item__meal, .dm__item__meal--monday, .dm__item__meal--tuesday, .dm__item__meal--wednesday, .dm__item__meal--thursday, .dm__item__meal--friday, .dm__item__meal--saturday, .dm__item__meal--sunday {
     width: 35%;
     border: 2px solid #8BDC7E;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column; }
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
     .dm__item__meal__header, .dm__item__meal--monday__header, .dm__item__meal--tuesday__header, .dm__item__meal--wednesday__header, .dm__item__meal--thursday__header, .dm__item__meal--friday__header, .dm__item__meal--saturday__header, .dm__item__meal--sunday__header {
       display: block;
       background-color: #8BDC7E;

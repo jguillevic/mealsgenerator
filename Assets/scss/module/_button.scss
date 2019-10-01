@@ -2,14 +2,12 @@
 {
 	font-family: $title-font;
 	font-weight: 600;
-	font-size: 1.3em;
+	font-size: 1.4em;
 
 	padding-left: 18px;
 	padding-right: 18px;
 	padding-top: 9px;
 	padding-bottom: 9px;
-
-	margin: 15px;
 }
 
 .text-button
@@ -24,4 +22,64 @@
 	background-color: $main-color;
 
 	border-radius: 18px;
+
+	&-facebook
+	{
+		position: relative;
+
+		text-align: left;
+
+		&::before
+		{
+			content: "";
+			background-image: url("..//images//icons//square-facebook.svg");
+			background-size: 100%;
+			height: 27px;
+			width: 27px;
+			display: inline-block;
+			position: absolute;
+			left: 20px;
+			top: 8px;
+		}
+
+		display: block;
+
+		width: 100%;
+
+		background-color: $facebook-color;
+
+		font-size: 1.2em;
+
+		padding-left: 60px;
+	}
+
+	&-twitter
+	{
+		position: relative;
+
+		text-align: left;
+
+		&::before
+		{
+			content: "";
+			background-image: url("..//images//icons//twitter.svg");
+			background-size: 100%;
+			height: 30px;
+			width: 30px;
+			display: inline-block;
+			position: absolute;
+			left: 20px;
+			top: 6px;
+		}
+
+		display: block;
+
+		width: 100%;
+
+		background-color: $twitter-color;
+
+		font-size: 1.2em;
+
+		padding-left: 60px;
+	}
 }

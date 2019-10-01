@@ -11,8 +11,6 @@
     padding-left: 15px;
     padding-right: 15px;
 
-    margin-bottom: 40px;
-
     color: $main-dark;
     font-family: $title-font;
     font-weight: 500;
@@ -64,7 +62,7 @@
 		display: inline-block;
 		position: absolute;
 		left: 7px;
-        top: 0px;
+        top: -2px;
     }
 
     & > input
