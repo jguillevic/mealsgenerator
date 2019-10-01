@@ -507,6 +507,8 @@ option:not(:checked) {
   background-color: #8BDC7E;
   border-radius: 18px; }
   .contained-button-facebook {
+    padding-top: 13px;
+    padding-bottom: 13px;
     position: relative;
     text-align: left;
     display: block;
@@ -523,8 +525,10 @@ option:not(:checked) {
       display: inline-block;
       position: absolute;
       left: 20px;
-      top: 8px; }
+      top: 11px; }
   .contained-button-twitter {
+    padding-top: 13px;
+    padding-bottom: 13px;
     position: relative;
     text-align: left;
     display: block;
@@ -541,7 +545,7 @@ option:not(:checked) {
       display: inline-block;
       position: absolute;
       left: 20px;
-      top: 6px; }
+      top: 9px; }
 
 /* Source : https://www.cssscript.com/pretty-checkbox-replacement-css/ */
 .checkbox {

@@ -25,10 +25,6 @@
 
 	&-facebook
 	{
-		position: relative;
-
-		text-align: left;
-
 		&::before
 		{
 			content: "";
@@ -39,8 +35,15 @@
 			display: inline-block;
 			position: absolute;
 			left: 20px;
-			top: 8px;
+			top: 11px;
 		}
+
+		padding-top: 13px;
+		padding-bottom: 13px;
+
+		position: relative;
+
+		text-align: left;
 
 		display: block;
 
@@ -55,10 +58,6 @@
 
 	&-twitter
 	{
-		position: relative;
-
-		text-align: left;
-
 		&::before
 		{
 			content: "";
@@ -69,8 +68,15 @@
 			display: inline-block;
 			position: absolute;
 			left: 20px;
-			top: 6px;
+			top: 9px;
 		}
+
+		padding-top: 13px;
+		padding-bottom: 13px;
+
+		position: relative;
+
+		text-align: left;
 
 		display: block;
 
