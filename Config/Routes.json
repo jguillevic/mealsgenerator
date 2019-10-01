@@ -12,6 +12,12 @@
 		, "Name": "UserLogin"
 	}
 	, {
+		"Path": "/User/Register"
+		, "Controller": "User\\UserController"
+		, "Action": "Register"
+		, "Name": "UserRegister"
+	}
+	, {
 		"Path": "/PlannifiedMeal/Display"
 		, "Controller": "Meal\\PlannifiedMealController"
 		, "Action": "Display"

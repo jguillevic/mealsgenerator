@@ -15,4 +15,12 @@ class UserController
 
         return $view->Render();
     }
+
+    public function Register($queryParameters)
+    {
+        $path = PathHelper::GetPath([ "User", "Register" ]);
+        $view = new View($path);
+
+        return $view->Render();
+    }
 }

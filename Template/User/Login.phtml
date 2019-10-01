@@ -4,8 +4,21 @@ use Framework\Tools\Helper\RoutesHelper;
 
 <section class="l-content content">
     <section class="login">
-        <section class="login__wrapper">
+        <h1 class="login__title">Connectez-vous !</h1>
+
+        <section class="login__wrapper">   
             <form>
+                <div class="login__social-buttons-wrapper">
+                    <button id="facebook-login-button" class="button contained-button contained-button-facebook"><span>Se connecter avec Facebook</span></button>
+                    <button id="twitter-login-button" class="button contained-button contained-button-twitter"><span>Se connecter avec Twitter</span></button>
+                </div>
+
+                <div class="login__separator">
+                    <span class="login__separator__border login__separator__border-left"></span>
+                    <p class="login__separator__text">ou</p>
+                    <span class="login__separator__border login__separator__border-right"></span>
+                </div>
+
                 <div class="login__inputs-wrapper">
                     <div class="login__inputs-wrapper__input input input-login">
                         <input type="text" placeholder="Identifiant">
@@ -21,27 +34,18 @@ use Framework\Tools\Helper\RoutesHelper;
                             <input type="checkbox" name="stay_connected_checkbox" id="stay_connected_checkbox">
                             <div class="checkbox-checkmark"></div>
                         </div>
-                        <label for="stay_connected_checkbox">Rester connecté</label>
+                        <label for="stay_connected_checkbox">Se souvenir de moi</label>
                     </div>
                     <a class="login__helpers-wrapper__forgotten-password" href="">Mot de passe oublié ?</a>
                 </div>
 
                 <div class="login__buttons-wrapper">
-                    <button class="button text-button">S'inscrire</button>
-                    <button class="button contained-button button-login">Se connecter</button>
-                </div>
-
-                <div class="login__separator">
-                    <span class="login__separator__border login__separator__border-left"></span>
-                    <p class="login__separator__text">ou</p>
-                    <span class="login__separator__border login__separator__border-right"></span>
-                </div>
-
-                <div class="login__social-buttons-wrapper">
-                    <button class="button contained-button contained-button-facebook"><span>Se connecter avec Facebook</span></button>
-                    <button class="button contained-button contained-button-twitter"><span>Se connecter avec Twitter</span></button>
+                    <button id="register-button" class="button text-button">S'inscrire</button>
+                    <button id="login-button" class="button contained-button">Se connecter</button>
                 </div>
             </form>
         </section>
     </section>
 </section>
+
+<script src="../Assets/js/module/user/user.js"></script>
