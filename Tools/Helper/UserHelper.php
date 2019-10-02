@@ -9,7 +9,7 @@ use \Model\User\User;
  */
 class UserHelper
 {
-	const USER_KEY = "user";
+	const USER_KEY = "User";
 
 	public static function IsLogin()
 	{
@@ -26,42 +26,6 @@ class UserHelper
 		}
 
 		return $user;
-	}
-
-	public static function CanManageStore()
-	{
-		$user = self::GetUser();
-
-		if ($user != null)
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	public static function CanManageGame()
-	{
-		$user = self::GetUser();
-
-		if ($user != null)
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	public static function CanManageEvent()
-	{
-		$user = self::GetUser();
-
-		if ($user != null)
-		{
-			return true;
-		}
-
-		return false;
 	}
 
 	public static function Login($user)

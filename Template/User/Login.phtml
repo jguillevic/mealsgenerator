@@ -1,5 +1,7 @@
 <?php
 use Framework\Tools\Helper\RoutesHelper;
+
+$user = $params["User"];
 ?>
 
 <section class="l-content content">
@@ -21,7 +23,7 @@ use Framework\Tools\Helper\RoutesHelper;
 
                 <div class="login__inputs-wrapper">
                     <div class="login__inputs-wrapper__input input input-login">
-                        <input type="text" id="login" name="login" placeholder="Identifiant" required>
+                        <input type="text" id="login" name="login" value="<?= $user->GetLogin(); ?>" placeholder="Identifiant" required>
                     </div>
                     <div class="login__inputs-wrapper__input input input-password">
                         <input type="password" id="password" name="password" placeholder="Mot de passe" required>

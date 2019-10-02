@@ -1,0 +1,6 @@
+################################################################################################
+DateTime : 02/10/2019 19:55:07
+File : C:\wamp64\www\mealsgenerator\Framework\DAL\Database.php
+Line : 68
+Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'jguillevic' for key 'Login'
+################################################################################################

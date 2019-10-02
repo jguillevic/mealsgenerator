@@ -1,19 +1,21 @@
 <?php
 use Framework\Tools\Helper\RoutesHelper;
+
+$user = $params["User"];
 ?>
 
 <section class="l-content content">
     <section class="register">
-        <h1 class="register__title">Crée votre compte</h1>
+        <h1 class="register__title">Créez votre compte</h1>
 
         <section class="register__wrapper">
-            <form>
+            <form method="POST" action="<?= RoutesHelper::Path("UserRegister"); ?>">
                 <div class="register__inputs-wrapper">
                     <div class="register__inputs-wrapper__input input input-login">
-                        <input type="text" id="login" name="login" placeholder="Identifiant" required>
+                        <input type="text" id="login" name="login" value="<?= $user->GetLogin(); ?>" placeholder="Identifiant" required>
                     </div>
                     <div class="register__inputs-wrapper__input input input-email">
-                        <input type="email" id="email" name="email" placeholder="Adresse e-mail" required>
+                        <input type="email" id="email" name="email" value="<?= $user->GetEmail(); ?>" placeholder="Adresse e-mail" required>
                     </div>
                     <div class="register__inputs-wrapper__input input input-password">
                         <input type="password" id="password" name="password" placeholder="Mot de passe" required>
