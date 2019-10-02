@@ -718,9 +718,9 @@ option:not(:checked) {
   .input-login > input {
     margin-left: 45px; }
 
-.input-mail {
+.input-email {
   position: relative; }
-  .input-mail::before {
+  .input-email::before {
     content: "";
     background-image: url("..//images//icons//mail.svg");
     background-size: 100%;
@@ -730,7 +730,7 @@ option:not(:checked) {
     position: absolute;
     left: 13px;
     top: 9px; }
-  .input-mail > input {
+  .input-email > input {
     margin-left: 45px; }
 
 .input-password {
@@ -774,8 +774,7 @@ option:not(:checked) {
 
 .login {
   width: 100%;
-  display: block;
-  margin-top: 2.5%; }
+  display: block; }
   .login__title {
     display: block;
     text-align: center;

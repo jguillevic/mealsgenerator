@@ -4,6 +4,16 @@ CREATE DATABASE meals_generator;
 
 USE meals_generator;
 
+CREATE TABLE User
+(
+	Id INT NOT NULL AUTO_INCREMENT
+	, Login NVARCHAR(200) NOT NULL
+	, Email NVARCHAR(200) NOT NULL
+	, RememberMe TINYINT(1) NOT NULL
+	, PasswordHash NVARCHAR(128) NOT NULL -- SHA-512
+	, PRIMARY KEY (Id)
+ ) ENGINE=InnoDB;
+
 CREATE TABLE ShoppingCategory
 (
 	Id INT NOT NULL AUTO_INCREMENT

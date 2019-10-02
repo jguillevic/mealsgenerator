@@ -7,7 +7,7 @@ use Framework\Tools\Helper\RoutesHelper;
         <h1 class="login__title">Connectez-vous !</h1>
 
         <section class="login__wrapper">   
-            <form>
+            <form method="POST" action="<?= RoutesHelper::Path("UserLogin"); ?>">
                 <div class="login__social-buttons-wrapper">
                     <button id="facebook-login-button" class="button contained-button contained-button-facebook"><span>Se connecter avec Facebook</span></button>
                     <button id="twitter-login-button" class="button contained-button contained-button-twitter"><span>Se connecter avec Twitter</span></button>
@@ -21,10 +21,10 @@ use Framework\Tools\Helper\RoutesHelper;
 
                 <div class="login__inputs-wrapper">
                     <div class="login__inputs-wrapper__input input input-login">
-                        <input type="text" placeholder="Identifiant">
+                        <input type="text" id="login" name="login" placeholder="Identifiant" required>
                     </div>
                     <div class="login__inputs-wrapper__input input input-password">
-                        <input type="password" placeholder="Mot de passe">
+                        <input type="password" id="password" name="password" placeholder="Mot de passe" required>
                     </div>
                 </div>
 
