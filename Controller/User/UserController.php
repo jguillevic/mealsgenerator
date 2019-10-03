@@ -24,6 +24,7 @@ class UserController
             $view = new View($path);
 
             $user = new User();
+            $errors = [];
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
@@ -46,10 +47,18 @@ class UserController
                         UserHelper::Login($user);
                         RoutesHelper::Redirect("DisplayHome");
                     }
+                    else
+                    {
+                        $errors["Password"][] = "Le mot de passe est erroné.";
+                    }
+                }
+                else
+                {
+                    $errors["Login"][] = "L'identifiant n'existe pas.";
                 }
             }
 
-            return $view->Render([ "User" => $user ]);
+            return $view->Render([ "User" => $user, "Errors" => $errors ]);
         }
         catch (\Exception $e)
         {

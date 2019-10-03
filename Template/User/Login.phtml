@@ -2,6 +2,9 @@
 use Framework\Tools\Helper\RoutesHelper;
 
 $user = $params["User"];
+
+$errors = $params["Errors"];
+$hasLoginError = isset($errors) && array_key_exists("Login", $errors) && count($errors["Login"]) > 0;
 ?>
 
 <section class="l-content content">
@@ -23,12 +26,16 @@ $user = $params["User"];
 
                 <div class="login__inputs-wrapper">
                     <div class="login__inputs-wrapper__input">
-                        <div id="input-login" class="input input-login">
+                        <div id="input-login" class="input input-login <?php if ($hasLoginError) echo "error"; ?>">
                             <input type="text" id="login" name="login" value="<?= $user->GetLogin(); ?>" placeholder="Identifiant" required>
                         </div>
-                        <!-- <section id="input-login-errors" class="error-text-wrapper">
-                            <p>L'identifiant n'existe pas.</p>
-                        </section> -->
+<?php if ($hasLoginError): ?>
+                        <section id="input-login-errors" class="error-text-wrapper">
+    <?php foreach ($errors["Login"] as $error): ?>
+                            <p><?= $error; ?></p>
+    <?php endforeach; ?>
+                        </section>
+<?php endif; ?>
                     </div>
 
                     <div class="login__inputs-wrapper__input">

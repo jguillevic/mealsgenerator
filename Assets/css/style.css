@@ -717,7 +717,8 @@ option:not(:checked) {
   .input.error {
     position: relative;
     border-bottom: 3px #DC3545 solid;
-    background-color: rgba(220, 53, 69, 0.3); }
+    background-color: rgba(220, 53, 69, 0.3);
+    color: #DC3545; }
     .input.error:focus-within {
       border-bottom-color: #DC3545; }
 

@@ -58,6 +58,8 @@
         border-bottom: 3px $danger-color solid;
         background-color: rgba($color: $danger-color, $alpha: 0.3);
 
+        color: $danger-color;
+
         &:focus-within
         {
             border-bottom-color: $danger-color;
