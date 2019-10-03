@@ -107,9 +107,11 @@ class UserBLL
             $db->BeginTransaction();
 
             $userDAL = new UserDAL($db);
-            $userDAL->LoadFromLogin($login);
+            $user = $userDAL->LoadFromLogin($login);
 
             $db->Commit();
+
+            return $user;
         }
         catch (\Exception $e)
         {

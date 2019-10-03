@@ -57,6 +57,21 @@ class UserController
         }
     }
 
+    public function Logout($queryParameters)
+    {
+        try
+        {
+            if (UserHelper::IsLogin())
+                UserHelper::Logout();
+            
+            RoutesHelper::Redirect("DisplayHome");    
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
+    }
+
     public function Register($queryParameters)
     {
         try

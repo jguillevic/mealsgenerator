@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 session_start();
 
 setlocale(LC_ALL, "French");

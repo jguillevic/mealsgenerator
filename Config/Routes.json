@@ -12,6 +12,12 @@
 		, "Name": "UserLogin"
 	}
 	, {
+		"Path": "/User/Logout"
+		, "Controller": "User\\UserController"
+		, "Action": "Logout"
+		, "Name": "UserLogout"
+	}
+	, {
 		"Path": "/User/Register"
 		, "Controller": "User\\UserController"
 		, "Action": "Register"

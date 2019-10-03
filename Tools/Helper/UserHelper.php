@@ -9,7 +9,7 @@ use \Model\User\User;
  */
 class UserHelper
 {
-	const USER_KEY = "User";
+	const USER_KEY = "user";
 
 	public static function IsLogin()
 	{

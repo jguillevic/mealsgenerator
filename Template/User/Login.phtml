@@ -22,11 +22,22 @@ $user = $params["User"];
                 </div>
 
                 <div class="login__inputs-wrapper">
-                    <div class="login__inputs-wrapper__input input input-login">
-                        <input type="text" id="login" name="login" value="<?= $user->GetLogin(); ?>" placeholder="Identifiant" required>
+                    <div class="login__inputs-wrapper__input">
+                        <div id="input-login" class="input input-login">
+                            <input type="text" id="login" name="login" value="<?= $user->GetLogin(); ?>" placeholder="Identifiant" required>
+                        </div>
+                        <!-- <section id="input-login-errors" class="error-text-wrapper">
+                            <p>L'identifiant n'existe pas.</p>
+                        </section> -->
                     </div>
-                    <div class="login__inputs-wrapper__input input input-password">
-                        <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+
+                    <div class="login__inputs-wrapper__input">
+                        <div id="input-password" class="input input-password">
+                            <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                        </div>
+                        <!-- <section id="input-login-errors" class="error-text-wrapper">
+                            <p>Le mot de passe est incorrect.</p>
+                        </section> -->
                     </div>
                 </div>
 

@@ -13,7 +13,6 @@ use \Tools\Helper\UserHelper;
 	<script type="text/javascript" src="../Assets/js/jquery/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="../Assets/js/jquery/jquery-migrate-1.4.1.min.js"></script>
 	<script src="../Assets/js/module/shoppinglist/shoppinglist.js"></script>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700|Roboto:400,700" rel="stylesheet">
 </head>
 <body>
@@ -27,13 +26,19 @@ use \Tools\Helper\UserHelper;
 				<span class="nav__menu-user-wrapper">
 					<span class="nav__menu">
 						<a href="<?= RoutesHelper::Path("DisplayHome"); ?>">Accueil</a>
+<?php if (UserHelper::IsLogin()): ?>
 						<a href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Repas</a>
 						<a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Liste</a>
+<?php endif; ?>
 						<a href="">Contact</a>
 					</span>
 
 					<span class="nav__user">
+<?php if (UserHelper::IsLogin()): ?>
+						<a href="<?= RoutesHelper::Path("UserLogout"); ?>">Se déconnecter</a>
+<?php else: ?>
 						<a href="<?= RoutesHelper::Path("UserLogin"); ?>">Se connecter</a>
+<?php endif; ?>
 					</span>
 				</span>
 			</section>
