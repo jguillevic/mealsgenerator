@@ -8,6 +8,7 @@ use Framework\Tools\Helper\PathHelper;
 use BLL\User\UserBLL;
 use Model\User\User;
 use Tools\Helper\UserHelper;
+use Framework\Controller\Violation\ViolationManager;
 
 class UserController
 {
@@ -24,7 +25,7 @@ class UserController
             $view = new View($path);
 
             $user = new User();
-            $errors = [];
+            $violations = new ViolationManager();
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
@@ -48,17 +49,13 @@ class UserController
                         RoutesHelper::Redirect("DisplayHome");
                     }
                     else
-                    {
-                        $errors["Password"][] = "Le mot de passe est erroné.";
-                    }
+                        $violations->AddError("Password", "Le mot de passe est erroné.");
                 }
                 else
-                {
-                    $errors["Login"][] = "L'identifiant n'existe pas.";
-                }
+                    $violations->AddError("Login", "L'identifiant n'existe pas.");
             }
 
-            return $view->Render([ "User" => $user, "Errors" => $errors ]);
+            return $view->Render([ "User" => $user, "Violations" => $violations ]);
         }
         catch (\Exception $e)
         {
@@ -92,6 +89,7 @@ class UserController
             $view = new View($path);
 
             $user = new User();
+            $violations = new ViolationManager();
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
@@ -111,9 +109,16 @@ class UserController
                     $userBLL->Add($user, $passwordHash);
                     RoutesHelper::Redirect("UserLogin");
                 }
+                else
+                {
+                    if ($isLoginExists)
+                        $violations->AddError("Login", "L'identifiant est déjà utilisé.");
+                    if ($isEmailExists)
+                        $violations->AddError("Email", "L'adresse e-mail est déjà utilisée.");
+                }
             }
 
-            return $view->Render([ "User" => $user ]);
+            return $view->Render([ "User" => $user, "Violations" => $violations ]);
         }
         catch (\Exception $e)
         {
