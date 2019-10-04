@@ -23,20 +23,4 @@ $(document).ready(function()
 
         $("#input-password-errors").remove();
     });
-
-    // Sur le clic du bouton de connexion facebook.
-    $("#facebook-login-button").click(function(event)
-    {
-        event.preventDefault(); // Empêche l'action par défaut.
-
-        window.location.href = "Login/Facebook"; // Renvoi vers l'adresse correspondant à l'enregistrement.
-    });
-
-    // Sur le clic du bouton de connexion twitter.
-    $("#twitter-login-button").click(function(event)
-    {
-        event.preventDefault(); // Empêche l'action par défaut.
-
-        window.location.href = "Login/Twitter"; // Renvoi vers l'adresse correspondant à l'enregistrement.
-    });
 });

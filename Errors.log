@@ -1,6 +1,12 @@
 ################################################################################################
-DateTime : 02/10/2019 19:55:07
-File : C:\wamp64\www\mealsgenerator\Framework\DAL\Database.php
-Line : 68
-Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'jguillevic' for key 'Login'
+DateTime : 04/10/2019 21:12:05
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Helpers\FacebookRedirectLoginHelper.php
+Line : 244
+Message : Cross-site request forgery validation failed. Required param "state" missing from persistent data.
+################################################################################################
+################################################################################################
+DateTime : 04/10/2019 21:12:06
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Helpers\FacebookRedirectLoginHelper.php
+Line : 244
+Message : Cross-site request forgery validation failed. Required param "state" missing from persistent data.
 ################################################################################################

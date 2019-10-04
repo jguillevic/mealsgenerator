@@ -11,3 +11,4 @@
 + Au moment de la génération des repas, voir si l'on souhaite ou non faire soit même la recette dans le cas où elle existe.
 + Nom du site dans une variable, pas en dur. Fichier de config ?
 + Améliorer la gestion des erreurs.
++ Ajouter un .gitignore pour Errors.log et les données sensibles.

@@ -20,7 +20,7 @@ class RoutesConfig
 
 	private static function GetConfig()
 	{
-		$configPath = join(DIRECTORY_SEPARATOR, array(__DIR__, '..' , '..', 'Config', 'Routes.json'));
+		$configPath = join(DIRECTORY_SEPARATOR, [ __DIR__, "..", "..", "Config", "Routes.json" ]);
 
 		$json = file_get_contents($configPath);
 

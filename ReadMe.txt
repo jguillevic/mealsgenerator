@@ -17,3 +17,7 @@ Apache :
 - Affecter 0 à session_auto_start dans les fichiers de config.
 - Installer un certificat ssl.
 - En gros, activer la connexion sécurisé.
+
+Facebook :
+- Remplir les clés dans FacebookSettings-Default.json.
+A renommer en FacebookSettings.json.

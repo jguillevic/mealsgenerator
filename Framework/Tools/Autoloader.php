@@ -6,14 +6,19 @@ class Autoloader
 {
 	public function Run()
 	{
-		return spl_autoload_register([$this, "LoadClass"]);
+		$path = join(DIRECTORY_SEPARATOR, [ __DIR__, "..", "..", "CustomAutoloader.php" ]);
+		require_once($path);
+		$customAutoloader = new \CustomAutoloader();
+		$customAutoloader->Run();
+
+		spl_autoload_register([$this, "LoadClass"]);
 	}
 
 	private function LoadClass($fullClassName)
 	{
 		$classNameItems = explode('\\', $fullClassName);
 		$path = join(DIRECTORY_SEPARATOR, $classNameItems);
-		$path = join(DIRECTORY_SEPARATOR, array(__DIR__, "..", "..", $path . ".php"));
+		$path = join(DIRECTORY_SEPARATOR, [ __DIR__, "..", "..", $path . ".php" ]);
 		
 		if (file_exists($path))
 		{
