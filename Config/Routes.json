@@ -12,6 +12,12 @@
 		, "Name": "UserLogin"
 	}
 	, {
+		"Path": "/User/Login/Facebook"
+		, "Controller": "User\\UserController"
+		, "Action": "LoginFacebook"
+		, "Name": "UserLoginFacebook"
+	}
+	, {
 		"Path": "/User/Logout"
 		, "Controller": "User\\UserController"
 		, "Action": "Logout"

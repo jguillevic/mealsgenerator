@@ -125,4 +125,19 @@ class UserController
             ErrorManager::Manage($e);
         }
     }
+
+    public function LoginFacebook($queryParameters)
+    {
+        try
+        {
+            if (UserHelper::IsLogin())
+                RoutesHelper::Redirect("DisplayHome");
+
+            $fb = new Facebook\Facebook();
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
+    }
 }
