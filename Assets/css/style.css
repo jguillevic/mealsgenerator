@@ -478,74 +478,80 @@ option:not(:checked) {
     font-weight: 400;
     font-size: 1em;
     position: relative;
-    margin-left: 30px; }
-    .nav__user > a::before {
-      content: "";
-      background-image: url("..//images//icons//user-circle.svg");
-      background-size: 100%;
-      height: 25px;
-      width: 25px;
-      display: inline-block;
+    margin-left: 1.5em; }
+    .nav__user > a:not(:last-child) {
+      margin-right: 1em; }
+    .nav__user__avatar {
       position: absolute;
-      left: -35px;
-      top: -4px; }
+      top: -0.45em;
+      left: -2.5em;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%; }
 
 .button {
   font-family: "Montserrat";
   font-weight: 600;
   font-size: 1.4em;
-  padding-left: 18px;
-  padding-right: 18px;
-  padding-top: 9px;
-  padding-bottom: 9px; }
+  padding-left: 0.9em;
+  padding-right: 0.9em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em; }
+  .button.light {
+    font-weight: 400;
+    font-size: 1em; }
 
 .text-button {
   color: #8BDC7E; }
 
+.outlined-button {
+  border: 0.1em #8BDC7E solid;
+  border-radius: 0.8em; }
+
 .contained-button {
   color: #FFFFFF;
   background-color: #8BDC7E;
-  border-radius: 18px; }
+  border-radius: 0.8em; }
   .contained-button-facebook {
-    padding-top: 13px;
-    padding-bottom: 13px;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
     position: relative;
     text-align: left;
     display: block;
     width: 100%;
     background-color: #3B5998;
     font-weight: 500;
-    padding-left: 60px; }
+    padding-left: 2.7em; }
     .contained-button-facebook::before {
       content: "";
       background-image: url("..//images//icons//square-facebook.svg");
       background-size: 100%;
-      height: 27px;
-      width: 27px;
+      height: 1.2em;
+      width: 1.2em;
       display: inline-block;
       position: absolute;
-      left: 20px;
-      top: 13px; }
+      left: 0.9em;
+      top: 0.6em; }
   .contained-button-twitter {
-    padding-top: 13px;
-    padding-bottom: 13px;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
     position: relative;
     text-align: left;
     display: block;
     width: 100%;
     background-color: #00ACED;
     font-weight: 500;
-    padding-left: 60px; }
+    padding-left: 2.7em; }
     .contained-button-twitter::before {
       content: "";
       background-image: url("..//images//icons//twitter.svg");
       background-size: 100%;
-      height: 30px;
-      width: 30px;
+      height: 1.4em;
+      width: 1.4em;
       display: inline-block;
       position: absolute;
-      left: 20px;
-      top: 9px; }
+      left: 0.75em;
+      top: 0.45em; }
 
 /* Source : https://www.cssscript.com/pretty-checkbox-replacement-css/ */
 .checkbox {
@@ -864,7 +870,7 @@ option:not(:checked) {
       font-weight: 400;
       font-style: regular;
       font-size: 1em; }
-  .login__social-buttons-wrapper > a:not(:last-child) {
+  .login__social-buttons-wrapper > button:not(:last-child) {
     margin-bottom: 5%; }
 
 .register {

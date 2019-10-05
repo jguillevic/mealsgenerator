@@ -2,46 +2,121 @@
 
 namespace Tools\Helper;
 
-use \Model\User\User;
+use Model\User\User;
+use Model\User\FacebookUser;
 
 /**
  * @author JGuillevic
  */
 class UserHelper
 {
-	const USER_KEY = "user";
+	const WEBSITE_USER_KEY = "WebsiteUser";
+	const FACEBOOK_USER_KEY = "FacebookUser";
 
 	public static function IsLogin()
 	{
-		return isset($_SESSION[self::USER_KEY]);
+		return self::IsWebsiteLogin() || self::IsFacebookLogin();
 	}
 
-	private static function GetUser()
+	public static function IsWebsiteLogin()
+	{
+		return self::IsLoginInternal(self::WEBSITE_USER_KEY);
+	}
+
+	public static function IsFacebookLogin()
+	{
+		return self::IsLoginInternal(self::FACEBOOK_USER_KEY);
+	}
+
+	private static function IsLoginInternal($key)
+	{
+		return array_key_exists($key, $_SESSION) && isset($_SESSION[$key]);
+	}
+
+	private static function GetWebsiteUser()
 	{
 		$user = null;
 
-		if (self::IsLogin())
-		{
-			$user = $_SESSION[self::USER_KEY];
-		}
+		if (self::IsWebsiteLogin())
+			$user = json_decode($_SESSION[self::WEBSITE_USER_KEY]);
 
 		return $user;
 	}
 
-	public static function Login($user)
+	private static function GetFacebookUser()
 	{
-		$_SESSION[self::USER_KEY] = $user;
+		$user = null;
+
+		if (self::IsFacebookLogin())
+			$user = json_decode($_SESSION[self::FACEBOOK_USER_KEY]);
+
+		return $user;
+	}
+
+	public static function WebsiteLogin($websiteUser)
+	{
+		$_SESSION[self::WEBSITE_USER_KEY] = json_encode($websiteUser);
+	}
+
+	public static function FacebookLogin($facebookUser)
+	{
+		$_SESSION[self::FACEBOOK_USER_KEY] = json_encode($facebookUser);
 	}
 
 	public static function Logout()
 	{
-		if (self::IsLogin())
+		if (self::IsWebsiteLogin())
 		{
-			unset($_SESSION[self::USER_KEY]);
+			unset($_SESSION[self::WEBSITE_USER_KEY]);
+
+			return true;
+		}
+		else if (self::IsFacebookLogin())
+		{
+			unset($_SESSION[self::FACEBOOK_USER_KEY]);
 
 			return true;
 		}
 		
 		return false;
+	}
+
+	public static function GetLoginKind()
+	{
+		if (self::IsWebsiteLogin())
+			return "WEBSITE";
+		else if (self::IsFacebookLogin())
+			return "FACEBOOK";
+		
+		return null;
+	}
+
+	public static function GetName()
+	{
+		if (self::IsWebsiteLogin())
+		{
+			$wsUser = self::GetWebsiteUser();
+			return $wsUser->login;
+		}
+		else if (self::IsFacebookLogin())
+		{
+			$fbUser = self::GetFacebookUser();
+			return $fbUser->FirstName;
+		}
+
+		return null;
+	}
+
+	public static function GetAvatarUrl()
+	{
+		if (self::IsWebsiteLogin())
+			return "";
+		else if (self::IsFacebookLogin())
+		{
+			$fbUser = self::GetFacebookUser();
+			return $fbUser->ProfilePictureUrl;
+		}
+		
+		return null;
 	}
 }

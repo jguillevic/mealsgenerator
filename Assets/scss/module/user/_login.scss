@@ -134,7 +134,7 @@
 
     &__social-buttons-wrapper
     {
-        & > a:not(:last-child)
+        & > button:not(:last-child)
         {
             margin-bottom: 5%;
         }

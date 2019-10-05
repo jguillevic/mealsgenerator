@@ -10,3 +10,57 @@ File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Helpe
 Line : 244
 Message : Cross-site request forgery validation failed. Required param "state" missing from persistent data.
 ################################################################################################
+################################################################################################
+DateTime : 05/10/2019 13:37:39
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Exceptions\FacebookResponseException.php
+Line : 115
+Message : This authorization code has been used.
+################################################################################################
+################################################################################################
+DateTime : 05/10/2019 14:16:15
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Exceptions\FacebookResponseException.php
+Line : 137
+Message : (#210) This call requires a Page access token.
+################################################################################################
+################################################################################################
+DateTime : 05/10/2019 14:24:18
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Exceptions\FacebookResponseException.php
+Line : 137
+Message : (#210) This call requires a Page access token.
+################################################################################################
+################################################################################################
+DateTime : 05/10/2019 14:42:04
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Exceptions\FacebookResponseException.php
+Line : 137
+Message : (#210) This call requires a Page access token.
+################################################################################################
+################################################################################################
+DateTime : 05/10/2019 17:58:01
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Exceptions\FacebookResponseException.php
+Line : 115
+Message : This authorization code has been used.
+################################################################################################
+################################################################################################
+DateTime : 05/10/2019 17:58:23
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Exceptions\FacebookResponseException.php
+Line : 115
+Message : This authorization code has been used.
+################################################################################################
+################################################################################################
+DateTime : 05/10/2019 18:37:15
+File : C:\wamp64\www\mealsgenerator\Framework\DAL\Database.php
+Line : 68
+Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Le champ 'ProfilePictureUrl' ne peut être vide (null)
+################################################################################################
+################################################################################################
+DateTime : 05/10/2019 18:37:49
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Exceptions\FacebookResponseException.php
+Line : 115
+Message : This authorization code has been used.
+################################################################################################
+################################################################################################
+DateTime : 05/10/2019 18:38:17
+File : C:\wamp64\www\mealsgenerator\vendor\facebook\graph-sdk\src\Facebook\Exceptions\FacebookResponseException.php
+Line : 115
+Message : This authorization code has been used.
+################################################################################################
