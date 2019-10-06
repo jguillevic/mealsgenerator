@@ -20,24 +20,29 @@ use \Tools\Helper\UserHelper;
 			<nav class="nav">
 				<section class="nav__wrapper">
 					<span class="nav__brand">
-						<a href="<?= RoutesHelper::Path("DisplayHome"); ?>">MyMeals</a>
+						<a href="<?= RoutesHelper::Path("DisplayHome"); ?>" tabindex="0">MyMeals</a>
 					</span>
 
 					<span class="nav__menu-user-wrapper">
 						<span class="nav__menu">
-							<a href="<?= RoutesHelper::Path("DisplayHome"); ?>">Accueil</a>
+							<a href="<?= RoutesHelper::Path("DisplayHome"); ?>" tabindex="1">Accueil</a>
 	<?php if (UserHelper::IsLogin()): ?>
-							<a href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Repas</a>
-							<a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Liste</a>
+							<a href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>" tabindex="2">Repas</a>
+							<a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>" tabindex="3">Liste</a>
 	<?php endif; ?>
-							<a href="<?= RoutesHelper::Path("DisplayContact"); ?>">Contact</a>
+							<a href="<?= RoutesHelper::Path("DisplayContact"); ?>" tabindex="4">Contact</a>
 						</span>
 
 						<span class="nav__user">
 	<?php if (UserHelper::IsLogin()): ?>
-							<a id="logout-link" href="<?= RoutesHelper::Path("UserLogout"); ?>">
-								<img class="nav__user__avatar" src="<?= UserHelper::GetAvatarUrl(); ?>"/>
-							</a>
+							<img class="nav__user__avatar" src="<?= UserHelper::GetAvatarUrl(); ?>"/>
+							<section class="nav__user__tooltip-wrapper">
+								<section class="wrapper-row-spacebetween">
+									<img src="<?= UserHelper::GetAvatarUrl(); ?>"/>
+									<span>Bienvenue <?= UserHelper::GetName(); ?></span>
+								</section>
+								<a id="logout-link" class="button outlined-button light" href="<?= RoutesHelper::Path("UserLogout"); ?>">Se déconnecter</a>
+							</section>
 	<?php else: ?>
 							<a id="login-link" class="button outlined-button light" href="<?= RoutesHelper::Path("UserLogin"); ?>">Se connecter</a>
 							<a id="login-link" class="button contained-button light" href="<?= RoutesHelper::Path("UserRegister"); ?>">S'inscrire</a>

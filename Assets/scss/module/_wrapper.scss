@@ -5,6 +5,13 @@
     justify-content: center;
 }
 
+.wrapper-column-center
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .wrapper-row-spacebetween
 {
     display: flex;
