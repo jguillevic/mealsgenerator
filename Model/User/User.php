@@ -2,11 +2,12 @@
 
 namespace Model\User;
 
-class User
+class User implements \JsonSerializable
 {
     private $id;
     private $login;
     private $email;
+    private $avatarUrl;
     private $rememberMe = 0;
 
     public function GetId()
@@ -45,6 +46,18 @@ class User
         return $this;
     }
 
+    public function GetAvatarUrl()
+    {
+        return $this->avatarUrl;
+    }
+
+    public function SetAvatarUrl($avatarUrl)
+    {
+        $this->avatarUrl = $avatarUrl;
+
+        return $this;
+    }
+
     public function GetRememberMe()
     {
         return $this->rememberMe;
@@ -55,5 +68,15 @@ class User
         $this->rememberMe = $rememberMe;
 
         return $this;
+    }
+
+    public function jsonSerialize() 
+    {
+        return [
+            "Id" => $this->GetId()
+            , "Login" => $this->GetLogin()
+            , "Email" => $this->GetEmail()
+            , "AvatarUrl" => $this->GetAvatarUrl()
+        ];
     }
 }

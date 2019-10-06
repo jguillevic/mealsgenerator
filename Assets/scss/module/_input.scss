@@ -5,6 +5,8 @@
     margin-top: 2%;
     margin-left: 3%;
 
+    position: relative;
+
     & > p
     {
         color: $danger-color;
@@ -13,6 +15,8 @@
         font-size: 1em;
 
         text-align: left;
+
+        position: absolute;
     }
 }
 

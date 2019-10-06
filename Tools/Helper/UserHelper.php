@@ -96,7 +96,7 @@ class UserHelper
 		if (self::IsWebsiteLogin())
 		{
 			$wsUser = self::GetWebsiteUser();
-			return $wsUser->login;
+			return $wsUser->Login;
 		}
 		else if (self::IsFacebookLogin())
 		{
@@ -110,7 +110,10 @@ class UserHelper
 	public static function GetAvatarUrl()
 	{
 		if (self::IsWebsiteLogin())
-			return "";
+		{
+			$wsUser = self::GetWebsiteUser();
+			return $wsUser->AvatarUrl;
+		}
 		else if (self::IsFacebookLogin())
 		{
 			$fbUser = self::GetFacebookUser();

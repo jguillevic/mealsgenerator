@@ -691,13 +691,15 @@ option:not(:checked) {
 .error-text-wrapper {
   display: block;
   margin-top: 2%;
-  margin-left: 3%; }
+  margin-left: 3%;
+  position: relative; }
   .error-text-wrapper > p {
     color: #DC3545;
     font-family: "Montserrat";
     font-weight: 400;
     font-size: 1em;
-    text-align: left; }
+    text-align: left;
+    position: absolute; }
 
 .input {
   display: block;

@@ -53,7 +53,7 @@ class UserController
                         RoutesHelper::Redirect("DisplayHome");
                     }
                     else
-                        $violations->AddError("Password", "Le mot de passe est erroné.");
+                        $violations->AddError("Password", "Le mot de passe est incorrect.");
                 }
                 else
                     $violations->AddError("Login", "L'identifiant n'existe pas.");
@@ -101,7 +101,7 @@ class UserController
                 $user->SetLogin($login);
                 $email = $queryParameters["email"]->GetValue();
                 $user->SetEmail($email);
-                //../Assets/images/icons/user/avatar-default.svg
+                $user->SetAvatarUrl("../Assets/images/icons/user/avatar-default.svg");
                 $password = $queryParameters["password"]->GetValue();
                 $passwordHash = hash("SHA512", $this->salt . $password);
 

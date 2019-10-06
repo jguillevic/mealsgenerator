@@ -7,9 +7,12 @@ class Autoloader
 	public function Run()
 	{
 		$path = join(DIRECTORY_SEPARATOR, [ __DIR__, "..", "..", "CustomAutoloader.php" ]);
-		require_once($path);
-		$customAutoloader = new \CustomAutoloader();
-		$customAutoloader->Run();
+		if (file_exists($path))
+		{
+			require_once($path);
+			$customAutoloader = new \CustomAutoloader();
+			$customAutoloader->Run();
+		}
 
 		spl_autoload_register([$this, "LoadClass"]);
 	}
