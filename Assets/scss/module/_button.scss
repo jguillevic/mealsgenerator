@@ -33,6 +33,7 @@
 
 	background-color: $main-color;
 
+	border: 0.1em $main-color solid;
 	border-radius: 0.8em;
 
 	&-facebook
@@ -62,6 +63,7 @@
 		width: 100%;
 
 		background-color: $facebook-color;
+		border-color: $facebook-color;
 
 		font-weight: 500;
 
@@ -95,6 +97,7 @@
 		width: 100%;
 
 		background-color: $twitter-color;
+		border-color: $twitter-color;
 
 		font-weight: 500;
 

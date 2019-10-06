@@ -42,7 +42,7 @@ class PlannifiedMealController
                 $plannifiedMealsByDate[$date][$plannifiedMeal->GetKind()->GetCode()] = $plannifiedMeal;
             }
 
-            $path = PathHelper::GetPath([ "Meal", "DisplayPlannifiedMeals" ]);
+            $path = PathHelper::GetPath([ "Meal", "Display" ]);
             $view = new View($path);
 
             return $view->Render(

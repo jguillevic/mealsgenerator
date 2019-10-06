@@ -28,7 +28,7 @@ class MealController
             $mealBLL = new MealBLL();
             $meals = $mealBLL->Load($startingDateTime, $endingDateTime);
 
-            $path = PathHelper::GetPath([ "Meal", "DisplayMeals" ]);   
+            $path = PathHelper::GetPath([ "Meal", "Display" ]);   
             $view = new View($path);
             
 			return $view->Render([ "meals" => $meals ]);

@@ -9,8 +9,8 @@
 
 		background-color: $main-light;
 
-		padding-top: 30px;
-		padding-bottom: 30px;
+		padding-top: 2em;
+		padding-bottom: 2em;
 		padding-left: 8%;
 		padding-right: 8%;
 
@@ -43,12 +43,12 @@
 
 		& > a:not(:last-child)
 		{
-			margin-right: 45px;
+			margin-right: 3em;
 		}
 
 		& > a:last-child
 		{
-			margin-right: 80px;
+			margin-right: 5em;
 		}
 	}
 
@@ -72,9 +72,14 @@
 			top: -0.45em;
 			left: -2.5em;
 
-			width: 2em;
-			height: 2em;
+			width: 2.3em;
+			height: 2.3em;
 			border-radius: 50%;
+
+			&:hover
+			{
+				box-shadow: 0 0 0.2em 0.15em $main-color;
+			}
 		}
 	}
 }

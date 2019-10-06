@@ -28,7 +28,7 @@ class ShoppingListController
             $shoppingListBLL = new ShoppingListBLL();
             $shoppingLists = $shoppingListBLL->Load();
 
-            $path = PathHelper::GetPath([ "ShoppingList", "DisplayShoppingLists" ]);
+            $path = PathHelper::GetPath([ "ShoppingList", "Display" ]);
             $view = new View($path);
 
             return $view->Render(

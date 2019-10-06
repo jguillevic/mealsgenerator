@@ -18,7 +18,7 @@ class RecipeController
             $recipeBLL = new RecipeBLL();
             $recipes = $recipeBLL->Load([ $id ]);
 
-            $path = PathHelper::GetPath([ "Recipe", "DisplayRecipe" ]);
+            $path = PathHelper::GetPath([ "Recipe", "Display" ]);
             $view = new View($path);
 
             return $view->Render([ "Recipe" => array_pop($recipes) ]);

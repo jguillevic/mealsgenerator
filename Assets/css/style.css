@@ -441,8 +441,8 @@ option:not(:checked) {
   .nav__wrapper {
     width: 100%;
     background-color: #FFFFFF;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 2em;
+    padding-bottom: 2em;
     padding-left: 8%;
     padding-right: 8%;
     display: -webkit-box;
@@ -469,9 +469,9 @@ option:not(:checked) {
     font-weight: 400;
     font-size: 1em; }
     .nav__menu > a:not(:last-child) {
-      margin-right: 45px; }
+      margin-right: 3em; }
     .nav__menu > a:last-child {
-      margin-right: 80px; }
+      margin-right: 5em; }
   .nav__user {
     color: #000000;
     font-family: "Montserrat";
@@ -485,9 +485,12 @@ option:not(:checked) {
       position: absolute;
       top: -0.45em;
       left: -2.5em;
-      width: 2em;
-      height: 2em;
+      width: 2.3em;
+      height: 2.3em;
       border-radius: 50%; }
+      .nav__user__avatar:hover {
+        -webkit-box-shadow: 0 0 0.2em 0.15em #8BDC7E;
+                box-shadow: 0 0 0.2em 0.15em #8BDC7E; }
 
 .button {
   font-family: "Montserrat";
@@ -511,6 +514,7 @@ option:not(:checked) {
 .contained-button {
   color: #FFFFFF;
   background-color: #8BDC7E;
+  border: 0.1em #8BDC7E solid;
   border-radius: 0.8em; }
   .contained-button-facebook {
     padding-top: 0.6em;
@@ -520,6 +524,7 @@ option:not(:checked) {
     display: block;
     width: 100%;
     background-color: #3B5998;
+    border-color: #3B5998;
     font-weight: 500;
     padding-left: 2.7em; }
     .contained-button-facebook::before {
@@ -540,6 +545,7 @@ option:not(:checked) {
     display: block;
     width: 100%;
     background-color: #00ACED;
+    border-color: #00ACED;
     font-weight: 500;
     padding-left: 2.7em; }
     .contained-button-twitter::before {
@@ -705,6 +711,7 @@ option:not(:checked) {
   display: block;
   width: 100%;
   border-bottom: 3px #000000 solid;
+  background-color: rgba(139, 220, 126, 0.3);
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 15px;
@@ -715,11 +722,30 @@ option:not(:checked) {
   font-size: 1.5em;
   -webkit-transition: border-bottom 0.3s;
   transition: border-bottom 0.3s; }
-  .input > input {
+  .input > input, .input textarea {
     border: none;
+    width: 100%;
     padding: 0;
     margin: 0;
     background-color: transparent; }
+    .input > input::-webkit-input-placeholder, .input textarea::-webkit-input-placeholder {
+      color: #909090;
+      opacity: 1;
+      /* Firefox */ }
+    .input > input:-ms-input-placeholder, .input textarea:-ms-input-placeholder {
+      color: #909090;
+      opacity: 1;
+      /* Firefox */ }
+    .input > input::-ms-input-placeholder, .input textarea::-ms-input-placeholder {
+      color: #909090;
+      opacity: 1;
+      /* Firefox */ }
+    .input > input::placeholder, .input textarea::placeholder {
+      color: #909090;
+      opacity: 1;
+      /* Firefox */ }
+  .input > textarea {
+    resize: vertical; }
   .input:focus-within {
     border-bottom-color: #8BDC7E; }
   .input.error {
@@ -745,7 +771,8 @@ option:not(:checked) {
   .input-login.error::before {
     background-image: url("..//images//icons//user//user-danger.svg"); }
   .input-login > input {
-    margin-left: 45px; }
+    margin-left: 45px;
+    padding-right: 45px; }
 
 .input-email {
   position: relative; }
@@ -762,7 +789,8 @@ option:not(:checked) {
   .input-email.error::before {
     background-image: url("..//images//icons//mail//mail-danger.svg"); }
   .input-email > input {
-    margin-left: 45px; }
+    margin-left: 45px;
+    padding-right: 45px; }
 
 .input-password {
   position: relative; }
@@ -779,9 +807,10 @@ option:not(:checked) {
   .input-password.error::before {
     background-image: url("..//images//icons//lock//lock-danger.svg"); }
   .input-password > input {
-    margin-left: 45px; }
+    margin-left: 45px;
+    padding-right: 45px; }
 
-.wrapper-row-center, .login__wrapper, .register__wrapper, .register__buttons-wrapper {
+.wrapper-row-center, .login__wrapper, .register__wrapper, .register__buttons-wrapper, .contact__wrapper, .contact__buttons-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -807,7 +836,10 @@ option:not(:checked) {
 
 .login {
   width: 100%;
-  display: block; }
+  display: block;
+  margin-top: 1em; }
+  .login__wrapper > form {
+    width: 31%; }
   .login__title {
     display: block;
     text-align: center;
@@ -815,11 +847,11 @@ option:not(:checked) {
     font-family: "Montserrat";
     font-weight: 700;
     font-size: 2.2em;
-    margin-bottom: 4%; }
+    margin-bottom: 1.5em; }
   .login__inputs-wrapper__input {
-    margin-bottom: 12%; }
+    margin-bottom: 3em; }
   .login__helpers-wrapper {
-    margin-top: 14%;
+    margin-top: 3em;
     position: relative; }
     .login__helpers-wrapper__stay-connected > label {
       color: #000000;
@@ -827,7 +859,7 @@ option:not(:checked) {
       font-weight: 600;
       font-size: 1em;
       position: absolute;
-      top: 52%; }
+      top: 0.7em; }
     .login__helpers-wrapper__forgotten-password {
       color: #000000;
       font-family: "Montserrat";
@@ -836,9 +868,9 @@ option:not(:checked) {
       font-size: 0.9em;
       position: absolute;
       right: 0;
-      top: 16%; }
+      top: 0.2em; }
   .login__buttons-wrapper {
-    margin-top: 12%; }
+    margin-top: 3em; }
   .login__separator {
     width: 100%;
     display: -webkit-box;
@@ -849,13 +881,13 @@ option:not(:checked) {
         -ms-flex-direction: row;
             flex-direction: row;
     position: relative;
-    margin-top: 7%;
-    margin-bottom: 7%; }
+    margin-top: 2em;
+    margin-bottom: 2em; }
     .login__separator__border {
       position: absolute;
       width: 45%;
       display: inline-block;
-      border-top: 1px #909090 solid; }
+      border-top: 0.1em #909090 solid; }
       .login__separator__border-left {
         left: 0; }
       .login__separator__border-right {
@@ -863,7 +895,7 @@ option:not(:checked) {
     .login__separator__text {
       position: absolute;
       left: 45%;
-      top: -10px;
+      top: -0.6em;
       width: 10%;
       display: inline-block;
       text-align: center;
@@ -873,12 +905,14 @@ option:not(:checked) {
       font-style: regular;
       font-size: 1em; }
   .login__social-buttons-wrapper > button:not(:last-child) {
-    margin-bottom: 5%; }
+    margin-bottom: 1em; }
 
 .register {
   width: 100%;
   display: block;
-  margin-top: 5%; }
+  margin-top: 2.5em; }
+  .register__wrapper > form {
+    width: 31%; }
   .register__title {
     display: block;
     text-align: center;
@@ -886,11 +920,11 @@ option:not(:checked) {
     font-family: "Montserrat";
     font-weight: 700;
     font-size: 2.2em;
-    margin-bottom: 4%; }
+    margin-bottom: 1.5em; }
   .register__inputs-wrapper__input {
-    margin-bottom: 10%; }
+    margin-bottom: 3em; }
   .register__buttons-wrapper {
-    margin-top: 18%; }
+    margin-top: 3em; }
 
 .home {
   width: 100%;
@@ -944,6 +978,33 @@ option:not(:checked) {
       font-family: "Montserrat";
       font-weight: 400;
       font-size: 1.2em; }
+
+.contact {
+  width: 100%;
+  display: block;
+  margin-top: 2em; }
+  .contact__wrapper > form {
+    width: 40%; }
+  .contact__title {
+    display: block;
+    text-align: center;
+    color: #909090;
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.2em;
+    margin-bottom: 1.5em; }
+  .contact__info {
+    display: block;
+    text-align: center;
+    color: #000000;
+    font-family: "Montserrat";
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 3em; }
+  .contact__inputs-wrapper__input {
+    margin-bottom: 3em; }
+  .contact__buttons-wrapper {
+    margin-top: 3em; }
 
 .dm__form {
   display: block;

@@ -27,6 +27,7 @@
     width: 100%;
     
     border-bottom: 3px $main-dark solid;
+    background-color: rgba($color: $main-color, $alpha: 0.3);
 
     padding-top: 10px;
     padding-bottom: 10px;
@@ -40,14 +41,27 @@
 
     transition: border-bottom 0.3s;
 
-    & > input
+    & > input, textarea
     {
         border: none;
+
+        width: 100%;
 
         padding: 0;
         margin: 0;
 
         background-color: transparent;
+
+        &::placeholder 
+        {
+            color: $main-gray;
+            opacity: 1; /* Firefox */
+        }
+    }
+
+    & > textarea
+    {
+        resize: vertical;
     }
 
     &:focus-within
@@ -96,6 +110,7 @@
     & > input
     {
         margin-left: 45px;
+        padding-right: 45px;
     }
 }
 
@@ -124,6 +139,7 @@
     & > input
     {
         margin-left: 45px;
+        padding-right: 45px;
     }
 }
 
@@ -152,5 +168,6 @@
     & > input
     {
         margin-left: 45px;
+        padding-right: 45px;
     }
 }
