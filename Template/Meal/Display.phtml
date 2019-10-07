@@ -15,12 +15,12 @@ $endingDate = $params["EndingDate"]->format("Y-m-d");
     <form class="dm__form" class="form" action="<?= RoutesHelper::Path("DisplayPlannifiedMeals") ?>" method="GET">
         <span class="dm__form__component">
             <label for="StartingDate">À partir du ?</label>
-            <input type="date" id="StartingDate" name="StartingDate" value="<?= $startingDate ?>">
+            <input type="date" id="StartingDate" name="StartingDate" class="input" value="<?= $startingDate ?>">
         </span>
 
         <span class="dm__form__component">
             <label for="EndingDate">Jusqu'au ?</label>
-            <input type="date" id="EndingDate" name="EndingDate" value="<?= $endingDate ?>">
+            <input type="date" id="EndingDate" name="EndingDate" class="input" value="<?= $endingDate ?>">
         </span>
 
         <span class="dm__form__buttons">

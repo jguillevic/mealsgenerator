@@ -519,8 +519,8 @@ option:not(:checked) {
   font-size: 1.4em;
   padding-left: 0.9em;
   padding-right: 0.9em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
   text-align: center; }
   .button.light {
     font-weight: 400;
@@ -531,13 +531,13 @@ option:not(:checked) {
 
 .outlined-button {
   border: 0.1em #8BDC7E solid;
-  border-radius: 0.8em; }
+  border-radius: 1em; }
 
 .contained-button {
   color: #FFFFFF;
   background-color: #8BDC7E;
   border: 0.1em #8BDC7E solid;
-  border-radius: 0.8em; }
+  border-radius: 1em; }
   .contained-button-facebook {
     padding-top: 0.6em;
     padding-bottom: 0.6em;
@@ -548,17 +548,17 @@ option:not(:checked) {
     background-color: #3B5998;
     border-color: #3B5998;
     font-weight: 500;
-    padding-left: 2.7em; }
+    padding-left: 2.8em; }
     .contained-button-facebook::before {
       content: "";
       background-image: url("..//images//icons//square-facebook.svg");
       background-size: 100%;
-      height: 1.2em;
-      width: 1.2em;
+      height: 1.4em;
+      width: 1.4em;
       display: inline-block;
       position: absolute;
       left: 0.9em;
-      top: 0.6em; }
+      top: 0.5em; }
   .contained-button-twitter {
     padding-top: 0.6em;
     padding-bottom: 0.6em;
@@ -718,8 +718,8 @@ option:not(:checked) {
 
 .error-text-wrapper {
   display: block;
-  margin-top: 2%;
-  margin-left: 3%;
+  margin-top: 0.5em;
+  margin-left: 1em;
   position: relative; }
   .error-text-wrapper > p {
     color: #DC3545;
@@ -733,11 +733,11 @@ option:not(:checked) {
   display: block;
   width: 100%;
   border-bottom: 3px #000000 solid;
-  background-color: rgba(139, 220, 126, 0.3);
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
+  background-color: rgba(139, 220, 126, 0.1);
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
   color: #000000;
   font-family: "Montserrat";
   font-weight: 500;
@@ -767,13 +767,13 @@ option:not(:checked) {
       opacity: 1;
       /* Firefox */ }
   .input > textarea {
-    resize: vertical; }
+    resize: none; }
   .input:focus-within {
     border-bottom-color: #8BDC7E; }
   .input.error {
     position: relative;
     border-bottom: 3px #DC3545 solid;
-    background-color: rgba(220, 53, 69, 0.3);
+    background-color: rgba(220, 53, 69, 0.15);
     color: #DC3545; }
     .input.error:focus-within {
       border-bottom-color: #DC3545; }
@@ -1046,7 +1046,8 @@ option:not(:checked) {
   padding: 1em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  border: 2px solid #8BDC7E; }
+  border: 2px solid #8BDC7E;
+  border-radius: 1em; }
   .dm__form__component {
     display: inline;
     margin-right: 2em;

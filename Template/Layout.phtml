@@ -35,7 +35,9 @@ use \Tools\Helper\UserHelper;
 
 						<span class="nav__user">
 	<?php if (UserHelper::IsLogin()): ?>
-							<img class="nav__user__avatar" src="<?= UserHelper::GetAvatarUrl(); ?>"/>
+							<a id="logout-link" href="<?= RoutesHelper::Path("UserLogout"); ?>">
+								<img class="nav__user__avatar" src="<?= UserHelper::GetAvatarUrl(); ?>"/>
+							</a>
 							<section class="nav__user__tooltip-wrapper">
 								<section class="wrapper-row-spacebetween">
 									<img src="<?= UserHelper::GetAvatarUrl(); ?>"/>
