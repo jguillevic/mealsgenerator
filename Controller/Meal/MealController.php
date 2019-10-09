@@ -34,7 +34,7 @@ class MealController
 			return $view->Render([ "meals" => $meals ]);
         }
 
-        RoutesHelper::Redirect("DisplayHome");
+        RoutesHelper::Redirect("UserLogin");
     }
 
     public function Add($queryParameters)

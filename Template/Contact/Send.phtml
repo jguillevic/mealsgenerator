@@ -3,5 +3,14 @@ use Framework\Tools\Helper\RoutesHelper;
 ?>
 
 <section class="l-content content">
-    <p>Votre message a bien été envoyé et sera traité dans les plus brefs délais.</p>
+    <section class="contact-send">
+        <section class="contact-send__wrapper">
+            <img src="../../Assets/images/icons/check-circle.svg" class="contact-send__icon">
+            <h1>Merci !</h1>
+            <p>Votre message a bien été envoyé.</p>
+            <form method="GET" action="<?= RoutesHelper::Path("DisplayHome"); ?>">
+                <button type="submit" class="button contained-button">Ok</button>
+            </form>
+        </section>
+    </section>
 </section>

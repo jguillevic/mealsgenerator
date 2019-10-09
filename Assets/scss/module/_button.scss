@@ -38,6 +38,8 @@
 	border: 0.1em $main-color solid;
 	border-radius: 1em;
 
+	box-shadow: 0 0 0.3em rgba($color: $main-gray, $alpha: 0.8);
+
 	&-facebook
 	{
 		&::before
