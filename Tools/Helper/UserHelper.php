@@ -4,6 +4,7 @@ namespace Tools\Helper;
 
 use Model\User\User;
 use Model\User\FacebookUser;
+use Config\Facebook\FacebookConfig;
 
 /**
  * @author JGuillevic
@@ -23,9 +24,24 @@ class UserHelper
 		return self::IsLoginInternal(self::WEBSITE_USER_KEY);
 	}
 
+	// Vérifie si une connexion facebook a été réalisée par l'appli
+	// et si la date d'expiration de la connexion n'est pas dépassée.
+	// Dans le cas où la date d'expiration est dépassée, on force la déconnexion.
 	public static function IsFacebookLogin()
 	{
-		return self::IsLoginInternal(self::FACEBOOK_USER_KEY);
+		// Si une connexion facebook gérée par cette application a été réalisé précédemment.
+		if(self::IsLoginInternal(self::FACEBOOK_USER_KEY))
+		{
+			$fbUser = self::GetFacebookUser();
+			$expirationDate = \DateTime::createFromFormat("Y-m-d H:i:s.u", $fbUser->ExpirationDate->date, new \DateTimeZone($fbUser->ExpirationDate->timezone));
+			
+			if ($expirationDate >= new \DateTime("NOW"))
+				return true;
+			else
+				self::Logout();
+		}
+
+		return false;
 	}
 
 	private static function IsLoginInternal($key)
@@ -35,22 +51,12 @@ class UserHelper
 
 	private static function GetWebsiteUser()
 	{
-		$user = null;
-
-		if (self::IsWebsiteLogin())
-			$user = json_decode($_SESSION[self::WEBSITE_USER_KEY]);
-
-		return $user;
+		return $user = json_decode($_SESSION[self::WEBSITE_USER_KEY]);
 	}
 
 	private static function GetFacebookUser()
 	{
-		$user = null;
-
-		if (self::IsFacebookLogin())
-			$user = json_decode($_SESSION[self::FACEBOOK_USER_KEY]);
-
-		return $user;
+		return json_decode($_SESSION[self::FACEBOOK_USER_KEY]);
 	}
 
 	public static function WebsiteLogin($websiteUser)
@@ -65,20 +71,24 @@ class UserHelper
 
 	public static function Logout()
 	{
-		if (self::IsWebsiteLogin())
-		{
-			unset($_SESSION[self::WEBSITE_USER_KEY]);
+		session_unset();
 
-			return true;
-		}
-		else if (self::IsFacebookLogin())
-		{
-			unset($_SESSION[self::FACEBOOK_USER_KEY]);
+		session_destroy();
 
-			return true;
-		}
+		// if (self::IsWebsiteLogin())
+		// {
+		// 	unset($_SESSION[self::WEBSITE_USER_KEY]);
+
+		// 	$isOk = true;
+		// }
+		// else if (self::IsFacebookLogin())
+		// {
+		// 	unset($_SESSION[self::FACEBOOK_USER_KEY]);
+
+		// 	$ikOk = true;
+		// }
 		
-		return false;
+		return true;
 	}
 
 	public static function GetLoginKind()

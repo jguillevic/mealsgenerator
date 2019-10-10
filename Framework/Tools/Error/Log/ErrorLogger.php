@@ -9,7 +9,7 @@ class ErrorLogger
         $file = fopen("Errors.log", "a");
 
         $message = "################################################################################################\n" 
-            . "DateTime : " . (new \DateTime())->format("d/m/Y H:i:s") . "\n"
+            . "DateTime : " . (new \DateTime())->format("d/m/Y H:i:s TP") . "\n"
             . "File : " . $exception->getFile() . "\n"
             . "Line : " . $exception->getLine() . "\n"
             . "Message : " . $exception->getMessage() . "\n"

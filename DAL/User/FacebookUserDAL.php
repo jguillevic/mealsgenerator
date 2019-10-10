@@ -22,15 +22,16 @@ class FacebookUserDAL
     {
         try
         {
-            $query = "INSERT INTO FacebookUser (FacebookId, FirstName, LastName, Email, Birthday, ProfilePictureUrl, AccessToken)
-                      VALUES (:FacebookId, :FirstName, :LastName, :Email, :Birthday, :ProfilePictureUrl, :AccessToken)
+            $query = "INSERT INTO FacebookUser (FacebookId, FirstName, LastName, Email, Birthday, ProfilePictureUrl, AccessToken, ExpirationDate)
+                      VALUES (:FacebookId, :FirstName, :LastName, :Email, :Birthday, :ProfilePictureUrl, :AccessToken, :ExpirationDate)
                       ON DUPLICATE KEY UPDATE 
                       FirstName = :FirstName
                       , LastName = :LastName
                       , Email = :Email
                       , Birthday = :Birthday
                       , ProfilePictureUrl = :ProfilePictureUrl
-                      , AccessToken = :AccessToken;";
+                      , AccessToken = :AccessToken
+                      , ExpirationDate = :ExpirationDate;";
 
             $params = [ 
                 ":FacebookId" => $facebookUser->GetFacebookId()
@@ -40,6 +41,7 @@ class FacebookUserDAL
                 , ":Birthday" => $facebookUser->GetBirthday()->format("Y-m-d")
                 , ":ProfilePictureUrl" => $facebookUser->GetProfilePictureUrl()
                 , ":AccessToken" => $facebookUser->GetAccessToken()
+                , ":ExpirationDate" => $facebookUser->GetExpirationDate()->format("Y-m-d H:i:s")
             ];
 
             $this->db->BeginTransaction();

@@ -11,6 +11,7 @@ class FacebookUser implements \JsonSerializable
     private $birthday;
     private $profilePictureUrl;
     private $accessToken;
+    private $expirationDate;
 
     public function GetFacebookId()
     {
@@ -96,6 +97,18 @@ class FacebookUser implements \JsonSerializable
         return $this;
     }
 
+    public function GetExpirationDate()
+    {
+        return $this->expirationDate;
+    }
+
+    public function SetExpirationDate($expirationDate)
+    {
+        $this->expirationDate = $expirationDate;
+
+        return $this;
+    }
+
     public function jsonSerialize() 
     {
         return [
@@ -106,6 +119,7 @@ class FacebookUser implements \JsonSerializable
             , "Birthday" => $this->GetBirthday()->format("Y-m-d")
             , "ProfilePictureUrl" => $this->GetProfilePictureUrl()
             , "AccessToken" => $this->GetAccessToken()
+            , "ExpirationDate" => $this->GetExpirationDate()
         ];
     }
 }

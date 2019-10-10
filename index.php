@@ -1,4 +1,5 @@
 <?php
+session_set_cookie_params(2592000); // Durée de vie des cookies de 2592000s = 30j.
 session_start();
 
 setlocale(LC_ALL, "French");

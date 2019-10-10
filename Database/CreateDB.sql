@@ -24,6 +24,7 @@ CREATE TABLE User
 	, Birthday DATE NOT NULL
 	, ProfilePictureUrl NVARCHAR(500) NOT NULL
 	, AccessToken NVARCHAR(500) NOT NULL
+	, ExpirationDate DATETIME NOT NULL
 	, PRIMARY KEY (FacebookId)
  ) ENGINE=InnoDB;
 

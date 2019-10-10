@@ -144,7 +144,7 @@ class UserController
 
             $accessToken = $helper->getAccessToken();
             $responseProfile = $fb->get("/me?fields=id,first_name,last_name,email,birthday", $accessToken->GetValue());
-            $responsePicture =  $fb->get("/me/picture?redirect=false", $accessToken->GetValue());
+            $responsePicture =  $fb->get("/me/picture?type=normal&redirect=false", $accessToken->GetValue());
             
             $decodedBody = $responseProfile->getDecodedBody();
             $fbUser = new FacebookUser();
@@ -153,7 +153,15 @@ class UserController
             $fbUser->SetLastName($decodedBody["last_name"]);
             $fbUser->SetEmail($decodedBody["email"]);
             $fbUser->SetBirthday(new \DateTime($decodedBody["birthday"]));
-            $fbUser->SetAccessToken($accessToken->GetValue());
+
+            // Si ce n'est pas déjà le cas, récupération d'un accesstoken avec une longue durée de vie.
+            if (!$accessToken->isLongLived())
+            {
+                $oAuth2Client = $fb->getOAuth2Client();
+                $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
+            }
+            $fbUser->SetAccessToken($accessToken->getValue());
+            $fbUser->SetExpirationDate($accessToken->getExpiresAt());
 
             $decodedBody = $responsePicture->getDecodedBody();
             $fbUser->SetProfilePictureUrl($decodedBody["data"]["url"]);
@@ -162,8 +170,7 @@ class UserController
             $fbBLL->AddOrUpdate($fbUser);
 
             UserHelper::FacebookLogin($fbUser);
-            RoutesHelper::Redirect("DisplayHome");
-              
+            RoutesHelper::Redirect("DisplayHome");          
         }
         catch (\Exception $e)
         {

@@ -1,5 +1,37 @@
 $(document).ready(function()
 {
+    var isAvatarTooltipDisplayed = false;
+
+    $("#avatar").click(function(event)
+    {
+        event.preventDefault(); // Empêche l'action par défaut.
+
+        if (isAvatarTooltipDisplayed)
+        {
+            $("#avatar-tooltip").removeClass("visible");
+            $("#avatar-tooltip").addClass("hidden");
+            isAvatarTooltipDisplayed = false;
+        }
+        else
+        {
+            $("#avatar-tooltip").addClass("visible");
+            $("#avatar-tooltip").removeClass("hidden");
+            isAvatarTooltipDisplayed = true;
+        }
+    });
+
+    $(window).click(function(event) 
+    {
+        console.log(event.target.id);
+
+        if (event.target.id != "avatar" && isAvatarTooltipDisplayed)
+        {
+            $("#avatar-tooltip").removeClass("visible");
+            $("#avatar-tooltip").addClass("hidden");
+            isAvatarTooltipDisplayed = false;
+        }
+    });
+
     $("#logout-link").click(function(event)
     {
         event.preventDefault(); // Empêche l'action par défaut.

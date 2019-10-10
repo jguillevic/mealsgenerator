@@ -35,15 +35,18 @@ use \Tools\Helper\UserHelper;
 
 						<span class="nav__user">
 	<?php if (UserHelper::IsLogin()): ?>
-							<a id="logout-link" href="<?= RoutesHelper::Path("UserLogout"); ?>">
-								<img class="nav__user__avatar" src="<?= UserHelper::GetAvatarUrl(); ?>"/>
-							</a>
-							<section class="nav__user__tooltip-wrapper">
-								<section class="wrapper-row-spacebetween">
-									<img src="<?= UserHelper::GetAvatarUrl(); ?>"/>
-									<span>Bienvenue <?= UserHelper::GetName(); ?></span>
+							<img id="avatar" class="nav__user__avatar" src="<?= UserHelper::GetAvatarUrl(); ?>"/>
+							<section id="avatar-tooltip" class="nav__user__avatar-tooltip hidden">
+								<section class="nav__user__avatar-tooltip__header">
+									<section>
+										<img src="<?= UserHelper::GetAvatarUrl(); ?>"/>
+									</section>
+									<p>Bonjour <?= UserHelper::GetName(); ?> !</p>
 								</section>
-								<a id="logout-link" class="button outlined-button light" href="<?= RoutesHelper::Path("UserLogout"); ?>">Se déconnecter</a>
+								<section class="nav__user__avatar-tooltip__footer">
+									<a class="button outlined-button light" href="">Profil</a>
+									<a id="logout-link" class="button outlined-button light" href="<?= RoutesHelper::Path("UserLogout"); ?>">Se déconnecter</a>
+								</section>
 							</section>
 	<?php else: ?>
 							<a id="login-link" class="button outlined-button light" href="<?= RoutesHelper::Path("UserLogin"); ?>">Se connecter</a>
