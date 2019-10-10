@@ -32,7 +32,7 @@
 
     &__inputs-wrapper
     {
-        &__input
+        &__input:not(:last-child)
         {
             margin-bottom: 3em;
         }
@@ -42,24 +42,9 @@
     {
         @extend .wrapper-row-spacebetween;
 
-        margin-top: 3em;
+        margin-top: 1em;
 
         position: relative;
-
-        &__stay-connected
-        {
-            & > label
-            {
-                color: $main-dark;
-                font-family: $title-font;
-                font-weight: 600;
-                font-size: 1em;
-
-                position: absolute;
-
-                top: 0.7em;
-            }
-        }
 
         &__forgotten-password
         {
@@ -80,7 +65,7 @@
     {
         @extend .wrapper-row-spacebetween;
 
-        margin-top: 3em;
+        margin-top: 5em;
     }
 
     &__separator

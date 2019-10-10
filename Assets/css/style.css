@@ -908,18 +908,11 @@ option:not(:checked) {
     font-weight: 700;
     font-size: 2.2em;
     margin-bottom: 1.5em; }
-  .login__inputs-wrapper__input {
+  .login__inputs-wrapper__input:not(:last-child) {
     margin-bottom: 3em; }
   .login__helpers-wrapper {
-    margin-top: 3em;
+    margin-top: 1em;
     position: relative; }
-    .login__helpers-wrapper__stay-connected > label {
-      color: #000000;
-      font-family: "Montserrat";
-      font-weight: 600;
-      font-size: 1em;
-      position: absolute;
-      top: 0.7em; }
     .login__helpers-wrapper__forgotten-password {
       color: #000000;
       font-family: "Montserrat";
@@ -930,7 +923,7 @@ option:not(:checked) {
       right: 0;
       top: 0.2em; }
   .login__buttons-wrapper {
-    margin-top: 3em; }
+    margin-top: 5em; }
   .login__separator {
     width: 100%;
     display: -webkit-box;

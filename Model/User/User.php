@@ -8,7 +8,6 @@ class User implements \JsonSerializable
     private $login;
     private $email;
     private $avatarUrl;
-    private $rememberMe = 0;
 
     public function GetId()
     {
@@ -54,18 +53,6 @@ class User implements \JsonSerializable
     public function SetAvatarUrl($avatarUrl)
     {
         $this->avatarUrl = $avatarUrl;
-
-        return $this;
-    }
-
-    public function GetRememberMe()
-    {
-        return $this->rememberMe;
-    }
-
-    public function SetRememberMe($rememberMe)
-    {
-        $this->rememberMe = $rememberMe;
 
         return $this;
     }

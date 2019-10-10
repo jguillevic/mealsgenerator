@@ -122,15 +122,14 @@ class UserDAL
     {
         try
         {
-            $query = "INSERT INTO User (Login, Email, PasswordHash, AvatarUrl, RememberMe)
-                      VALUES (:Login, :Email, :PasswordHash, :AvatarUrl, :RememberMe);";
+            $query = "INSERT INTO User (Login, Email, PasswordHash, AvatarUrl)
+                      VALUES (:Login, :Email, :PasswordHash, :AvatarUrl);";
             
             $params = [ 
                 ":Login" => $user->GetLogin()
                 , ":Email" => $user->GetEmail() 
                 , ":PasswordHash" => $passwordHash
                 , ":AvatarUrl" => $user->GetAvatarUrl()
-                , ":RememberMe" => $user->GetRememberMe()
             ];
 
             $this->db->BeginTransaction();
@@ -145,38 +144,13 @@ class UserDAL
 
             ErrorManager::Manage($e);
         }
-    }
-
-    public function UpdateRememberMe($id, $rememberMe)
-    {
-        try
-        {
-            $query = "UPDATE User SET RememberMe = :RememberMe WHERE Id = :Id;";
-
-            $params = [
-                ":Id" => $id
-                , ":RememberMe" => $rememberMe
-            ];
-
-            $this->db->BeginTransaction();
-
-            $this->db->Execute($query, $params);
-
-            $this->db->Commit();
-        }
-        catch (\Exception $e)
-        {
-            $this->db->Rollback();
-
-            ErrorManager::Manage($e);
-        } 
     }
 
     public function LoadFromLogin($login)
     {
         try
         {
-            $query = "SELECT U.Id, U.Login, U.Email, U.AvatarUrl, U.RememberMe FROM User AS U WHERE U.Login = :Login;";
+            $query = "SELECT U.Id, U.Login, U.Email, U.AvatarUrl FROM User AS U WHERE U.Login = :Login;";
 
             $params = [
                 ":Login" => $login
@@ -197,7 +171,6 @@ class UserDAL
                 $user->SetLogin($row["Login"]);
                 $user->SetEmail($row["Email"]);
                 $user->SetAvatarUrl($row["AvatarUrl"]);
-                $user->SetRememberMe($row["RememberMe"]);
 
                 return $user;
             }
