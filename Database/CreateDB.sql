@@ -4,7 +4,7 @@ CREATE DATABASE meals_generator;
 
 USE meals_generator;
 
-CREATE TABLE User
+CREATE TABLE WebsiteUser
 (
 	Id INT NOT NULL AUTO_INCREMENT
 	, Login NVARCHAR(200) NOT NULL UNIQUE

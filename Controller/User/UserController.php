@@ -5,9 +5,9 @@ namespace Controller\User;
 use Framework\View\View;
 use Framework\Tools\Helper\RoutesHelper;
 use Framework\Tools\Helper\PathHelper;
-use BLL\User\UserBLL;
+use BLL\User\WebsiteUserBLL;
 use BLL\User\FacebookUserBLL;
-use Model\User\User;
+use Model\User\WebsiteUser;
 use Model\User\FacebookUser;
 use Tools\Helper\UserHelper;
 use Framework\Controller\Violation\ViolationManager;
@@ -28,28 +28,28 @@ class UserController
             $path = PathHelper::GetPath([ "User", "Login" ]);
             $view = new View($path);
 
-            $user = new User();
+            $wu = new WebsiteUser();
             $violations = new ViolationManager();
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
                 $login = $queryParameters["login"]->GetValue();
-                $user->SetLogin($login);
+                $wu->SetLogin($login);
                 $password = $queryParameters["password"]->GetValue();
                 $passwordHash = hash("SHA512", $this->salt . $password);
 
-                $userBLL = new UserBLL();
+                $wuBLL = new WebsiteUserBLL();
 
-                $isLoginExists = $userBLL->IsLoginExists($login);
+                $isLoginExists = $wuBLL->IsLoginExists($login);
 
                 if ($isLoginExists)
                 {
-                    $isPasswordHashMatches = $userBLL->IsPasswordHashMatches($login, $passwordHash);
+                    $isPasswordHashMatches = $wuBLL->IsPasswordHashMatches($login, $passwordHash);
 
                     if ($isPasswordHashMatches)
                     {
-                        $user = $userBLL->LoadFromLogin($login);
-                        UserHelper::WebsiteLogin($user);
+                        $wu = $wuBLL->LoadFromLogin($login);
+                        UserHelper::WebsiteLogin($wu);
                         RoutesHelper::Redirect("DisplayHome");
                     }
                     else
@@ -59,7 +59,7 @@ class UserController
                     $violations->AddError("Login", "L'identifiant n'existe pas.");
             }
 
-            return $view->Render([ "User" => $user, "Violations" => $violations ]);
+            return $view->Render([ "User" => $wu, "Violations" => $violations ]);
         }
         catch (\Exception $e)
         {
@@ -92,26 +92,26 @@ class UserController
             $path = PathHelper::GetPath([ "User", "Register" ]);
             $view = new View($path);
 
-            $user = new User();
+            $wu = new WebsiteUser();
             $violations = new ViolationManager();
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
                 $login = $queryParameters["login"]->GetValue();
-                $user->SetLogin($login);
+                $wu->SetLogin($login);
                 $email = $queryParameters["email"]->GetValue();
-                $user->SetEmail($email);
-                $user->SetAvatarUrl("../Assets/images/icons/user/avatar-default.svg");
+                $wu->SetEmail($email);
+                $wu->SetAvatarUrl("../Assets/images/icons/user/avatar-default.svg");
                 $password = $queryParameters["password"]->GetValue();
                 $passwordHash = hash("SHA512", $this->salt . $password);
 
-                $userBLL = new UserBLL();
-                $isLoginExists = $userBLL->IsLoginExists($login);
-                $isEmailExists = $userBLL->IsEmailExists($email);
+                $wuBLL = new WebsiteUserBLL();
+                $isLoginExists = $wuBLL->IsLoginExists($login);
+                $isEmailExists = $wuBLL->IsEmailExists($email);
 
                 if (!$isLoginExists && !$isEmailExists)
                 {
-                    $userBLL->Add($user, $passwordHash);
+                    $wuBLL->Add($wu, $passwordHash);
                     RoutesHelper::Redirect("UserLogin");
                 }
                 else
@@ -123,7 +123,7 @@ class UserController
                 }
             }
 
-            return $view->Render([ "User" => $user, "Violations" => $violations ]);
+            return $view->Render([ "User" => $wu, "Violations" => $violations ]);
         }
         catch (\Exception $e)
         {

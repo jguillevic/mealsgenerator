@@ -4,9 +4,9 @@ namespace DAL\User;
 
 use Framework\DAL\Database;
 use Framework\Tools\Error\ErrorManager;
-use Model\User\User;
+use Model\User\WebsiteUser;
 
-class UserDAL
+class WebsiteUserDAL
 {
     private $db;
     
@@ -22,7 +22,7 @@ class UserDAL
     {
         try
         {
-            $query = "SELECT 1 FROM User AS U WHERE U.Login = :Login;";
+            $query = "SELECT 1 FROM WebsiteUser AS WU WHERE WU.Login = :Login;";
 
             $params = [ ":Login" => $login ];
 
@@ -46,7 +46,7 @@ class UserDAL
     {
         try
         {
-            $query = "SELECT 1 FROM User AS U WHERE U.Email = :Email;";
+            $query = "SELECT 1 FROM WebsiteUser AS WU WHERE WU.Email = :Email;";
 
             $params = [ ":Email" => $email ];
 
@@ -93,9 +93,9 @@ class UserDAL
     {
         try
         {
-            $query = "SELECT U.PasswordHash
-                      FROM User AS U
-                      WHERE U.Login = :Login;";
+            $query = "SELECT WU.PasswordHash
+                      FROM WebsiteUser AS WU
+                      WHERE WU.Login = :Login;";
         
             $params = [ ":Login" => $login ];
 
@@ -122,7 +122,7 @@ class UserDAL
     {
         try
         {
-            $query = "INSERT INTO User (Login, Email, PasswordHash, AvatarUrl)
+            $query = "INSERT INTO WebsiteUser (Login, Email, PasswordHash, AvatarUrl)
                       VALUES (:Login, :Email, :PasswordHash, :AvatarUrl);";
             
             $params = [ 
@@ -150,7 +150,7 @@ class UserDAL
     {
         try
         {
-            $query = "SELECT U.Id, U.Login, U.Email, U.AvatarUrl FROM User AS U WHERE U.Login = :Login;";
+            $query = "SELECT WU.Id, WU.Login, WU.Email, WU.AvatarUrl FROM WebsiteUser AS WU WHERE WU.Login = :Login;";
 
             $params = [
                 ":Login" => $login
@@ -166,13 +166,13 @@ class UserDAL
             {
                 $row = $rows[0];
 
-                $user = new User();
-                $user->SetId($row["Id"]);
-                $user->SetLogin($row["Login"]);
-                $user->SetEmail($row["Email"]);
-                $user->SetAvatarUrl($row["AvatarUrl"]);
+                $wu = new WebsiteUser();
+                $wu->SetId($row["Id"]);
+                $wu->SetLogin($row["Login"]);
+                $wu->SetEmail($row["Email"]);
+                $wu->SetAvatarUrl($row["AvatarUrl"]);
 
-                return $user;
+                return $wu;
             }
 
             return null;

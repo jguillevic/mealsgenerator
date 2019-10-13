@@ -2,7 +2,7 @@
 
 namespace Tools\Helper;
 
-use Model\User\User;
+use Model\User\WebsiteUser;
 use Model\User\FacebookUser;
 use Config\Facebook\FacebookConfig;
 

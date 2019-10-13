@@ -2,7 +2,7 @@
 
 namespace Model\User;
 
-class User implements \JsonSerializable
+class WebsiteUser implements \JsonSerializable
 {
     private $id;
     private $login;

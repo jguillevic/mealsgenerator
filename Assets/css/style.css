@@ -2,7 +2,6 @@
 /* Tools */
 /* Colors */
 /* Fonts */
-/* Sizes */
 /* Others */
 /* Base */
 /*! normalize.scss v0.1.0 | MIT License | based on git.io/normalize */
@@ -394,7 +393,6 @@ option:not(:checked) {
   width: 100%; }
 
 .l-footer {
-  height: 50px;
   width: 100%;
   position: relative; }
 
@@ -426,20 +424,22 @@ option:not(:checked) {
   background-color: transparent; }
 
 .footer {
-  width: 100%;
   display: block;
-  background-color: #8BDC7E; }
-  .footer__copyright {
+  background-color: #8BDC7E;
+  padding-top: 1em;
+  padding-bottom: 1em; }
+  .footer > ul {
+    width: 100%;
     color: #FFFFFF;
     font-family: "Montserrat";
+    font-size: 0.9em;
     font-weight: 400;
-    font-size: 1em;
-    position: absolute;
-    display: inline-block;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%); }
+    text-align: center; }
+    .footer > ul > li {
+      margin-right: 1em; }
+      .footer > ul > li:not(:last-child):after {
+        content: "|";
+        margin-left: 1em; }
 
 .nav {
   width: 100%;
@@ -858,7 +858,7 @@ option:not(:checked) {
     margin-left: 45px;
     padding-right: 45px; }
 
-.wrapper-row-center, .nav__user__avatar-tooltip__header > section, .login__wrapper, .register__wrapper, .register__buttons-wrapper, .contact__wrapper, .contact__buttons-wrapper {
+.wrapper-row-center, .footer > ul, .nav__user__avatar-tooltip__header > section, .login__wrapper, .register__wrapper, .register__buttons-wrapper, .contact__wrapper, .contact__buttons-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1035,7 +1035,7 @@ option:not(:checked) {
 .contact {
   width: 100%;
   display: block;
-  margin-top: 2em; }
+  margin-top: 0.5em; }
   .contact__wrapper > form {
     width: 40%; }
   .contact__title {
@@ -1045,6 +1045,7 @@ option:not(:checked) {
     font-family: "Montserrat";
     font-weight: 700;
     font-size: 2.2em;
+    margin-top: 1.5em;
     margin-bottom: 1.5em; }
   .contact__info {
     display: block;
@@ -1268,6 +1269,79 @@ option:not(:checked) {
 .dsl__item {
   margin-top: 0.5em;
   margin-bottom: 0.5em; }
+
+.privacy-display {
+  width: 100%;
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto; }
+  .privacy-display > article {
+    display: block;
+    width: 100%; }
+    .privacy-display > article > header > h1 {
+      display: block;
+      text-align: center;
+      color: #909090;
+      font-family: "Montserrat";
+      font-weight: 700;
+      font-size: 2.2em;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em; }
+    .privacy-display > article > section {
+      display: block;
+      margin-top: 5em; }
+      .privacy-display > article > section > p {
+        display: block;
+        color: #000000;
+        font-family: "Roboto";
+        font-size: 1.1em;
+        font-weight: 400;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em; }
+        .privacy-display > article > section > p a {
+          color: #8BDC7E;
+          text-decoration: underline; }
+
+.terms-display {
+  width: 80%;
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto; }
+  .terms-display > article {
+    display: block;
+    width: 100%; }
+    .terms-display > article > header > h1 {
+      display: block;
+      text-align: center;
+      color: #909090;
+      font-family: "Montserrat";
+      font-weight: 700;
+      font-size: 2.2em;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em; }
+    .terms-display > article > section {
+      display: block;
+      margin-top: 5em;
+      color: #000000;
+      font-family: "Roboto";
+      font-size: 1.1em;
+      font-weight: 400; }
+      .terms-display > article > section > p {
+        display: block;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em; }
+        .terms-display > article > section > p > a {
+          color: #8BDC7E;
+          text-decoration: underline; }
+      .terms-display > article > section > address {
+        font-style: normal; }
+        .terms-display > article > section > address > p {
+          margin-top: 0.2em;
+          margin-bottom: 0.2em; }
 
 /* Theme */
 

@@ -90,6 +90,18 @@
 		, "Name": "ShoppingListItemUpdateIsHandled"
 	}
 	, {
+		"Path": "/Policy/Privacy"
+		, "Controller": "Policy\\PrivacyController"
+		, "Action": "Display"
+		, "Name": "DisplayPrivacy"
+	}
+	, {
+		"Path": "/Policy/Terms"
+		, "Controller": "Policy\\TermsController"
+		, "Action": "Display"
+		, "Name": "DisplayTerms"
+	}
+	, {
 		"Path": "/Error"
 		, "Controller": "Error\\ErrorController"
 		, "Action": "Display"

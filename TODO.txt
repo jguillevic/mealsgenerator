@@ -11,3 +11,6 @@
 + Au moment de la génération des repas, voir si l'on souhaite ou non faire soit même la recette dans le cas où elle existe.
 + Ne plus utiliser mon interface de sérialisation en json.
 + Dans Contact, gérer l'envoi de fichiers.
++ Gérer le nom de l'appli + adresse du site dans un fichier de config.
++ Créer des styles communs (titres, liens, ...)
++ Gérer la non accepation des cookies

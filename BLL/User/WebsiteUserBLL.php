@@ -4,9 +4,9 @@ namespace BLL\User;
 
 use Framework\DAL\Database;
 use Framework\Tools\Error\ErrorManager;
-use DAL\User\UserDAL;
+use DAL\User\WebsiteUserDAL;
 
-class UserBLL
+class WebsiteUserBLL
 {
     public function IsLoginExists($login)
     {
@@ -15,8 +15,8 @@ class UserBLL
             $db = new Database();
             $db->BeginTransaction();
 
-            $userDAL = new UserDAL($db);
-            $isLoginExists = $userDAL->IsLoginExists($login);
+            $wuDAL = new WebsiteUserDAL($db);
+            $isLoginExists = $wuDAL->IsLoginExists($login);
 
             $db->Commit();
 
@@ -38,8 +38,8 @@ class UserBLL
             $db = new Database();
             $db->BeginTransaction();
 
-            $userDAL = new UserDAL($db);
-            $isEmailExists = $userDAL->IsEmailExists($login);
+            $wuDAL = new WebsiteUserDAL($db);
+            $isEmailExists = $wuDAL->IsEmailExists($login);
 
             $db->Commit();
 
@@ -61,8 +61,8 @@ class UserBLL
             $db = new Database();
             $db->BeginTransaction();
 
-            $userDAL = new UserDAL($db);
-            $isPasswordHashMatches = $userDAL->IsPasswordHashMatches($login, $passwordHash);
+            $wuDAL = new WebsiteUserDAL($db);
+            $isPasswordHashMatches = $wuDAL->IsPasswordHashMatches($login, $passwordHash);
 
             $db->Commit();
 
@@ -77,15 +77,15 @@ class UserBLL
         }
     }
 
-    public function Add($user, $passwordHash)
+    public function Add($websiteUser, $passwordHash)
     {
         try
         {
             $db = new Database();
             $db->BeginTransaction();
 
-            $userDAL = new UserDAL($db);
-            $userDAL->Add($user, $passwordHash);
+            $wuDAL = new WebsiteUserDAL($db);
+            $wuDAL->Add($websiteUser, $passwordHash);
 
             $db->Commit();
 
@@ -106,12 +106,12 @@ class UserBLL
             $db = new Database();
             $db->BeginTransaction();
 
-            $userDAL = new UserDAL($db);
-            $user = $userDAL->LoadFromLogin($login);
+            $wuDAL = new WebsiteUserDAL($db);
+            $websiteUser = $wuDAL->LoadFromLogin($login);
 
             $db->Commit();
 
-            return $user;
+            return $websiteUser;
         }
         catch (\Exception $e)
         {

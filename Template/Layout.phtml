@@ -13,7 +13,6 @@ use \Tools\Helper\UserHelper;
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700|Roboto:400,700" rel="stylesheet">
 		<script type="text/javascript" src="../Assets/js/jquery/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="../Assets/js/jquery/jquery-migrate-1.4.1.min.js"></script>
-		<script src="../Assets/js/module/layout.js"></script>
 	</head>
 	<body>
 		<header class="l-header header">
@@ -25,12 +24,10 @@ use \Tools\Helper\UserHelper;
 
 					<span class="nav__menu-user-wrapper">
 						<span class="nav__menu">
-							<a href="<?= RoutesHelper::Path("DisplayHome"); ?>" tabindex="1">Accueil</a>
 	<?php if (UserHelper::IsLogin()): ?>
 							<a href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>" tabindex="2">Repas</a>
 							<a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>" tabindex="3">Liste</a>
 	<?php endif; ?>
-							<a href="<?= RoutesHelper::Path("DisplayContact"); ?>" tabindex="4">Contact</a>
 						</span>
 
 						<span class="nav__user">
@@ -64,9 +61,14 @@ use \Tools\Helper\UserHelper;
 			?>
 		</main>
 		<footer class="l-footer footer">
-			<p class="footer__copyright">
-				MyMeals © Copyright 2019
-			</p>
+			<ul>
+				<li><a href="<?= RoutesHelper::Path("DisplayPrivacy"); ?>">Données personnelles</a></li>
+				<li><a href="<?= RoutesHelper::Path("DisplayTerms"); ?>">Mentions légales</a></li>
+				<li><a href=""></a>Cookies</li>
+				<li><a href="<?= RoutesHelper::Path("DisplayContact"); ?>">Contact</a></li>
+			</ul>
 		</footer>
 	</body>
+
+	<script type="text/javascript" src="../Assets/js/module/layout.js"></script>
 </html>
