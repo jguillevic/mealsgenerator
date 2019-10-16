@@ -5,38 +5,62 @@ $(document).ready(function()
         return !$(item).hasClass("visible");
     }
 
-    function HideItem(item)
+    function HideItem(item, afterHide = null)
     {
         $(item).addClass("hidden");
         $(item).removeClass("visible");
+
+        if (afterHide != null)
+            afterHide(item);
     }
 
-    function DisplayItem(item)
+    function DisplayItem(item, afterDisplay = null)
     {
         $(item).addClass("visible");
         $(item).removeClass("hidden");
+
+        if (afterDisplay != null)
+            afterDisplay(item);
     }
 
-    function ToggleVisibility(item)
+    function ToggleVisibility(item, afterHide = null, afterDisplay = null)
     {
         if (item != null)
         {
             if (IsItemHidden(item))
-                DisplayItem(item);
+                DisplayItem(item, afterDisplay);
             else
-                HideItem(item);
+                HideItem(item, afterHide);
         }
     }
 
-    $(".nav__menu__item").click(function(event)
+    function ToggleMenuItemWrapperVisibility(wrapper)
+    {
+        ToggleVisibility(
+            wrapper
+            , function(item)
+            {
+                var menuItem = $(item).closest(".nav__menu__item");
+                menuItem.addClass("close");
+                menuItem.removeClass("open");
+            }
+            , function(item)
+            {
+                var menuItem = $(item).closest(".nav__menu__item");
+                menuItem.addClass("open");
+                menuItem.removeClass("close");
+            });
+    }
+
+    $(".nav__menu__item").click(function()
     {
         var wrapper = $(this).children(".nav__menu__sub-item__wrapper");
 
         if (wrapper != null)
-            ToggleVisibility(wrapper);
+            ToggleMenuItemWrapperVisibility(wrapper);
     });
 
-    $("#avatar").click(function(event)
+    $("#avatar").click(function()
     {
         var tooltip = $("#avatar-tooltip");
 
@@ -51,17 +75,15 @@ $(document).ready(function()
         if (event.target.id != "avatar" && avatarTooltip != null && !IsItemHidden(avatarTooltip))
             ToggleVisibility(avatarTooltip);
 
-        // var wrappers = $(".nav__menu__sub-item__wrapper");
-        // if (wrappers != null)
-        // {
-        //     HideItem(wrappers);
-        //     // $(wrappers).each(wrapper =>
-        //     // {
-        //     //     console.log(IsItemHidden(wrapper));
-        //     //     if (!IsItemHidden(wrapper))
-        //     //         ToggleVisibility(wrapper);
-        //     // });
-        // }
+        var wrappers = $(".nav__menu__sub-item__wrapper");
+        if (wrappers != null)
+        {
+            $(wrappers).each(function()
+            {
+                if (!$(event.target).hasClass("nav__menu__item") && !IsItemHidden(this))
+                    ToggleMenuItemWrapperVisibility(this);
+            });
+        }
     });
 
     $("#logout-link").click(function(event)
