@@ -3,6 +3,8 @@ use Framework\Tools\Helper\RoutesHelper;
 
 $user = $params["User"];
 
+$password = $params["Password"];
+
 $violations = $params["Violations"];
 $hasLoginErrors = $violations->HasErrors("Login");
 $hasPasswordErrors = $violations->HasErrors("Password");
@@ -41,7 +43,7 @@ $hasPasswordErrors = $violations->HasErrors("Password");
 
                     <div class="login__inputs-wrapper__input">
                         <div id="input-password" class="input input-password <?php if ($hasPasswordErrors) echo "error"; ?>">
-                            <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                            <input type="password" id="password" name="password" value="<?= $password; ?>" placeholder="Mot de passe" required>
                         </div>
 <?php if ($hasPasswordErrors): ?>
                         <section id="input-password-errors" class="error-text-wrapper">

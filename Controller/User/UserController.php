@@ -30,6 +30,7 @@ class UserController
 
             $wu = new WebsiteUser();
             $violations = new ViolationManager();
+            $password = "";
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
@@ -59,7 +60,7 @@ class UserController
                     $violations->AddError("Login", "L'identifiant n'existe pas.");
             }
 
-            return $view->Render([ "User" => $wu, "Violations" => $violations ]);
+            return $view->Render([ "User" => $wu, "Password" => $password, "Violations" => $violations ]);
         }
         catch (\Exception $e)
         {
@@ -93,6 +94,7 @@ class UserController
             $view = new View($path);
 
             $wu = new WebsiteUser();
+            $password = "";
             $violations = new ViolationManager();
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -123,7 +125,7 @@ class UserController
                 }
             }
 
-            return $view->Render([ "User" => $wu, "Violations" => $violations ]);
+            return $view->Render([ "User" => $wu, "Password" => $password, "Violations" => $violations ]);
         }
         catch (\Exception $e)
         {

@@ -25,8 +25,23 @@ use \Tools\Helper\UserHelper;
 					<span class="nav__menu-user-wrapper">
 						<span class="nav__menu">
 	<?php if (UserHelper::IsLogin()): ?>
-							<a href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>" tabindex="2">Repas</a>
-							<a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>" tabindex="3">Liste</a>
+							<div class="nav__menu__item" tabindex="2">
+								<span>Repas</span>
+								<div class="nav__menu__sub-item__wrapper hidden">
+									<ul>
+										<li><a href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Consulter</a></li>
+										<li><a href="<?= RoutesHelper::Path("GeneratePlannifiedMeals"); ?>">Générer</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="nav__menu__item" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>" tabindex="3">
+								<span>Liste</span>
+								<div class="nav__menu__sub-item__wrapper hidden">
+									<ul>
+										<li><a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Consulter</a></li>
+									</ul>
+								</div>
+							</div>
 	<?php endif; ?>
 						</span>
 

@@ -10,7 +10,7 @@ use Framework\Tools\Helper\RoutesHelper;
         </section>
 
         <section class="contact__wrapper">  
-            <form method="POST" action="<?= RoutesHelper::Path("ContactSend"); ?>">
+            <form method="POST" action="<?= RoutesHelper::Path("ContactSend"); ?>" enctype="multipart/form-data">
                 <div class="contact__inputs-wrapper">
                     <div class="contact__inputs-wrapper__input">
                         <div class="input">

@@ -10,7 +10,6 @@
 + Pouvoir ajouter un élément dans la liste des courses.
 + Au moment de la génération des repas, voir si l'on souhaite ou non faire soit même la recette dans le cas où elle existe.
 + Ne plus utiliser mon interface de sérialisation en json.
-+ Dans Contact, gérer l'envoi de fichiers.
++ Dans Contact, gérer l'envoi de fichiers (http://form.guide/php-form/html5-input-type-file.html).
 + Gérer le nom de l'appli + adresse du site dans un fichier de config.
 + Créer des styles communs (titres, liens, ...)
-+ Gérer la non accepation des cookies
