@@ -89,7 +89,7 @@ class PlannifiedMealController
 
                 $plannifiedMealBLL->Add($plannifiedMeals);
 
-                RoutesHelper::Redirect("DisplayHome");
+                RoutesHelper::Redirect("DisplayPlannifiedMeals");
             }
             else
                 RoutesHelper::Redirect("DisplayError");
