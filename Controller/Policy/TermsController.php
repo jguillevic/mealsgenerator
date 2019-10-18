@@ -10,9 +10,16 @@ class TermsController
 {
     public function Display($queryParameters)
 	{
-		$path = PathHelper::GetPath([ "Policy", "Terms", "Display" ]);
-		$view = new View($path);
-		
-		return $view->Render();
+		try
+		{
+			$path = PathHelper::GetPath([ "Policy", "Terms", "Display" ]);
+			$view = new View($path);
+			
+			return $view->Render();
+		}
+		catch (\Exception $e)
+		{
+			ErrorManager::Manage($e);
+		}
 	}
 }

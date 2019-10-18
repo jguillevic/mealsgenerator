@@ -13,149 +13,170 @@ class PlannifiedMealController
 {
     public function Display($queryParameters)
     {
-        if (UserHelper::IsLogin())
+        try
         {
-            if ($_SERVER["REQUEST_METHOD"] == "GET")
+            if (UserHelper::IsLogin())
             {
-                if (!array_key_exists("StartingDate", $queryParameters)
-                || !array_key_exists("EndingDate", $queryParameters))
+                if ($_SERVER["REQUEST_METHOD"] == "GET")
                 {
-                    $startingDate = new \DateTime();
-                    $endingDate = (new \DateTime())->modify("+6 day");
+                    if (!array_key_exists("StartingDate", $queryParameters)
+                    || !array_key_exists("EndingDate", $queryParameters))
+                    {
+                        $startingDate = new \DateTime();
+                        $endingDate = (new \DateTime())->modify("+6 day");
+                    }
+                    else
+                    {
+                        $startingDate = new \DateTime($queryParameters["StartingDate"]->GetValue());
+                        $endingDate = new \DateTime($queryParameters["EndingDate"]->GetValue());
+                    }
+
+                    $plannifiedMealBLL = new PlannifiedMealBLL();
+                    $plannifiedMeals = $plannifiedMealBLL->Load($startingDate, $endingDate);
+
+                    $plannifiedMealsByDate = [];
+
+                    foreach ($plannifiedMeals as $plannifiedMeal)
+                    {
+                        $date = $plannifiedMeal->GetDate()->format("Y-m-d");
+
+                        if (!array_key_exists($date, $plannifiedMealsByDate))
+                            $plannifiedMealsByDate[$date] = [];
+
+                        $plannifiedMealsByDate[$date]["Date"] = $plannifiedMeal->GetDate();
+                        $plannifiedMealsByDate[$date][$plannifiedMeal->GetKind()->GetCode()] = $plannifiedMeal;
+                    }
+
+                    $path = PathHelper::GetPath([ "Meal", "Display" ]);
+                    $view = new View($path);
+
+                    return $view->Render(
+                        [ 
+                            "PlannifiedMeals" => $plannifiedMealsByDate
+                            , "StartingDate" => $startingDate
+                            , "EndingDate" => $endingDate
+                        ]);
                 }
                 else
-                {
-                    $startingDate = new \DateTime($queryParameters["StartingDate"]->GetValue());
-                    $endingDate = new \DateTime($queryParameters["EndingDate"]->GetValue());
-                }
-
-                $plannifiedMealBLL = new PlannifiedMealBLL();
-                $plannifiedMeals = $plannifiedMealBLL->Load($startingDate, $endingDate);
-
-                $plannifiedMealsByDate = [];
-
-                foreach ($plannifiedMeals as $plannifiedMeal)
-                {
-                    $date = $plannifiedMeal->GetDate()->format("Y-m-d");
-
-                    if (!array_key_exists($date, $plannifiedMealsByDate))
-                        $plannifiedMealsByDate[$date] = [];
-
-                    $plannifiedMealsByDate[$date]["Date"] = $plannifiedMeal->GetDate();
-                    $plannifiedMealsByDate[$date][$plannifiedMeal->GetKind()->GetCode()] = $plannifiedMeal;
-                }
-
-                $path = PathHelper::GetPath([ "Meal", "Display" ]);
-                $view = new View($path);
-
-                return $view->Render(
-                    [ 
-                        "PlannifiedMeals" => $plannifiedMealsByDate
-                        , "StartingDate" => $startingDate
-                        , "EndingDate" => $endingDate
-                    ]);
+                    RoutesHelper::Redirect("DisplayError");
             }
             else
-                RoutesHelper::Redirect("DisplayError");
+                RoutesHelper::Redirect("UserLogin");
         }
-        else
-            RoutesHelper::Redirect("UserLogin");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Add($queryParameters)
     {
-        if (UserHelper::IsLogin())
+        try
         {
-            if ($_SERVER["REQUEST_METHOD"] == "POST")
+            if (UserHelper::IsLogin())
             {
-                $jsonPlannifiedMeals = $queryParameters["plannifiedMeals"]->GetValue();
-                $stdClassPlannifiedMeals = json_decode($jsonPlannifiedMeals);
-
-                $plannifiedMeals = [];
-                $dates = [];
-
-                foreach ($stdClassPlannifiedMeals as $stdClassPlannifiedMeal)
+                if ($_SERVER["REQUEST_METHOD"] == "POST")
                 {
-                    $plannifiedMeal = (new PlannifiedMeal())->SetFromStdClass($stdClassPlannifiedMeal);
-                    $plannifiedMeals[] = $plannifiedMeal;
+                    $jsonPlannifiedMeals = $queryParameters["plannifiedMeals"]->GetValue();
+                    $stdClassPlannifiedMeals = json_decode($jsonPlannifiedMeals);
 
-                    if (!in_array($plannifiedMeal->GetDate(), $dates))
-                        $dates[] = $plannifiedMeal->GetDate();
+                    $plannifiedMeals = [];
+                    $dates = [];
+
+                    foreach ($stdClassPlannifiedMeals as $stdClassPlannifiedMeal)
+                    {
+                        $plannifiedMeal = (new PlannifiedMeal())->SetFromStdClass($stdClassPlannifiedMeal);
+                        $plannifiedMeals[] = $plannifiedMeal;
+
+                        if (!in_array($plannifiedMeal->GetDate(), $dates))
+                            $dates[] = $plannifiedMeal->GetDate();
+                    }
+
+                    $plannifiedMealBLL = new PlannifiedMealBLL();
+
+                    $plannifiedMealBLL->Delete(min($dates), max($dates));
+
+                    $plannifiedMealBLL->Add($plannifiedMeals);
+
+                    RoutesHelper::Redirect("DisplayPlannifiedMeals");
                 }
-
-                $plannifiedMealBLL = new PlannifiedMealBLL();
-
-                $plannifiedMealBLL->Delete(min($dates), max($dates));
-
-                $plannifiedMealBLL->Add($plannifiedMeals);
-
-                RoutesHelper::Redirect("DisplayPlannifiedMeals");
+                else
+                    RoutesHelper::Redirect("DisplayError");
             }
             else
-                RoutesHelper::Redirect("DisplayError");
+                RoutesHelper::Redirect("UserLogin");
         }
-        else
-            RoutesHelper::Redirect("UserLogin");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Generate($queryParameters)
     {
-        if (UserHelper::IsLogin())
+        try
         {
-            if ($_SERVER["REQUEST_METHOD"] == "GET")
+            if (UserHelper::IsLogin())
             {
-                if (!array_key_exists("StartingDate", $queryParameters)
-                    || !array_key_exists("EndingDate", $queryParameters))
+                if ($_SERVER["REQUEST_METHOD"] == "GET")
                 {
-                    $startingDate = new \DateTime();
-                    $endingDate = (new \DateTime())->modify("+6 day");
+                    if (!array_key_exists("StartingDate", $queryParameters)
+                        || !array_key_exists("EndingDate", $queryParameters))
+                    {
+                        $startingDate = new \DateTime();
+                        $endingDate = (new \DateTime())->modify("+6 day");
+                    }
+                    else
+                    {
+                        $startingDate = new \DateTime($queryParameters["StartingDate"]->GetValue());
+                        $endingDate = new \DateTime($queryParameters["EndingDate"]->GetValue());
+                    }
+
+                    if (!array_key_exists("PersonNumber", $queryParameters))
+                        $personNumber = 2;
+                    else
+                        $personNumber = $queryParameters["PersonNumber"]->GetValue();
+
+                    $plannifiedMealBLL = new PlannifiedMealBLL();
+                    $plannifiedMeals = $plannifiedMealBLL->Generate($startingDate, $endingDate, $personNumber);
+
+                    $plannifiedMealsByDate = [];
+
+                    foreach ($plannifiedMeals as $plannifiedMeal)
+                    {
+                        $date = $plannifiedMeal->GetDate()->format("Y-m-d");
+
+                        if (!array_key_exists($date, $plannifiedMealsByDate))
+                            $plannifiedMealsByDate[$date] = [];
+
+                        $plannifiedMealsByDate[$date]["Date"] = $plannifiedMeal->GetDate();
+                        $plannifiedMealsByDate[$date][$plannifiedMeal->GetKind()->GetCode()] = $plannifiedMeal;
+                    }
+
+                    $isExisting = $plannifiedMealBLL->Exists($startingDate, $endingDate);
+
+                    $path = PathHelper::GetPath([ "Meal", "GeneratePlannifiedMeals" ]);
+                    $view = new View($path);
+
+                    return $view->Render(
+                        [ 
+                            "PlannifiedMealsByDate" => $plannifiedMealsByDate
+                            , "PlannifiedMeals" => $plannifiedMeals
+                            , "StartingDate" => $startingDate
+                            , "EndingDate" => $endingDate
+                            , "PersonNumber" => $personNumber 
+                            , "IsExisting" => $isExisting
+                        ]);
                 }
                 else
-                {
-                    $startingDate = new \DateTime($queryParameters["StartingDate"]->GetValue());
-                    $endingDate = new \DateTime($queryParameters["EndingDate"]->GetValue());
-                }
-
-                if (!array_key_exists("PersonNumber", $queryParameters))
-                    $personNumber = 2;
-                else
-                    $personNumber = $queryParameters["PersonNumber"]->GetValue();
-
-                $plannifiedMealBLL = new PlannifiedMealBLL();
-                $plannifiedMeals = $plannifiedMealBLL->Generate($startingDate, $endingDate, $personNumber);
-
-                $plannifiedMealsByDate = [];
-
-                foreach ($plannifiedMeals as $plannifiedMeal)
-                {
-                    $date = $plannifiedMeal->GetDate()->format("Y-m-d");
-
-                    if (!array_key_exists($date, $plannifiedMealsByDate))
-                        $plannifiedMealsByDate[$date] = [];
-
-                    $plannifiedMealsByDate[$date]["Date"] = $plannifiedMeal->GetDate();
-                    $plannifiedMealsByDate[$date][$plannifiedMeal->GetKind()->GetCode()] = $plannifiedMeal;
-                }
-
-                $isExisting = $plannifiedMealBLL->Exists($startingDate, $endingDate);
-
-                $path = PathHelper::GetPath([ "Meal", "GeneratePlannifiedMeals" ]);
-                $view = new View($path);
-
-                return $view->Render(
-                    [ 
-                        "PlannifiedMealsByDate" => $plannifiedMealsByDate
-                        , "PlannifiedMeals" => $plannifiedMeals
-                        , "StartingDate" => $startingDate
-                        , "EndingDate" => $endingDate
-                        , "PersonNumber" => $personNumber 
-                        , "IsExisting" => $isExisting
-                    ]);
+                    RoutesHelper::Redirect("DisplayError");
             }
             else
-                RoutesHelper::Redirect("DisplayError");
+                RoutesHelper::Redirect("UserLogin");
         }
-        else
-            RoutesHelper::Redirect("UserLogin");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

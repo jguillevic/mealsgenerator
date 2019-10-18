@@ -11,65 +11,79 @@ class ShoppingListController
 {
     public function Display($queryParameters)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET")
+        try
         {
-            if (!array_key_exists("StartingDate", $queryParameters)
-            || !array_key_exists("EndingDate", $queryParameters))
+            if ($_SERVER["REQUEST_METHOD"] == "GET")
             {
-                $startingDate = new \DateTime();
-                $endingDate = (new \DateTime())->modify("+6 day");
+                if (!array_key_exists("StartingDate", $queryParameters)
+                || !array_key_exists("EndingDate", $queryParameters))
+                {
+                    $startingDate = new \DateTime();
+                    $endingDate = (new \DateTime())->modify("+6 day");
+                }
+                else
+                {
+                    $startingDate = new \DateTime($queryParameters["StartingDate"]->GetValue());
+                    $endingDate = new \DateTime($queryParameters["EndingDate"]->GetValue());
+                }
+
+                $shoppingListBLL = new ShoppingListBLL();
+                $shoppingLists = $shoppingListBLL->Load();
+
+                $path = PathHelper::GetPath([ "ShoppingList", "Display" ]);
+                $view = new View($path);
+
+                return $view->Render(
+                    [ 
+                        "ShoppingLists" => $shoppingLists
+                        , "StartingDate" => $startingDate
+                        , "EndingDate" => $endingDate 
+                    ]
+                );
             }
-            else
-            {
-                $startingDate = new \DateTime($queryParameters["StartingDate"]->GetValue());
-                $endingDate = new \DateTime($queryParameters["EndingDate"]->GetValue());
-            }
 
-            $shoppingListBLL = new ShoppingListBLL();
-            $shoppingLists = $shoppingListBLL->Load();
-
-            $path = PathHelper::GetPath([ "ShoppingList", "Display" ]);
-            $view = new View($path);
-
-            return $view->Render(
-                [ 
-                    "ShoppingLists" => $shoppingLists
-                    , "StartingDate" => $startingDate
-                    , "EndingDate" => $endingDate 
-                ]
-            );
+            RoutesHelper::Redirect("DisplayError");
         }
-
-        RoutesHelper::Redirect("DisplayError");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Generate($queryParameters)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET")
+        try
         {
-            if (!array_key_exists("StartingDate", $queryParameters)
-            || !array_key_exists("EndingDate", $queryParameters))
+            if ($_SERVER["REQUEST_METHOD"] == "GET")
             {
-                $startingDate = new \DateTime();
-                $endingDate = (new \DateTime())->modify("+6 day");
-            }
-            else
-            {
-                $startingDate = new \DateTime($queryParameters["StartingDate"]->GetValue());
-                $endingDate = new \DateTime($queryParameters["EndingDate"]->GetValue());
+                if (!array_key_exists("StartingDate", $queryParameters)
+                || !array_key_exists("EndingDate", $queryParameters))
+                {
+                    $startingDate = new \DateTime();
+                    $endingDate = (new \DateTime())->modify("+6 day");
+                }
+                else
+                {
+                    $startingDate = new \DateTime($queryParameters["StartingDate"]->GetValue());
+                    $endingDate = new \DateTime($queryParameters["EndingDate"]->GetValue());
+                }
+
+                $shoppingListBLL = new ShoppingListBLL();
+                $shoppingList = $shoppingListBLL->Generate($startingDate, $endingDate);
+
+                return RoutesHelper::Redirect("DisplayShoppingLists", 
+                [ 
+                    "ShoppingLists" => [ $shoppingList ]
+                    , "StartingDate" => $startingDate->format("Y-m-d")
+                    , "EndingDate" => $endingDate->format("Y-m-d")
+                ]);
             }
 
-            $shoppingListBLL = new ShoppingListBLL();
-            $shoppingList = $shoppingListBLL->Generate($startingDate, $endingDate);
-
-            return RoutesHelper::Redirect("DisplayShoppingLists", 
-            [ 
-                "ShoppingLists" => [ $shoppingList ]
-                , "StartingDate" => $startingDate->format("Y-m-d")
-                , "EndingDate" => $endingDate->format("Y-m-d")
-            ]);
+            RoutesHelper::Redirect("DisplayError");
         }
-
-        RoutesHelper::Redirect("DisplayError");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

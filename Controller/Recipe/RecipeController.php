@@ -12,24 +12,31 @@ class RecipeController
 {
     public function Display($queryParameters)
     {
-        if (UserHelper::IsLogin())
+        try
         {
-            if ($_SERVER["REQUEST_METHOD"] == "GET")
+            if (UserHelper::IsLogin())
             {
-                $id = $queryParameters["Id"]->GetValue();
+                if ($_SERVER["REQUEST_METHOD"] == "GET")
+                {
+                    $id = $queryParameters["Id"]->GetValue();
 
-                $recipeBLL = new RecipeBLL();
-                $recipes = $recipeBLL->Load([ $id ]);
+                    $recipeBLL = new RecipeBLL();
+                    $recipes = $recipeBLL->Load([ $id ]);
 
-                $path = PathHelper::GetPath([ "Recipe", "Display" ]);
-                $view = new View($path);
+                    $path = PathHelper::GetPath([ "Recipe", "Display" ]);
+                    $view = new View($path);
 
-                return $view->Render([ "Recipe" => array_pop($recipes) ]);
+                    return $view->Render([ "Recipe" => array_pop($recipes) ]);
+                }
+
+                RoutesHelper::Redirect("DisplayError");
             }
-
-            RoutesHelper::Redirect("DisplayError");
+            else
+                RoutesHelper::Redirect("UserLogin");
         }
-        else
-            RoutesHelper::Redirect("UserLogin");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

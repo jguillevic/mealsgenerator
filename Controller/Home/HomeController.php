@@ -10,9 +10,16 @@ class HomeController
 {
 	public function Display($queryParameters)
 	{
-		$path = PathHelper::GetPath([ "Home", "Display" ]);
-		$view = new View($path);
-		
-		return $view->Render();
+		try
+        {
+			$path = PathHelper::GetPath([ "Home", "Display" ]);
+			$view = new View($path);
+			
+			return $view->Render();
+		}
+		catch (\Exception $e)
+		{
+			ErrorManager::Manage($e);
+		}
 	}
 }
