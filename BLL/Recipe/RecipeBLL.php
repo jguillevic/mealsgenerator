@@ -8,7 +8,7 @@ use DAL\Recipe\RecipeDAL;
 
 class RecipeBLL
 {   
-    public function Load($ids = null)
+    public function Load(array $ids = null) : array
     {
         try
         {

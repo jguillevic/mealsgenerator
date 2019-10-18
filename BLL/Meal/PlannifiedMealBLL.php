@@ -14,7 +14,7 @@ use DAL\Meal\MealKindDAL;
 
 class PlannifiedMealBLL
 {   
-    public function Load($startingDate, $endingDate)
+    public function Load(\DateTime $startingDate, \DateTime $endingDate) : array
     {
         try
         {
@@ -37,7 +37,7 @@ class PlannifiedMealBLL
         }
     }
 
-    public function Add($plannifiedMeals)
+    public function Add(array $plannifiedMeals) : void
     {
         try
         {
@@ -58,7 +58,7 @@ class PlannifiedMealBLL
         }
     }
 
-    public function Delete($startingDate, $endingDate)
+    public function Delete(\DateTime $startingDate, \DateTime $endingDate) : void
     {
         try
         {
@@ -79,7 +79,7 @@ class PlannifiedMealBLL
         }
     }
 
-    public function Exists($startingDate, $endingDate)
+    public function Exists(\DateTime $startingDate, \DateTime $endingDate) : bool
     {
         try
         {
@@ -102,7 +102,7 @@ class PlannifiedMealBLL
         }
     }
 
-    public function Generate($startingDate, $endingDate, $personNumber)
+    public function Generate(\DateTime $startingDate, \DateTime $endingDate, int $personNumber) : array
     {
         try
         {

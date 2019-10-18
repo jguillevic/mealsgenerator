@@ -8,7 +8,7 @@ use DAL\Contact\ContactDAL;
 
 class ContactBLL
 {
-    public function Add($contacts)
+    public function Add(array $contacts) : void
     {
         try
         {

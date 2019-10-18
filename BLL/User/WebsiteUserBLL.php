@@ -8,7 +8,7 @@ use DAL\User\WebsiteUserDAL;
 
 class WebsiteUserBLL
 {
-    public function IsLoginExists($login)
+    public function IsLoginExists(string $login) : bool
     {
         try
         {
@@ -31,7 +31,7 @@ class WebsiteUserBLL
         }
     }
 
-    public function IsEmailExists($login)
+    public function IsEmailExists(string $login) : bool
     {
         try
         {
@@ -54,7 +54,7 @@ class WebsiteUserBLL
         }
     }
 
-    public function IsPasswordHashMatches($login, $passwordHash)
+    public function IsPasswordHashMatches(string $login, string $passwordHash) : bool
     {
         try
         {
@@ -77,7 +77,7 @@ class WebsiteUserBLL
         }
     }
 
-    public function Add($websiteUser, $passwordHash)
+    public function Add(WebsiteUser $websiteUser, string $passwordHash) : void
     {
         try
         {
@@ -99,7 +99,7 @@ class WebsiteUserBLL
         }
     }
 
-    public function LoadFromLogin($login)
+    public function LoadFromLogin(string $login) : ?WebsiteUser
     {
         try
         {

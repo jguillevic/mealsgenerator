@@ -118,7 +118,7 @@ class WebsiteUserDAL
         }
     }
 
-    public function Add(User $user, string $passwordHash) : void
+    public function Add(WebsiteUser $user, string $passwordHash) : void
     {
         try
         {
@@ -146,7 +146,7 @@ class WebsiteUserDAL
         }
     }
 
-    public function LoadFromLogin(string $login) : ?User
+    public function LoadFromLogin(string $login) : ?WebsiteUser
     {
         try
         {

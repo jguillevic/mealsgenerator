@@ -8,7 +8,7 @@ use DAL\User\FacebookUserDAL;
 
 class FacebookUserBLL
 {
-    public function AddOrUpdate($facebookUser)
+    public function AddOrUpdate(FacebookUser $facebookUser) : void
     {
         try
         {
@@ -19,7 +19,6 @@ class FacebookUserBLL
             $fbDAL->AddOrUpdate($facebookUser);
 
             $db->Commit();
-
         }
         catch (\Exception $e)
         {

@@ -8,7 +8,7 @@ use DAL\Meal\MealDAL;
 
 class MealBLL
 {  
-    public function Load()
+    public function Load() : array
     {
         try
         {
