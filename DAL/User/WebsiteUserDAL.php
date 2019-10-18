@@ -10,7 +10,7 @@ class WebsiteUserDAL
 {
     private $db;
     
-	public function __construct($db = null)
+	public function __construct(Database $db = null)
 	{
 		if (isset($db))
 			$this->db = $db;
@@ -18,7 +18,7 @@ class WebsiteUserDAL
 			$this->db = new Database();
     }
 
-    public function IsLoginExists($login)
+    public function IsLoginExists(string $login) : bool
     {
         try
         {
@@ -42,7 +42,7 @@ class WebsiteUserDAL
         }
     }
 
-    public function IsEmailExists($email)
+    public function IsEmailExists(string $email) : bool
     {
         try
         {
@@ -66,7 +66,7 @@ class WebsiteUserDAL
         }
     }
 
-    public function IsPasswordHashMatches($login, $passwordHash)
+    public function IsPasswordHashMatches(string $login, string $passwordHash) : bool
     {
         try
         {
@@ -89,7 +89,7 @@ class WebsiteUserDAL
         }
     }
 
-    private function LoadPasswordHashFromLogin($login)
+    private function LoadPasswordHashFromLogin(string $login) : string
     {
         try
         {
@@ -118,7 +118,7 @@ class WebsiteUserDAL
         }
     }
 
-    public function Add($user, $passwordHash)
+    public function Add(User $user, string $passwordHash) : void
     {
         try
         {
@@ -146,7 +146,7 @@ class WebsiteUserDAL
         }
     }
 
-    public function LoadFromLogin($login)
+    public function LoadFromLogin(string $login) : ?User
     {
         try
         {

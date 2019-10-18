@@ -11,7 +11,7 @@ class InstructionDAL
 {
     private $db;
     
-	public function __construct($db = null)
+	public function __construct(Database $db = null)
 	{
 		if (isset($db))
 			$this->db = $db;
@@ -19,7 +19,7 @@ class InstructionDAL
 			$this->db = new Database();
     }
 
-    public function Load($recipeIds)
+    public function Load(array $recipeIds) : array
     {
         try
         {

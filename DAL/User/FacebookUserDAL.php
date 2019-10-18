@@ -10,7 +10,7 @@ class FacebookUserDAL
 {
     private $db;
     
-	public function __construct($db = null)
+	public function __construct(Database $db = null)
 	{
 		if (isset($db))
 			$this->db = $db;
@@ -18,7 +18,7 @@ class FacebookUserDAL
 			$this->db = new Database();
     }
 
-    public function AddOrUpdate($facebookUser)
+    public function AddOrUpdate(FacebookUser $facebookUser) : void
     {
         try
         {

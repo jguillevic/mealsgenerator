@@ -12,7 +12,7 @@ class MealMealKindDAL
 {
     private $db;
     
-	public function __construct($db = null)
+	public function __construct(Database $db = null)
 	{
 		if (isset($db))
 			$this->db = $db;
@@ -20,7 +20,7 @@ class MealMealKindDAL
 			$this->db = new Database();
     }
 
-    public function Load($mealIds)
+    public function Load(array $mealIds) : array
     {
         try
         {

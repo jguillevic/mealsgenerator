@@ -11,7 +11,7 @@ class UnitDAL
 {
     private $db;
     
-	public function __construct($db = null)
+	public function __construct(Database $db = null)
 	{
 		if (isset($db))
 			$this->db = $db;
@@ -19,7 +19,7 @@ class UnitDAL
 			$this->db = new Database();
     }
 
-    public function Load()
+    public function Load() : array
     {
         try
         {

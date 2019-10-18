@@ -11,7 +11,7 @@ class ContactDAL
 {
     private $db;
     
-	public function __construct($db = null)
+	public function __construct(Database $db = null)
 	{
 		if (isset($db))
 			$this->db = $db;
@@ -19,7 +19,7 @@ class ContactDAL
 			$this->db = new Database();
     }
 
-    public function Add($contacts)
+    public function Add(array $contacts) : void
     {
         try
         {
