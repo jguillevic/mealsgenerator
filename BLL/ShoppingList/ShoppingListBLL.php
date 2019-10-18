@@ -35,7 +35,7 @@ class ShoppingListBLL
         }
     }
 
-    public function Generate(\DateTime $startingDate, \DateTime $endingDate) : array
+    public function Generate(\DateTime $startingDate, \DateTime $endingDate) : ShoppingList
     {
         try
         {
