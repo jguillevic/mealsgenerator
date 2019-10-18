@@ -7,46 +7,46 @@ use Framework\Tools\Json\IJsonSerializable;
 class Instruction implements IJsonSerializable
 {
     private $id = -1;
-    private $order;
-    private $content;
+    private $order = -1;
+    private $content = "";
 
-    public function GetId()
+    public function GetId() : int
     {
         return $this->id;
     }
 
-    public function SetId($id)
+    public function SetId(int $id) : Instruction
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function GetOrder()
+    public function GetOrder() : int
     {
         return $this->order;
     }
 
-    public function SetOrder($order)
+    public function SetOrder(int $order) : Instruction
     {
         $this->order = $order;
 
         return $this;
     }
 
-    public function GetContent()
+    public function GetContent() : string
     {
         return $this->content;
     }
 
-    public function SetContent($content)
+    public function SetContent(string $content) : Instruction
     {
         $this->content = $content;
 
         return $this;
     }
 
-    public function SerializeToJson()
+    public function SerializeToJson() : string
     {
         $json = "{\"Id\":" . $this->GetId()
             . ",\"Order\":" . $this->GetOrder()

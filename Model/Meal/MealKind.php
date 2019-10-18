@@ -11,46 +11,46 @@ class MealKind implements IJsonSerializable
     const DINNER_CODE = "DINNER";
 
     private $id = -1;
-    private $code;
-    private $name;
+    private $code = "";
+    private $name = "";
 
-    public function GetId()
+    public function GetId() : int
     {
         return $this->id;
     }
 
-    public function Setid($id)
+    public function Setid(int $id) : MealKind
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function GetCode()
+    public function GetCode() : string
     {
         return $this->code;
     }
 
-    public function SetCode($code)
+    public function SetCode(string $code) : MealKind
     {
         $this->code = $code;
 
         return $this;
     }
 
-    public function GetName()
+    public function GetName() : string
     {
         return $this->name;
     }
 
-    public function SetName($name)
+    public function SetName(string $name) : MealKind
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function SerializeToJson()
+    public function SerializeToJson() : string
     {
         $json = "{\"Id\":" . $this->GetId() 
             . ",\"Code\":\"" . $this->GetCode() . "\""
@@ -60,7 +60,7 @@ class MealKind implements IJsonSerializable
         return $json;
     }
 
-    public function SetFromStdClass($object)
+    public function SetFromStdClass(\stdClass $object) : MealKind
     {
         $this->SetId($object->Id);
         $this->SetCode($object->Code);

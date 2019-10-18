@@ -7,33 +7,33 @@ use Framework\Tools\Json\IJsonSerializable;
 class UnitCategory implements IJsonSerializable
 {
     private $id = -1;
-    private $code;
+    private $code = "";
 
-    public function GetId()
+    public function GetId() : int
     {
         return $this->id;
     }
 
-    public function SetId($id)
+    public function SetId(int $id) : UnitCategory
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function GetCode()
+    public function GetCode() : string
     {
         return $this->code;
     }
 
-    public function SetCode($code)
+    public function SetCode(string $code) : UnitCategory
     {
         $this->code = $code;
 
         return $this;
     }
 
-    public function SerializeToJson()
+    public function SerializeToJson() : string
     {
         $json = "{\"Id\":" . $this->GetId()
             . ",\"Code\":\"" . $this->GetCode() . "\""
