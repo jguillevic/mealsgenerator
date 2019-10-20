@@ -6,6 +6,7 @@ class Database
 {
 	private $connect;
 	private $transactionCount = 0;
+	private $lastStmt = null;
 
 	public function __construct()
 	{
@@ -63,13 +64,19 @@ class Database
 	public function Execute($query, $params = null)
 	{
 		$stmt = $this->connect->prepare($query);
+		$this->lastStmt = $stmt;
 
 		if (isset($params))
 			$stmt->execute($params);
 		else
 			$stmt->execute();
-
+		
 		return $stmt;
+	}
+
+	public function GetRowCount()
+	{
+		return $this->lastStmt->rowCount();
 	}
 
 	public function Read($query, $params = null)

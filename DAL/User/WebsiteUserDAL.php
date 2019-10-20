@@ -74,12 +74,64 @@ class WebsiteUserDAL
 
             $loadedPasswordHash = $this->LoadPasswordHashFromLogin($login);
 
+            var_dump($loadedPasswordHash);
+            var_dump($passwordHash);
+
             $this->db->Commit();
 
             if ($loadedPasswordHash != null)
-                return $loadedPasswordHash == $passwordHash;
+                return $loadedPasswordHash === $passwordHash;
 
             return false;
+        }
+        catch (\Exception $e)
+        {
+            $this->db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
+    }
+
+    public function IsActivated(string $login) : bool
+    {
+        try
+        {
+            $query = "SELECT IsActivated FROM WebsiteUser AS WU WHERE WU.Login = :Login;";
+
+            $params = [ ":Login" => $login ];
+
+            $this->db->BeginTransaction();
+
+            $rows = $this->db->Read($query, $params);
+
+            $this->db->Commit();
+
+            return $rows[0]["IsActivated"];
+        }
+        catch (\Exception $e)
+        {
+            $this->db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
+    }
+
+    public function Activate(string $activationCode) : bool
+    {
+        try
+        {
+            $query = "UPDATE WebsiteUser SET IsActivated = 1 WHERE ActivationCode = :ActivationCode AND IsActivated = 0;";
+
+            $params = [ ":ActivationCode" => $activationCode ];
+
+            $this->db->BeginTransaction();
+
+            $this->db->Execute($query, $params);
+            $rowCount = $this->db->GetRowCount();
+
+            $this->db->Commit();
+
+            return $rowCount > 0;
         }
         catch (\Exception $e)
         {
@@ -118,25 +170,31 @@ class WebsiteUserDAL
         }
     }
 
-    public function Add(WebsiteUser $user, string $passwordHash) : void
+    public function Add(WebsiteUser $user, string $passwordHash) : bool
     {
         try
         {
-            $query = "INSERT INTO WebsiteUser (Login, Email, PasswordHash, AvatarUrl)
-                      VALUES (:Login, :Email, :PasswordHash, :AvatarUrl);";
+            $query = "INSERT INTO WebsiteUser (Login, Email, PasswordHash, AvatarUrl, IsActivated, ActivationCode, ForgottenPasswordCode)
+                      VALUES (:Login, :Email, :PasswordHash, :AvatarUrl, :IsActivated, :ActivationCode, :ForgottenPasswordCode);";
             
             $params = [ 
                 ":Login" => $user->GetLogin()
                 , ":Email" => $user->GetEmail() 
                 , ":PasswordHash" => $passwordHash
                 , ":AvatarUrl" => $user->GetAvatarUrl()
+                , ":IsActivated" => $user->GetIsActivated() ? 1 : 0
+                , ":ActivationCode" => $user->GetActivationCode()
+                , ":ForgottenPasswordCode" => $user->GetForgottenPasswordCode()
             ];
 
             $this->db->BeginTransaction();
 
             $this->db->Execute($query, $params);
+            $rowCount = $this->db->GetRowCount();
 
             $this->db->Commit();
+
+            return $rowCount > 0;
         }
         catch (\Exception $e)
         {
@@ -150,7 +208,15 @@ class WebsiteUserDAL
     {
         try
         {
-            $query = "SELECT WU.Id, WU.Login, WU.Email, WU.AvatarUrl FROM WebsiteUser AS WU WHERE WU.Login = :Login;";
+            $query = "SELECT WU.Id
+                      , WU.Login
+                      , WU.Email
+                      , WU.AvatarUrl
+                      , WU.IsActivated
+                      , WU.ActivationCode 
+                      , WU.ForgottenPasswordCode
+                      FROM WebsiteUser AS WU 
+                      WHERE WU.Login = :Login;";
 
             $params = [
                 ":Login" => $login
@@ -171,6 +237,9 @@ class WebsiteUserDAL
                 $wu->SetLogin($row["Login"]);
                 $wu->SetEmail($row["Email"]);
                 $wu->SetAvatarUrl($row["AvatarUrl"]);
+                $wu->SetIsActivated($row["IsActivated"] == 1);
+                $wu->SetActivationCode($row["ActivationCode"]);
+                $wu->SetForgottenPasswordCode($row["ForgottenPasswordCode"]);
 
                 return $wu;
             }

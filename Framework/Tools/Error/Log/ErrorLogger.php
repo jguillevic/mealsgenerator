@@ -13,6 +13,7 @@ class ErrorLogger
             . "File : " . $exception->getFile() . "\n"
             . "Line : " . $exception->getLine() . "\n"
             . "Message : " . $exception->getMessage() . "\n"
+            . "Pile d'appel : " . $exception->getTraceAsString() . "\n"
             . "################################################################################################\n";
 
         fwrite($file, $message);

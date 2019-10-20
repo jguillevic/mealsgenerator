@@ -1,4 +1,4 @@
-.contact-send
+.information
 {
     display: block;
 
@@ -22,7 +22,7 @@
             font-weight: 700;
 
             margin: 0;
-            margin-bottom: 0.3em;
+            margin-bottom: 0.8em;
             padding: 0;
 
             display: block;
@@ -36,14 +36,31 @@
             font-weight: 400;
 
             margin: 0;
-            margin-bottom: 2em;
+            margin-bottom: 0.4em;
             padding: 0;
 
             display: block;
         }
+
+        & > form
+        {
+            margin-top: 3em;
+        }
     }
 
-    &__icon
+    &__icon--success
+    {
+        width: 8em;
+        height: 8em;
+
+        display: block;
+
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2em;
+    }
+
+    &__icon--error
     {
         width: 8em;
         height: 8em;

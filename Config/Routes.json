@@ -48,6 +48,12 @@
 		, "Name": "UserRegister"
 	}
 	, {
+		"Path": "/User/Activate"
+		, "Controller": "User\\UserController"
+		, "Action": "Activate"
+		, "Name": "UserActivate"
+	}
+	, {
 		"Path": "/PlannifiedMeal"
 		, "Controller": "Meal\\PlannifiedMealController"
 		, "Action": "Display"

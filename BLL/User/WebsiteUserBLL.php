@@ -5,6 +5,7 @@ namespace BLL\User;
 use Framework\DAL\Database;
 use Framework\Tools\Error\ErrorManager;
 use DAL\User\WebsiteUserDAL;
+use Model\User\WebsiteUser;
 
 class WebsiteUserBLL
 {
@@ -77,7 +78,7 @@ class WebsiteUserBLL
         }
     }
 
-    public function Add(WebsiteUser $websiteUser, string $passwordHash) : void
+    public function IsActivated(string $login) : bool
     {
         try
         {
@@ -85,10 +86,86 @@ class WebsiteUserBLL
             $db->BeginTransaction();
 
             $wuDAL = new WebsiteUserDAL($db);
-            $wuDAL->Add($websiteUser, $passwordHash);
+            $isActivated = $wuDAL->IsActivated($login);
 
             $db->Commit();
 
+            return $isActivated == 1;
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
+    }
+
+    public function Activate(string $activationCode) : bool
+    {
+        try
+        {
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $wuDAL = new WebsiteUserDAL($db);
+            $result = $wuDAL->Activate($activationCode);
+
+            $db->Commit();
+
+            return $result;
+        }
+        catch (\Exception $e)
+        {
+            if ($db != null)
+                $db->Rollback();
+
+            ErrorManager::Manage($e);
+        }
+    }
+
+    public function Register(WebsiteUser $websiteUser, string $passwordHash) : void
+    {
+        try
+        {
+            // Ajout de l'utilisateur.
+            $db = new Database();
+            $db->BeginTransaction();
+
+            $wuDAL = new WebsiteUserDAL($db);
+            $result = $wuDAL->Add($websiteUser, $passwordHash);
+
+            // Envoi du mail.
+            if ($result === true)
+            {
+                $to = $websiteUser->GetEmail();
+                $subject = "Activation de votre compte mymeals.fr";
+                $url = "https://mealsgenerator.local/User/Activate?code=" . $websiteUser->GetActivationCode();
+                $message = "
+                <html>
+                    <head>
+                        <title>Activation de votre compte MyMeals.fr</title>
+                    </head>
+                    <body>
+                        <p>Bienvenue " . $websiteUser->GetLogin() . " !</p>
+                        <p>Nous vous remerçions d'avoir créé votre compte.</p>
+                        <p>Afin de valider l'activation de votre compte, veuillez cliquer sur le lien ci-dessous :<br/>
+                        <a href=\"" . $url . "\">" . $url . "</a></p>
+                        <p>Si le lien ci-dessus n'est pas cliquable, veuillez le copier dans votre navigateur internet favori.</p>
+                        <p>A tout de suite !</p>
+                    </body>
+                </html>";
+
+                $headers[] = "MIME-Version: 1.0";
+                $headers[] = "Content-type: text/html; charset=utf-8";
+                $headers[] = "To: " . $websiteUser->GetEmail();
+                $headers[] = "From: mymealscontact@gmail.com";
+
+                if (mail($to, $subject, $message, implode("\r\n", $headers)) === false)
+                    throw new \Exception("Problème lors de l'envoi du mail.");
+
+                $db->Commit();
+            }
         }
         catch (\Exception $e)
         {

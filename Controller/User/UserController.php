@@ -18,6 +18,21 @@ class UserController
 {
     private $salt = "191190+260886+Simba+Jazz";
 
+    public function Logout($queryParameters)
+    {
+        try
+        {
+            if (UserHelper::IsLogin())
+                UserHelper::Logout();
+            
+            RoutesHelper::Redirect("DisplayHome");    
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
+    }
+
     public function Login($queryParameters)
     {
         try
@@ -42,12 +57,13 @@ class UserController
                 $wuBLL = new WebsiteUserBLL();
 
                 $isLoginExists = $wuBLL->IsLoginExists($login);
+                $isActivated = $wuBLL->IsActivated($login);
 
-                if ($isLoginExists)
+                if ($isLoginExists === true && $isActivated === true)
                 {
                     $isPasswordHashMatches = $wuBLL->IsPasswordHashMatches($login, $passwordHash);
 
-                    if ($isPasswordHashMatches)
+                    if ($isPasswordHashMatches === true)
                     {
                         $wu = $wuBLL->LoadFromLogin($login);
                         UserHelper::WebsiteLogin($wu);
@@ -61,21 +77,6 @@ class UserController
             }
 
             return $view->Render([ "User" => $wu, "Password" => $password, "Violations" => $violations ]);
-        }
-        catch (\Exception $e)
-        {
-            ErrorManager::Manage($e);
-        }
-    }
-
-    public function Logout($queryParameters)
-    {
-        try
-        {
-            if (UserHelper::IsLogin())
-                UserHelper::Logout();
-            
-            RoutesHelper::Redirect("DisplayHome");    
         }
         catch (\Exception $e)
         {
@@ -111,10 +112,18 @@ class UserController
                 $isLoginExists = $wuBLL->IsLoginExists($login);
                 $isEmailExists = $wuBLL->IsEmailExists($email);
 
-                if (!$isLoginExists && !$isEmailExists)
+                if ($isLoginExists === false && $isEmailExists === false)
                 {
-                    $wuBLL->Add($wu, $passwordHash);
-                    RoutesHelper::Redirect("UserLogin");
+                    // Création du code d'activation (GUID).
+                    $activationCode = str_replace("}", "", str_replace("{", "", com_create_guid()));
+                    $wu->SetActivationCode($activationCode);
+
+                    $wuBLL->Register($wu, $passwordHash);
+
+                    $path = PathHelper::GetPath([ "User", "RegisterConfirmed" ]);
+                    $view = new View($path);
+
+                    return $view->Render();
                 }
                 else
                 {
@@ -126,6 +135,82 @@ class UserController
             }
 
             return $view->Render([ "User" => $wu, "Password" => $password, "Violations" => $violations ]);
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
+    }
+
+    public function Activate($queryParameters)
+    {
+        try
+        {
+            if (UserHelper::IsLogin())
+                RoutesHelper::Redirect("DisplayHome");
+
+            $code = $queryParameters["code"]->GetValue();
+
+            $wuBLL = new WebsiteUserBLL();
+            $result = $wuBLL->Activate($code);
+
+            if ($result === true)
+            {
+                $path = PathHelper::GetPath([ "User", "Activated" ]);
+                $view = new View($path);
+
+                return $view->Render();
+            }
+            else
+            {
+                $path = PathHelper::GetPath([ "User", "ActivationError" ]);
+                $view = new View($path);
+
+                return $view->Render();
+            }
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
+    }
+
+    public function ForgottenPassword($queryParameters)
+    {
+        try
+        {
+            if (UserHelper::IsLogin())
+                RoutesHelper::Redirect("DisplayHome");
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST")
+            {
+                $email = $queryParameters["email"]->GetValue();
+            }
+            else
+            {
+                $path = PathHelper::GetPath([ "User", "ForgottenPassword" ]);
+                $view = new View($path);
+
+                return $view->Render();
+            }
+        }
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
+    }
+
+    public function ChangePassword($queryParameters)
+    {
+        try
+        {
+            if (UserHelper::IsLogin())
+                RoutesHelper::Redirect("DisplayHome");
+
+            $code = $queryParameters["code"]->GetValue();
+
+            // Vérifier que le code existe.
+            //
         }
         catch (\Exception $e)
         {

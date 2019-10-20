@@ -8,6 +8,9 @@ class WebsiteUser implements \JsonSerializable
     private $login = "";
     private $email = "";
     private $avatarUrl = "";
+    private $isActivated = false;
+    private $activationCode = null;
+    private $forgottenPasswordCode = null;
 
     public function GetId() : int
     {
@@ -57,6 +60,42 @@ class WebsiteUser implements \JsonSerializable
         return $this;
     }
 
+    public function GetIsActivated() : bool
+    {
+        return $this->isActivated;
+    }
+
+    public function SetIsActivated(bool $isActivated) : WebsiteUser
+    {
+        $this->isActivated = $isActivated;
+
+        return $this;
+    }
+
+    public function GetActivationCode() : ?string
+    {
+        return $this->activationCode;
+    }
+
+    public function SetActivationCode(?string $activationCode) : WebsiteUser
+    {
+        $this->activationCode = $activationCode;
+
+        return $this;
+    }
+
+    public function GetForgottenPasswordCode() : ?string
+    {
+        return $this->forgottenPasswordCode;
+    }
+
+    public function SetForgottenPasswordCode(?string $forgottenPasswordCode) : WebsiteUser
+    {
+        $this->forgottenPasswordCode = $forgottenPasswordCode;
+
+        return $this;
+    }
+
     public function jsonSerialize() : array
     {
         return [
@@ -64,6 +103,8 @@ class WebsiteUser implements \JsonSerializable
             , "Login" => $this->GetLogin()
             , "Email" => $this->GetEmail()
             , "AvatarUrl" => $this->GetAvatarUrl()
+            , "IsActivated" => $this->GetIsActivated()
+            , "ActivationCode" => $this->GetActivationCode()
         ];
     }
 }

@@ -920,7 +920,7 @@ option:not(:checked) {
       -ms-flex-pack: center;
           justify-content: center; }
 
-.wrapper-column-center, .contact-send__wrapper {
+.wrapper-column-center, .information__wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -943,6 +943,48 @@ option:not(:checked) {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between; }
+
+.information {
+  display: block;
+  width: 100%;
+  padding-top: 5em; }
+  .information__wrapper {
+    width: 100%;
+    text-align: center; }
+    .information__wrapper > h1 {
+      color: #000000;
+      font-family: "Montserrat";
+      font-size: 4em;
+      font-weight: 700;
+      margin: 0;
+      margin-bottom: 0.8em;
+      padding: 0;
+      display: block; }
+    .information__wrapper > p {
+      color: #000000;
+      font-family: "Montserrat";
+      font-size: 1.5em;
+      font-weight: 400;
+      margin: 0;
+      margin-bottom: 0.4em;
+      padding: 0;
+      display: block; }
+    .information__wrapper > form {
+      margin-top: 3em; }
+  .information__icon--success {
+    width: 8em;
+    height: 8em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em; }
+  .information__icon--error {
+    width: 8em;
+    height: 8em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em; }
 
 .login {
   width: 100%;
@@ -1109,39 +1151,6 @@ option:not(:checked) {
     margin-bottom: 3em; }
   .contact__buttons-wrapper {
     margin-top: 3em; }
-
-.contact-send {
-  display: block;
-  width: 100%;
-  padding-top: 5em; }
-  .contact-send__wrapper {
-    width: 100%;
-    text-align: center; }
-    .contact-send__wrapper > h1 {
-      color: #000000;
-      font-family: "Montserrat";
-      font-size: 4em;
-      font-weight: 700;
-      margin: 0;
-      margin-bottom: 0.3em;
-      padding: 0;
-      display: block; }
-    .contact-send__wrapper > p {
-      color: #000000;
-      font-family: "Montserrat";
-      font-size: 1.5em;
-      font-weight: 400;
-      margin: 0;
-      margin-bottom: 2em;
-      padding: 0;
-      display: block; }
-  .contact-send__icon {
-    width: 8em;
-    height: 8em;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2em; }
 
 .dm__form {
   display: block;
