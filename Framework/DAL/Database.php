@@ -23,22 +23,11 @@ class Database
 			self::Rollback();
 	}
 
-	private static function GetConfig()
-	{
-		$configPath = join(DIRECTORY_SEPARATOR, array(__DIR__, '..' , '..', 'Config', 'Database.json'));
-
-		$json = file_get_contents($configPath);
-
-		$config = json_decode($json, true);
-
-		return $config;
-	}
-
 	private static function GetPDO()
 	{
 		$config = self::GetConfig();
 
-		return new \PDO("mysql:host=".$config["Host"]."; dbname=".$config["DbName"]."", $config["Username"], $config["Password"]);
+		return new \PDO("mysql:host=".getenv("DBHost")."; dbname=".getenv("DBName")."", getenv("DBLogin"), getenv("DBPwd"));
 	}
 
 	public function GetLastInsertId()
