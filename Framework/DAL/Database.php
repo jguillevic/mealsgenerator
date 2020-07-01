@@ -25,8 +25,6 @@ class Database
 
 	private static function GetPDO()
 	{
-		$config = self::GetConfig();
-
 		return new \PDO("mysql:host=".getenv("DBHost")."; dbname=".getenv("DBName")."", getenv("DBLogin"), getenv("DBPwd"));
 	}
 
