@@ -2,26 +2,26 @@
 
 namespace Model\Meal;
 
-use Framework\Tools\Json\IJsonSerializable;
 use Model\Meal\MealItem;
+use Framework\Tools\Json\IJsonSerializable;
 
 class MealMealItem implements IJsonSerializable
 {
-    private $mealItem;
+    private $mealItem = null;
 
-    public function GetMealItem()
+    public function GetMealItem() : ?MealItem
     {
         return $this->mealItem;
     }
 
-    public function SetMealItem($mealItem)
+    public function SetMealItem(?MealItem $mealItem) : MealMealItem
     {
         $this->mealItem = $mealItem;
 
         return $this;
     }
 
-    public function SerializeToJson()
+    public function SerializeToJson() : string
     {
         $json = "{\"MealItem\":" . $this->GetMealItem()->SerializeToJson()
             . "}";
@@ -29,7 +29,7 @@ class MealMealItem implements IJsonSerializable
         return $json;
     }
 
-    public function SetFromStdClass($object)
+    public function SetFromStdClass(\stdClass $object) : MealMealItem
     {
         $mealItem = (new MealItem())->SetFromStdClass($object->MealItem);
         $this->SetMealItem($mealItem);

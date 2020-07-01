@@ -4,6 +4,56 @@ CREATE DATABASE meals_generator;
 
 USE meals_generator;
 
+CREATE TABLE Repository
+(
+	Id INT NOT NULL AUTO_INCREMENT
+	, PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+CREATE TABLE Month
+(
+	Id INT NOT NULL AUTO_INCREMENT
+	, Code NVARCHAR(20) NOT NULL UNIQUE
+	, Name NVARCHAR(200) NOT NULL
+	, PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+CREATE TABLE WebsiteUser
+(
+	Id INT NOT NULL AUTO_INCREMENT
+	, Login NVARCHAR(200) NOT NULL UNIQUE
+	, Email NVARCHAR(200) NOT NULL UNIQUE
+	, AvatarUrl NVARCHAR(500) NOT NULL
+	, PasswordHash NVARCHAR(128) NOT NULL -- SHA-512
+	, IsActivated TINYINT(1) NOT NULL
+	, ActivationCode CHAR(36) NOT NULL UNIQUE -- GUID
+	, ForgottenPasswordCode CHAR(36) NULL UNIQUE -- GUID
+	, PRIMARY KEY (Id)
+ ) ENGINE=InnoDB;
+
+ CREATE TABLE FacebookUser
+(
+	FacebookId BIGINT NOT NULL
+	, FirstName NVARCHAR(200) NOT NULL
+	, LastName NVARCHAR(200) NOT NULL
+	, Email NVARCHAR(200) NOT NULL
+	, Birthday DATE NOT NULL
+	, ProfilePictureUrl NVARCHAR(500) NOT NULL
+	, AccessToken NVARCHAR(500) NOT NULL
+	, ExpirationDate DATETIME NOT NULL
+	, PRIMARY KEY (FacebookId)
+ ) ENGINE=InnoDB;
+
+ CREATE TABLE Contact
+ (
+	Id INT NOT NULL AUTO_INCREMENT
+	, FirstName NVARCHAR(200) NOT NULL
+	, LastName NVARCHAR(200) NOT NULL
+	, Email NVARCHAR(200) NOT NULL
+	, Content TEXT NOT NULL
+	, PRIMARY KEY (Id)
+ ) ENGINE=InnoDB;
+
 CREATE TABLE ShoppingCategory
 (
 	Id INT NOT NULL AUTO_INCREMENT
@@ -86,6 +136,17 @@ CREATE TABLE MealItem
 	, WeekProposedMaxCount INT NOT NULL
 	, RecipeId INT NULL
 	, PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+-- Disponibilité des MealItem en fonction des mois.
+-- Ligne pour un mois = Disponible pour ce mois.
+CREATE TABLE MealItem_Month
+(
+	MealItemId INT NOT NULL
+	, MonthId INT NOT NULL
+	, PRIMARY KEY (MealItemId, MonthId)
+	, FOREIGN KEY (MealItemId) REFERENCES MealItem(Id)
+	, FOREIGN KEY (MonthId) REFERENCES Month(Id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE Meal

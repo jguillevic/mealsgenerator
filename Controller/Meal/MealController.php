@@ -13,28 +13,35 @@ class MealController
 {
     public function Display($queryParameters)
 	{
-        if (UserHelper::IsLogin())
-		{
-            $currentDayOfWeekInInt = strftime("%u");
+        try
+        {
+            if (UserHelper::IsLogin())
+            {
+                $currentDayOfWeekInInt = strftime("%u");
 
-            $startingDateTime = new \DateTime("NOW");
-            $value = $currentDayOfWeekInInt - 1;
-            $startingDateTime->sub(new \DateInterval("P".$value."D"));
+                $startingDateTime = new \DateTime("NOW");
+                $value = $currentDayOfWeekInInt - 1;
+                $startingDateTime->sub(new \DateInterval("P".$value."D"));
 
-            $endingDateTime = new \DateTime("NOW");
-            $value = 7 - $currentDayOfWeekInInt;
-            $endingDateTime->add(new \DateInterval("P".$value."D"));
+                $endingDateTime = new \DateTime("NOW");
+                $value = 7 - $currentDayOfWeekInInt;
+                $endingDateTime->add(new \DateInterval("P".$value."D"));
 
-            $mealBLL = new MealBLL();
-            $meals = $mealBLL->Load($startingDateTime, $endingDateTime);
+                $mealBLL = new MealBLL();
+                $meals = $mealBLL->Load($startingDateTime, $endingDateTime);
 
-            $path = PathHelper::GetPath([ "Meal", "DisplayMeals" ]);   
-            $view = new View($path);
-            
-			return $view->Render([ "meals" => $meals ]);
+                $path = PathHelper::GetPath([ "Meal", "Display" ]);   
+                $view = new View($path);
+                
+                return $view->Render([ "meals" => $meals ]);
+            }
+
+            RoutesHelper::Redirect("UserLogin");
         }
-
-        RoutesHelper::Redirect("DisplayHome");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 
     public function Add($queryParameters)

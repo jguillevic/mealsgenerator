@@ -2,63 +2,65 @@
 
 namespace Model\Meal;
 
-use Framework\Tools\Json\IJsonSerializable;
 use Model\Recipe\Recipe;
+use Framework\Tools\Json\IJsonSerializable;
 
 class MealItem implements IJsonSerializable
 {
     private $id = -1;
-    private $name;
-    private $weekProposedMaxCount;
-    private $recipe;
+    private $name = "";
+    private $weekProposedMaxCount = -1;
+    private $recipe = null;
 
-    public function GetId()
+    public function GetId() : int
     {
         return $this->id;
     }
 
-    public function SetId($id)
+    public function SetId(int $id) : MealItem
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function GetName()
+    public function GetName() : string
     {
         return $this->name;
     }
 
-    public function SetName($name)
+    public function SetName(string $name) : MealItem
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function GetWeekProposedMaxCount()
+    public function GetWeekProposedMaxCount() : int
     {
         return $this->weekProposedMaxCount;
     }
 
-    public function SetWeekProposedMaxCount($weekProposedMaxCount)
+    public function SetWeekProposedMaxCount(int $weekProposedMaxCount) : MealItem
     {
         $this->weekProposedMaxCount = $weekProposedMaxCount;
+
+        return $this;
     }
 
-    public function GetRecipe()
+    public function GetRecipe() : ?Recipe
     {
         return $this->recipe;
     }
 
-    public function SetRecipe($recipe)
+    public function SetRecipe(?Recipe $recipe) : MealItem
     {
         $this->recipe = $recipe;
 
         return $this;
     }
     
-    public function SerializeToJson()
+    public function SerializeToJson() : string
     {
         $json = "{\"Id\":" . $this->GetId()
             . ",\"Name\":\"" . $this->GetName() . "\""
@@ -75,7 +77,7 @@ class MealItem implements IJsonSerializable
         return $json;
     }
 
-    public function SetFromStdClass($object)
+    public function SetFromStdClass(\stdClass $object) : MealItem
     {
         $this->SetId($object->Id);
         $this->SetName($object->Name);

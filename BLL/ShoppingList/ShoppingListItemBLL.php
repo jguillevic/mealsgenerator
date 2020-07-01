@@ -8,7 +8,7 @@ use DAL\ShoppingList\ShoppingListItemDAL;
 
 class ShoppingListItemBLL
 {
-    public function UpdateIsHandled($id, $value)
+    public function UpdateIsHandled(int $id, bool $value) : void
     {
         try
         {

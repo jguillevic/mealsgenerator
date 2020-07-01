@@ -13,6 +13,7 @@
 @import 'layout/post';
 
 /* Module */
+@import 'module/visibility';
 @import 'module/header';
 @import 'module/footer';
 @import 'module/main';
@@ -20,9 +21,24 @@
 @import 'module/content';
 @import 'module/button';
 @import 'module/checkbox';
+@import 'module/input';
+@import 'module/wrapper';
+@import 'module/information';
 
-@import 'module/meal/display_meals';
+@import 'module/user/login';
+@import 'module/user/register';
 
-@import 'module/shoppinglist/display_shoppinglists';
+@import 'module/home/display';
+
+@import 'module/contact/display';
+
+@import 'module/meal/display';
+
+@import 'module/shoppinglist/display';
+
+@import 'module/policy/privacy/display';
+@import 'module/policy/terms/display';
+
+@import 'module/recipe/display';
 
 /* Theme */

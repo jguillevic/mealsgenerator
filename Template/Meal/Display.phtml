@@ -1,0 +1,104 @@
+<?php
+use \Framework\Tools\Helper\RoutesHelper;
+use Framework\Tools\Helper\DateHelper;
+use Model\Meal\Meal;
+use Model\Meal\MealMealItem;
+use Model\Meal\MealItem;
+use Model\Meal\MealKind;
+
+$plannifiedMeals = $params["PlannifiedMeals"];
+$startingDate = $params["StartingDate"]->format("Y-m-d");
+$endingDate = $params["EndingDate"]->format("Y-m-d");
+?>
+
+<section class="l-content content">
+    <form class="dm__form" class="form" action="<?= RoutesHelper::Path("DisplayPlannifiedMeals") ?>" method="GET">
+        <span class="dm__form__component">
+            <label for="StartingDate">À partir du ?</label>
+            <input type="date" id="StartingDate" name="StartingDate" class="input" value="<?= $startingDate ?>">
+        </span>
+
+        <span class="dm__form__component">
+            <label for="EndingDate">Jusqu'au ?</label>
+            <input type="date" id="EndingDate" name="EndingDate" class="input" value="<?= $endingDate ?>">
+        </span>
+
+        <span class="dm__form__buttons">
+            <button class="button contained-button">Voir les menus</button>
+        </span>
+    </form>
+
+    <table>
+<?php foreach ($plannifiedMeals as $plannifiedMealsByDate): ?>
+    <?php $dayOfWeek = DateHelper::GetDayFromDate($plannifiedMealsByDate["Date"]); ?>
+    
+        <tr class="dm__item">
+
+            <td class="dm__item__date--<?= $dayOfWeek; ?>">
+                <?= mb_strtoupper(strftime("%A", $plannifiedMealsByDate["Date"]->getTimeStamp())) . "<br>" . $plannifiedMealsByDate["Date"]->format("d/m/Y"); ?>
+            </td>
+
+    <?php if (array_key_exists(MealKind::LUNCH_CODE, $plannifiedMealsByDate)): ?>
+        <?php $plannifiedMeal = $plannifiedMealsByDate[MealKind::LUNCH_CODE]; ?>
+            <td class="dm__item__meal--<?= $dayOfWeek; ?>">
+                <article>
+                    <header class="dm__item__meal--<?= $dayOfWeek; ?>__header"><!--
+                        --><?= mb_strtoupper($plannifiedMeal->GetKind()->GetName()); ?><!--
+                    --></header>
+                    <section class="dm__item__meal__content">
+        <?php
+        $i = 0;
+        $count = count($plannifiedMeal->GetMeal()->GetItems());
+        foreach ($plannifiedMeal->GetMeal()->GetItems() as $item): 
+        ?>
+                        <span>
+                            <?= $item->GetMealItem()->GetRecipe() != null ? "<a href=\"" . RoutesHelper::Path("DisplayRecipe", [ "Id" => $item->GetMealItem()->GetRecipe()->GetId() ]) . "\">" : ""; ?><!--
+                                --><?= $item->GetMealItem()->GetName(); ?><!--
+                            --><?= $item->GetMealItem()->GetRecipe() != null ? "</a>" : ""; ?>
+                        </span>
+            <?php if ($i < $count - 1): ?>
+                +
+            <?php endif; ?>
+        <?php
+        $i++; 
+        endforeach; 
+        ?>
+                    </section>
+                </article>
+            </td>
+    <?php endif; ?>
+
+    <?php if (array_key_exists(MealKind::DINNER_CODE, $plannifiedMealsByDate)): ?>
+        <?php $plannifiedMeal = $plannifiedMealsByDate[MealKind::DINNER_CODE]; ?>
+            <td class="dm__item__meal--<?= $dayOfWeek; ?>">
+                <article>
+                    <header class="dm__item__meal--<?= $dayOfWeek; ?>__header"><!--
+                        --><?= mb_strtoupper($plannifiedMeal->GetKind()->GetName()); ?><!--
+                    --></header>
+                    <section class="dm__item__meal__content">
+        <?php
+        $i = 0;
+        $count = count($plannifiedMeal->GetMeal()->GetItems());
+        foreach ($plannifiedMeal->GetMeal()->GetItems() as $item): 
+        ?>
+                            <span>
+                                <?= $item->GetMealItem()->GetRecipe() != null ? "<a href=\"" . RoutesHelper::Path("DisplayRecipe", [ "Id" => $item->GetMealItem()->GetRecipe()->GetId() ]) . "\">" : ""; ?><!--
+                                    --><?= $item->GetMealItem()->GetName(); ?><!--
+                                --><?= $item->GetMealItem()->GetRecipe() != null ? "</a>" : ""; ?>
+                        </span>
+            <?php if ($i < $count - 1): ?>
+                +
+            <?php endif; ?>
+        <?php
+        $i++; 
+        endforeach; 
+        ?>
+                    </section>
+                </article>
+            </td>
+    <?php endif; ?>
+
+        </tr>
+<?php endforeach; ?>
+    </table>
+</section>

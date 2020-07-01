@@ -2,82 +2,134 @@
 
 namespace Tools\Helper;
 
-use \Model\User\User;
+use Model\User\WebsiteUser;
+use Model\User\FacebookUser;
+use Config\Facebook\FacebookConfig;
 
 /**
  * @author JGuillevic
  */
 class UserHelper
 {
-	const USER_KEY = "user";
+	const WEBSITE_USER_KEY = "WebsiteUser";
+	const FACEBOOK_USER_KEY = "FacebookUser";
 
 	public static function IsLogin()
 	{
-		return isset($_SESSION[self::USER_KEY]);
+		return self::IsWebsiteLogin() || self::IsFacebookLogin();
 	}
 
-	private static function GetUser()
+	public static function IsWebsiteLogin()
 	{
-		$user = null;
-
-		if (self::IsLogin())
-		{
-			$user = $_SESSION[self::USER_KEY];
-		}
-
-		return $user;
+		return self::IsLoginInternal(self::WEBSITE_USER_KEY);
 	}
 
-	public static function CanManageStore()
+	// Vérifie si une connexion facebook a été réalisée par l'appli
+	// et si la date d'expiration de la connexion n'est pas dépassée.
+	// Dans le cas où la date d'expiration est dépassée, on force la déconnexion.
+	public static function IsFacebookLogin()
 	{
-		$user = self::GetUser();
-
-		if ($user != null)
+		// Si une connexion facebook gérée par cette application a été réalisé précédemment.
+		if(self::IsLoginInternal(self::FACEBOOK_USER_KEY))
 		{
-			return true;
-		}
-
-		return false;
-	}
-
-	public static function CanManageGame()
-	{
-		$user = self::GetUser();
-
-		if ($user != null)
-		{
-			return true;
+			$fbUser = self::GetFacebookUser();
+			$expirationDate = \DateTime::createFromFormat("Y-m-d H:i:s.u", $fbUser->ExpirationDate->date, new \DateTimeZone($fbUser->ExpirationDate->timezone));
+			
+			if ($expirationDate >= new \DateTime("NOW"))
+				return true;
+			else
+				self::Logout();
 		}
 
 		return false;
 	}
 
-	public static function CanManageEvent()
+	private static function IsLoginInternal($key)
 	{
-		$user = self::GetUser();
-
-		if ($user != null)
-		{
-			return true;
-		}
-
-		return false;
+		return array_key_exists($key, $_SESSION) && isset($_SESSION[$key]);
 	}
 
-	public static function Login($user)
+	private static function GetWebsiteUser()
 	{
-		$_SESSION[self::USER_KEY] = $user;
+		return $user = json_decode($_SESSION[self::WEBSITE_USER_KEY]);
+	}
+
+	private static function GetFacebookUser()
+	{
+		return json_decode($_SESSION[self::FACEBOOK_USER_KEY]);
+	}
+
+	public static function WebsiteLogin($websiteUser)
+	{
+		$_SESSION[self::WEBSITE_USER_KEY] = json_encode($websiteUser);
+	}
+
+	public static function FacebookLogin($facebookUser)
+	{
+		$_SESSION[self::FACEBOOK_USER_KEY] = json_encode($facebookUser);
 	}
 
 	public static function Logout()
 	{
-		if (self::IsLogin())
-		{
-			unset($_SESSION[self::USER_KEY]);
+		session_unset();
 
-			return true;
+		session_destroy();
+
+		// if (self::IsWebsiteLogin())
+		// {
+		// 	unset($_SESSION[self::WEBSITE_USER_KEY]);
+
+		// 	$isOk = true;
+		// }
+		// else if (self::IsFacebookLogin())
+		// {
+		// 	unset($_SESSION[self::FACEBOOK_USER_KEY]);
+
+		// 	$ikOk = true;
+		// }
+		
+		return true;
+	}
+
+	public static function GetLoginKind()
+	{
+		if (self::IsWebsiteLogin())
+			return "WEBSITE";
+		else if (self::IsFacebookLogin())
+			return "FACEBOOK";
+		
+		return null;
+	}
+
+	public static function GetName()
+	{
+		if (self::IsWebsiteLogin())
+		{
+			$wsUser = self::GetWebsiteUser();
+			return $wsUser->Login;
+		}
+		else if (self::IsFacebookLogin())
+		{
+			$fbUser = self::GetFacebookUser();
+			return $fbUser->FirstName;
+		}
+
+		return null;
+	}
+
+	public static function GetAvatarUrl()
+	{
+		if (self::IsWebsiteLogin())
+		{
+			$wsUser = self::GetWebsiteUser();
+			return $wsUser->AvatarUrl;
+		}
+		else if (self::IsFacebookLogin())
+		{
+			$fbUser = self::GetFacebookUser();
+			return $fbUser->ProfilePictureUrl;
 		}
 		
-		return false;
+		return null;
 	}
 }

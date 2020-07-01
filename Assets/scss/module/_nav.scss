@@ -1,354 +1,241 @@
 .nav
 {
-	background-color: $main-dark;
-	color: $main-light;
-	font-family: $title-font;
 	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: row;
+	display: block;
+
+	&__wrapper
+	{
+		width: 100%;
+
+		background-color: $main-light;
+
+		padding-top: 2em;
+		padding-bottom: 2em;
+		padding-left: 8%;
+		padding-right: 8%;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
 
 	&__brand
 	{
-		padding-top: 1em;
-		padding-bottom: 1em;
-		padding-left: 1em;
+		color: $main-dark;
+		font-family: $title-font;
+		font-weight: 700;
+		font-size: 1em;
+
 		text-align: left;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
+	}
 
-		&__logo
-		{
-			font-size: 3em;
-			font-weight: 700;
-			letter-spacing: -3px;
-			transition: color 0.3s;
-	
-			&:hover
-			{
-				color: $main-color;
-			}
-		}
-
-		&__complement
-		{
-			font-size: 1.2em;
-			font-weight: 500;
-			letter-spacing: -2px;
-			color: $secondary-light;
-			font-style: italic;
-		}
+	&__menu-user-wrapper
+	{
+		text-align: right;
 	}
 
 	&__menu
 	{
-		display: flex;
-		flex-direction: row;
-		margin-left: 5em;
-		height: 100%;
+		color: $main-dark;
+		font-family: $title-font;
+		font-weight: 400;
+		font-size: 1em;
 
 		&__item
 		{
 			display: inline-block;
-			transition: background-color 0.3s;
-			font-size: 0.9em;
-			padding-top: 2.5em;
-			padding-bottom: 2.5em;
-			padding-left: 1em;
-			padding-right: 1em;
-			text-transform: uppercase;
-			text-align: center;
-			height: 100%;
-			width: 12em;
+
+			position: relative;
+
+			padding-right: 1.5em;
+
+			&::after
+			{
+				content: "";
+				background-image: url("..//images//icons//triangle-down.svg");
+				background-size: 100%;
+				height: 1em;
+				width: 1em;
+				display: inline-block;
+				position: absolute;
+				right: 0em;
+				top: 0.1em;
+				transition: transform 0.5s ease;
+			}
+
+			&.open::after
+			{
+				transform: rotate(180deg);
+				transform-origin: 50% 50%;
+			}
 
 			&:hover
 			{
-				background-color: $main-color;
 				cursor: pointer;
 			}
 
-			&::before
+			&:not(:last-child)
 			{
-				font-family: "Font Awesome 5 Free";
-				font-weight: 700;
-				font-size: 2em;
-				display: block;
-				padding-bottom: 0.3em;
+				margin-right: 4em;
+			}
+
+			&:last-child
+			{
+				margin-right: 8em;
+			}
+
+			& > span
+			{
+				pointer-events: none;
 			}
 		}
 
-		&__item--home
+		&__sub-item
 		{
-			@extend .nav__menu__item;
-
-			&::before
+			&__wrapper
 			{
-				content: "\f015";
-			}
-		}
+				position: absolute;
+				top: 1.8em;
 
-		&__item--meal
-		{
-			@extend .nav__menu__item;
+				z-index: 1;
 
-			&::before
-			{
-				content: "\f2e7";
-			}
-		}
+				text-align: left;
 
-		&__item--generate
-		{
-			@extend .nav__menu__item;
+				background-color: $main-light;
+				box-shadow: 0 0 0.5em rgba($color: $main-gray, $alpha: 0.5);
 
-			&::before
-			{
-				content: "\f013";
-			}
-		}
-
-		&__item--shoppinglist
-		{
-			@extend .nav__menu__item;
-
-			&::before
-			{
-				content: "\f07a";
-			}
-		}
-	}
-
-
-	&__logo
-	{
-		display: inline-block;
-		font-size: 2.5em;
-		font-weight: 700;
-		letter-spacing: -3px;
-		margin-left: 30px;
-		transition: color 0.3s;
-
-		&:hover
-		{
-			color: $main-color;
-		}
-	}
-
-	&__burger
-	{
-		display: inline-block;
-		font-size: 1.4em;
-		margin-right: 30px;
-		padding-top: 15px;
-		transition: color 0.3s;
-
-		&:hover
-		{
-			cursor: pointer;
-			color: $main-color;
-		}
-	}
-
-	&__overlay
-	{ 
-    	height: 100%;
-    	width: 0;
-    	position: fixed;
-    	visibility: hidden;
-    	z-index: 2;
-    	right: 0;
-    	top: 0;
-    	background-color: rgba($color: $main-dark, $alpha: 1);
-    	overflow-x: hidden;
-    	transition: width 0.3s, height 0.3s;
-		
-		&--open
-		{
-			width: 20%;
-			visibility: visible;
-		}
-
-    	&__content
-    	{
-    		width: 100%;
-    		color: $main-light;
-    		display: flex;
-    		flex-direction: column;
-    		font-family: $title-font;
-    		font-size: 1.5em;
-
-			& > ul
-			{
-				margin-top: 5em;
-				padding-left: 1em;
-				width: 100%;
-
-				& > li
+				& > ul
 				{
-					display: inline-block;
-					width: 100%;
-					font-weight: 700;
+					color: $main-dark;
+					font-family: $title-font;
+					font-weight: 400;
+					font-size: 1em;
 
-					& > ul
+					& > li
 					{
-						width: 100%;
-						padding-left: 1.2em;
+						transition: background-color 0.3s ease, color 0.3s ease;
 
-						& > li 
+						&:hover
 						{
-							color: $main-gray;
-							font-size: 0.8em;	
+							background-color: $main-color;
+							color: $main-light;
+						}
+
+						& > a
+						{
+							display: block;
+							
+							padding: 0.7em;
 						}
 					}
 				}
 			}
 		}
-		
-		&__menu-item
+	}
+
+	&__user
+	{
+		color: $main-dark;
+		font-family: $title-font;
+		font-weight: 400;
+		font-size: 1em;
+		position: relative;
+		margin-left: 1.5em;
+
+		& > a:not(:last-child)
 		{
-			transition: color 0.3s;
+			margin-right: 1em;
+		}
+
+		&__avatar
+		{
+			position: absolute;
+			top: -0.8em;
+			left: -2em;
+
+			width: 3em;
+			height: 3em;
+			
+			border-radius: 50%;
+
+			box-shadow: 0 0 0.5em rgba($color: $main-gray, $alpha: 0.7);
 
 			&:hover
 			{
-				color: $main-color;
 				cursor: pointer;
 			}
 		}
 
-		&__menu-item-drop
+		&__avatar-tooltip
 		{
-			@extend .nav__overlay__menu-item;
+			width: 20em;
 
-			&::after
-			{
-				font-family: "Font Awesome 5 Free"; 
-				font-weight: 700;
-				margin-left: 0.3em;
-				color: $main-light;
-				transition: color 0.3s;
-			}
+			position: absolute;
+			z-index: 2;
+			top: 3em;
+			right: -1.1em;
 
-			&:hover
+			border: 0.1em rgba($color: $main-gray, $alpha: 0.5) solid;
+
+			box-shadow: 0 0 0.5em rgba($color: $main-gray, $alpha: 0.7);
+
+			&__header
 			{
-				&::after
+				padding: 1em;
+
+				background-color: $main-color;
+
+				& > section
 				{
-					color: $main-color;
-					cursor: pointer;
+					@extend .wrapper-row-center;
+
+					& > img
+					{
+						display: block;
+
+						margin: 0.2em;
+
+						width: 7em;
+						height: 7em;
+		
+						border-radius: 50%;
+						border: 0.2em $main-light solid;
+
+						box-shadow: 0 0 0.5em rgba($color: $main-gray, $alpha: 0.9);
+
+						background-color: $main-light;
+					}
+				}
+
+				& > p
+				{
+					color: $main-light;
+					font-family: $title-font;
+					font-weight: 500;
+					font-size: 1.5em;
+
+					display: block;
+
+					margin-left: auto;
+					margin-right: auto;
+					margin-top: 0.5em;
+					margin-bottom: 0.1em;
+
+					text-align: center;
 				}
 			}
 
-			&--down
-			{
-				&::after
-				{
-					content: "\f107";
-				}
-			}
+			&__footer
+			{	
+				@extend .wrapper-row-spacebetween;
 
-			&--up
-			{
-				&::after
-				{
-					content: "\f106";
-				}
+				background-color: $main-light;
+
+				padding-top: 0.8em;
+				padding-bottom: 0.8em;
+				padding-left: 0.8em;
+				padding-right: 0.8em; 
 			}
 		}
-
-		&__menu-item-before
-		{
-			@extend .nav__overlay__menu-item;
-
-			&::before
-			{
-				font-family: "Font Awesome 5 Free"; 
-				font-weight: 700;
-				color: $main-light;
-				transition: color 0.3s;
-				display: inline-block;
-				width: 1.8em;
-			}
-
-			&:hover
-			{
-				&::before
-				{
-					color: $main-color;
-					cursor: pointer;
-				}
-			}
-		}
-
-		&__menu-item-home
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f015";
-			}
-		}
-
-		&__menu-item-admin
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f508";
-			}
-		}
-
-		&__menu-item-category
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f121";
-			}
-		}
-
-		&__menu-item-about
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f05a";
-			}
-		}
-
-		&__menu-item-contact
-		{
-			@extend .nav__overlay__menu-item-before;
-
-			&::before
-			{
-				content: "\f1fa";
-			}
-		}
-
-		&__menu-subitem-content
-		{
-			height: 100%;
-			visibility: visible;
-		}
-
-    	&__close
-    	{
-    		position: fixed;
-    		right: 28px;
-    		top: 19px;
-			font-size: 2em;
-			color: $main-light;
-    		transition: color 0.3s;
-
-    		&:hover
-    		{
-    			color: $main-color;
-    			cursor: pointer;
-    		}
-    	}
 	}
 }

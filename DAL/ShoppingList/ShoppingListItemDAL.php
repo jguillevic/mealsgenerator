@@ -11,7 +11,7 @@ class ShoppingListItemDAL
 {
     private $db;
     
-	public function __construct($db = null)
+	public function __construct(Database $db = null)
 	{
 		if (isset($db))
 			$this->db = $db;
@@ -19,7 +19,7 @@ class ShoppingListItemDAL
 			$this->db = new Database();
     }
 
-    public function Load($shoppingListIds)
+    public function Load(array $shoppingListIds) : array
     {
         try
         {
@@ -69,7 +69,7 @@ class ShoppingListItemDAL
         }
     } 
 
-    public function Add($shoppingListItems)
+    public function Add(array $shoppingListItems) : void
     {
         try
         {
@@ -101,7 +101,7 @@ class ShoppingListItemDAL
         }
     }
 
-    public function Delete($shoppingListIds = null)
+    public function Delete(array $shoppingListIds = null) : void
     {
         try
         {
@@ -131,7 +131,7 @@ class ShoppingListItemDAL
         }
     }
 
-    public function UpdateIsHandled($id, $value)
+    public function UpdateIsHandled(int $id, bool $value) : void
     {
         try
         {

@@ -6,24 +6,37 @@ use Framework\View\View;
 use Framework\Tools\Helper\RoutesHelper;
 use Framework\Tools\Helper\PathHelper;
 use BLL\Recipe\RecipeBLL;
+use Tools\Helper\UserHelper;
 
 class RecipeController
 {
     public function Display($queryParameters)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET")
+        try
         {
-            $id = $queryParameters["Id"]->GetValue();
+            if (UserHelper::IsLogin())
+            {
+                if ($_SERVER["REQUEST_METHOD"] == "GET")
+                {
+                    $id = $queryParameters["Id"]->GetValue();
 
-            $recipeBLL = new RecipeBLL();
-            $recipes = $recipeBLL->Load([ $id ]);
+                    $recipeBLL = new RecipeBLL();
+                    $recipes = $recipeBLL->Load([ $id ]);
 
-            $path = PathHelper::GetPath([ "Recipe", "DisplayRecipe" ]);
-            $view = new View($path);
+                    $path = PathHelper::GetPath([ "Recipe", "Display" ]);
+                    $view = new View($path);
 
-            return $view->Render([ "Recipe" => array_pop($recipes) ]);
+                    return $view->Render([ "Recipe" => array_pop($recipes) ]);
+                }
+
+                RoutesHelper::Redirect("DisplayError");
+            }
+            else
+                RoutesHelper::Redirect("UserLogin");
         }
-
-        RoutesHelper::Redirect("DisplayError");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

@@ -11,15 +11,22 @@ class ShoppingListItemController
 {
     public function UpdateIsHandled($queryParameters)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET")
+        try
         {
-            $id = $queryParameters["Id"]->GetValue();
-            $value = $queryParameters["Value"]->GetValue();
+            if ($_SERVER["REQUEST_METHOD"] == "GET")
+            {
+                $id = $queryParameters["Id"]->GetValue();
+                $value = $queryParameters["Value"]->GetValue();
 
-            $shoppingListItemBLL = new ShoppingListItemBLL();
-            $shoppingListItemBLL->UpdateIsHandled($id, $value);
+                $shoppingListItemBLL = new ShoppingListItemBLL();
+                $shoppingListItemBLL->UpdateIsHandled($id, $value);
+            }
+            else
+                RoutesHelper::Redirect("DisplayError");
         }
-        else
-            RoutesHelper::Redirect("DisplayError");
+        catch (\Exception $e)
+        {
+            ErrorManager::Manage($e);
+        }
     }
 }

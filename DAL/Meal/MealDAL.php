@@ -13,7 +13,7 @@ class MealDAL
 {
     private $db;
     
-	public function __construct($db = null)
+	public function __construct(Database $db = null)
 	{
 		if (isset($db))
 			$this->db = $db;
@@ -21,7 +21,7 @@ class MealDAL
 			$this->db = new Database();
     }
 
-    public function Load($ids = null)
+    public function Load(array $ids = null) : array
     {
         try
         {

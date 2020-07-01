@@ -6,7 +6,55 @@
 		, "Name": "DisplayHome"
 	}
 	, {
-		"Path": "/PlannifiedMeal/Display"
+		"Path": "/Contact"
+		, "Controller": "Contact\\ContactController"
+		, "Action": "Display"
+		, "Name": "DisplayContact"
+	}
+	, {
+		"Path": "/Contact/Send"
+		, "Controller": "Contact\\ContactController"
+		, "Action": "Send"
+		, "Name": "ContactSend"
+	}
+	, {
+		"Path": "/User/Login"
+		, "Controller": "User\\UserController"
+		, "Action": "Login"
+		, "Name": "UserLogin"
+	}
+	, {
+		"Path": "/User/Login/Kind"
+		, "Controller": "User\\UserController"
+		, "Action": "GetLoginKind"
+		, "Name": "UserLoginKind"
+	}
+	, {
+		"Path": "/User/Login/Facebook"
+		, "Controller": "User\\UserController"
+		, "Action": "LoginFacebook"
+		, "Name": "UserLoginFacebook"
+	}
+	, {
+		"Path": "/User/Logout"
+		, "Controller": "User\\UserController"
+		, "Action": "Logout"
+		, "Name": "UserLogout"
+	}
+	, {
+		"Path": "/User/Register"
+		, "Controller": "User\\UserController"
+		, "Action": "Register"
+		, "Name": "UserRegister"
+	}
+	, {
+		"Path": "/User/Activate"
+		, "Controller": "User\\UserController"
+		, "Action": "Activate"
+		, "Name": "UserActivate"
+	}
+	, {
+		"Path": "/PlannifiedMeal"
 		, "Controller": "Meal\\PlannifiedMealController"
 		, "Action": "Display"
 		, "Name": "DisplayPlannifiedMeals"
@@ -24,13 +72,13 @@
 		, "Name": "AddPlannifiedMeals"
 	}
 	, {
-		"Path": "/Recipe/Display"
+		"Path": "/Recipe"
 		, "Controller": "Recipe\\RecipeController"
 		, "Action": "Display"
 		, "Name": "DisplayRecipe"
 	}
 	, {
-		"Path": "/ShoppingList/Display"
+		"Path": "/ShoppingList"
 		, "Controller": "ShoppingList\\ShoppingListController"
 		, "Action": "Display"
 		, "Name": "DisplayShoppingLists"
@@ -48,7 +96,19 @@
 		, "Name": "ShoppingListItemUpdateIsHandled"
 	}
 	, {
-		"Path": "/Error/Display"
+		"Path": "/Policy/Privacy"
+		, "Controller": "Policy\\PrivacyController"
+		, "Action": "Display"
+		, "Name": "DisplayPrivacy"
+	}
+	, {
+		"Path": "/Policy/Terms"
+		, "Controller": "Policy\\TermsController"
+		, "Action": "Display"
+		, "Name": "DisplayTerms"
+	}
+	, {
+		"Path": "/Error"
 		, "Controller": "Error\\ErrorController"
 		, "Action": "Display"
 		, "Name": "DisplayError"

@@ -2,77 +2,78 @@
 
 namespace Model\Unit;
 
+use Model\Unit\MealCategory;
 use Framework\Tools\Json\IJsonSerializable;
 
 class Unit implements IJsonSerializable
 {
     private $id = -1;
-    private $name;
-    private $code;
-    private $conversionFactor;
-    private $category;
+    private $name = "";
+    private $code = "";
+    private $conversionFactor = null;
+    private $category = null;
 
-    public function GetId()
+    public function GetId() : int
     {
         return $this->id;
     }
 
-    public function SetId($id)
+    public function SetId($id) : Unit
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function GetName()
+    public function GetName() : string
     {
         return $this->name;
     }
 
-    public function SetName($name)
+    public function SetName(string $name) : Unit
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function GetCode()
+    public function GetCode() : string
     {
         return $this->code;
     }
 
-    public function SetCode($code)
+    public function SetCode(string $code) : Unit
     {
         $this->code = $code;
 
         return $this;
     }
 
-    public function GetConversionFactor()
+    public function GetConversionFactor() : ?float
     {
         return $this->conversionFactor;
     }
 
-    public function SetConversionFactor($conversionFactor)
+    public function SetConversionFactor(?float $conversionFactor) : Unit
     {
         $this->conversionFactor = $conversionFactor;
 
         return $this;
     }
 
-    public function GetCategory()
+    public function GetCategory() : ?UnitCategory
     {
         return $this->category;
     }
 
-    public function SetCategory($category)
+    public function SetCategory(?UnitCategory $category) : Unit
     {
         $this->category = $category;
 
         return $this;
     }
 
-    public function SerializeToJson()
+    public function SerializeToJson() : string
     {
         $json = "{\"Id\":" . $this->GetId()
             . ",\"Name\":\"" . $this->GetName() . "\""
@@ -81,7 +82,7 @@ class Unit implements IJsonSerializable
             
         $conversionFactor = $this->GetConversionFactor();
         if ($conversionFactor != null)
-            $json .= $this->GetConversionFactor();
+            $json .= str_replace(",", ".", $this->GetConversionFactor());
         else
             $json .= "null";
 

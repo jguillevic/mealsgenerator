@@ -12,7 +12,7 @@ use Model\ShoppingList\ShoppingListItem;
 
 class ShoppingListBLL
 {
-    public function Load()
+    public function Load() : array
     {
         try
         {
@@ -35,7 +35,7 @@ class ShoppingListBLL
         }
     }
 
-    public function Generate($startingDate, $endingDate)
+    public function Generate(\DateTime $startingDate, \DateTime $endingDate) : ShoppingList
     {
         try
         {

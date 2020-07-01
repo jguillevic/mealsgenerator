@@ -5,53 +5,50 @@ namespace Model\ShoppingList;
 class ShoppingList
 {
     private $id = -1;
-    private $name;
-    private $items;
+    private $name = "";
+    private $items = [];
 
-    public function __construct()
-    {
-        $items = [];
-    }
-
-    public function GetId()
+    public function GetId() : int
     {
         return $this->id;
     }
 
-    public function SetId($id)
+    public function SetId(int $id) : ShoppingList
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function GetName()
+    public function GetName() : string
     {
         return $this->name;
     }
 
-    public function SetName($name)
+    public function SetName(string $name) : ShoppingList
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function GetItems()
+    public function GetItems() : array
     {
         return $this->items;
     }
 
-    public function SetItems($items)
+    public function SetItems(array $items) : ShoppingList
     {
         $this->items = $items;
 
         return $this;
     }
 
-    public function AddItems($items)
+    public function AddItems(array $items) : ShoppingList
     {
         foreach ($items as $item)
             $this->items[] = $item;
+
+        return $this;
     }
 }

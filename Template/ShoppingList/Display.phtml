@@ -1,0 +1,48 @@
+<?php
+use \Framework\Tools\Helper\RoutesHelper;
+use Model\ShoppingList\ShoppingList;
+use Model\ShoppingList\ShoppingListItem;
+
+$shoppingLists = $params["ShoppingLists"];
+$startingDate = $params["StartingDate"]->format("Y-m-d");
+$endingDate = $params["EndingDate"]->format("Y-m-d");
+?>
+
+<section class="l-content content">
+    <form class="dm__form" action="<?= RoutesHelper::Path("GenerateShoppingList") ?>" method="GET">
+        <span class="dm__form__component">
+            <label for="StartingDate">À partir du ?</label>
+            <input type="date" id="StartingDate" name="StartingDate" value="<?= $startingDate ?>">
+        </span>
+
+        <span class="dm__form__component">
+            <label for="EndingDate">Jusqu'au ?</label>
+            <input type="date" id="EndingDate" name="EndingDate" value="<?= $endingDate ?>">
+        </span>
+
+        <span class="dm__form__buttons">
+            <button class="button contained-button">Générer la liste des courses</button>
+        </span>
+    </form>
+    
+<?php foreach ($shoppingLists as $shoppingList): ?>
+    <h1 class="dsl__title"><?= $shoppingList->GetName(); ?></h1>
+
+    <form>
+        <ul>
+    <?php foreach ((array)$shoppingList->GetItems() as $item): ?>
+            <li class="dsl__item">
+        <?php $inputId = "shoppinglistitem_" . $shoppingList->GetId() . "_" . $item->GetId(); ?>
+                <div class="checkbox large rounded-6">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="<?= $inputId; ?>" name="<?= $inputId; ?>" <?= $item->GetIsHandled() ? "checked" : ""; ?>>
+                        <div class="checkbox-checkmark"></div>
+                    </div>
+                    <label for="<?= $inputId; ?>"><?= $item->GetContent(); ?></label>
+                </div>
+            </li>
+    <?php endforeach; ?>
+        </ul>
+    </form>
+<?php endforeach; ?>
+</section>

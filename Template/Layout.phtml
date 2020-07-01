@@ -5,41 +5,84 @@ use \Tools\Helper\UserHelper;
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Générateur de repas</title>
-	<link rel="stylesheet" type="text/css" href="../Assets/css/style.css"> 	
-	<script type="text/javascript" src="../Assets/js/jquery/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="../Assets/js/jquery/jquery-migrate-1.4.1.min.js"></script>
-	<script src="../Assets/js/module/nav.js"></script>
-	<script src="../Assets/js/module/shoppinglist/shoppinglist.js"></script>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700" rel="stylesheet">
-</head>
-<body>
-	<header class="l-header header">
-		<nav class="nav">
-			<section class="nav__brand">
-				<a class="nav__brand__logo" href="<?= RoutesHelper::Path("DisplayHome"); ?>">Générateur de repas</a>
-				<span class="nav__brand__complement">Pour générer les repas de la semaine</span>
-			</section>
-			<section class="nav__menu">
-				<a class="nav__menu__item--meal" href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Consulter les repas</a>
-				<a class="nav__menu__item--generate" href="<?= RoutesHelper::Path("GeneratePlannifiedMeals"); ?>">Générer des repas</a>
-				<a class="nav__menu__item--shoppinglist" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Consulter la liste des courses</a>
-			</section>
-		</nav>
-	</header>
-	<main class="l-main main">
-		<?php
-			if (isset($this->content))
-				include($this->content);
-		?>
-	</main>
-	<footer class="l-footer footer">
-		<p class="footer__copyright">
-			Générateur de repas © Copyright 2019
-		</p>
-	</footer>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>MyMeals</title>
+		<link rel="icon" href="../Assets/images/icons/watermelon.png">
+		<link rel="stylesheet" type="text/css" href="../Assets/css/style.css"> 	
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700|Roboto:400,700" rel="stylesheet">
+		<script type="text/javascript" src="../Assets/js/jquery/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../Assets/js/jquery/jquery-migrate-1.4.1.min.js"></script>
+	</head>
+	<body>
+		<header class="l-header header">
+			<nav class="nav">
+				<section class="nav__wrapper">
+					<span class="nav__brand">
+						<a href="<?= RoutesHelper::Path("DisplayHome"); ?>" tabindex="0">MyMeals</a>
+					</span>
+
+					<span class="nav__menu-user-wrapper">
+						<span class="nav__menu">
+	<?php if (UserHelper::IsLogin()): ?>
+							<div class="nav__menu__item close" tabindex="2">Repas<!--
+								--><div class="nav__menu__sub-item__wrapper hidden">
+									<ul>
+										<li><a href="<?= RoutesHelper::Path("DisplayPlannifiedMeals"); ?>">Consulter</a></li>
+										<li><a href="<?= RoutesHelper::Path("GeneratePlannifiedMeals"); ?>">Générer</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="nav__menu__item close" href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>" tabindex="3">Liste<!--
+								--><div class="nav__menu__sub-item__wrapper hidden">
+									<ul>
+										<li><a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Consulter</a></li>
+										<li><a href="<?= RoutesHelper::Path("DisplayShoppingLists"); ?>">Générer</a></li>
+									</ul>
+								</div>
+							</div>
+	<?php endif; ?>
+						</span>
+
+						<span class="nav__user">
+	<?php if (UserHelper::IsLogin()): ?>
+							<img id="avatar" class="nav__user__avatar" src="<?= UserHelper::GetAvatarUrl(); ?>"/>
+							<section id="avatar-tooltip" class="nav__user__avatar-tooltip hidden">
+								<section class="nav__user__avatar-tooltip__header">
+									<section>
+										<img src="<?= UserHelper::GetAvatarUrl(); ?>"/>
+									</section>
+									<p>Bonjour <?= UserHelper::GetName(); ?> !</p>
+								</section>
+								<section class="nav__user__avatar-tooltip__footer">
+									<a class="button outlined-button light" href="">Profil</a>
+									<a id="logout-link" class="button outlined-button light" href="<?= RoutesHelper::Path("UserLogout"); ?>">Se déconnecter</a>
+								</section>
+							</section>
+	<?php else: ?>
+							<a id="login-link" class="button outlined-button light" href="<?= RoutesHelper::Path("UserLogin"); ?>">Se connecter</a>
+							<a id="login-link" class="button contained-button light" href="<?= RoutesHelper::Path("UserRegister"); ?>">S'inscrire</a>
+	<?php endif; ?>
+						</span>
+					</span>
+				</section>
+			</nav>
+		</header>
+		<main class="l-main main">
+			<?php
+				if (isset($this->content))
+					include($this->content);
+			?>
+		</main>
+		<footer class="l-footer footer">
+			<ul>
+				<li><a href="<?= RoutesHelper::Path("DisplayPrivacy"); ?>">Données personnelles</a></li>
+				<li><a href="<?= RoutesHelper::Path("DisplayTerms"); ?>">Mentions légales</a></li>
+				<li><a href=""></a>Cookies</li>
+				<li><a href="<?= RoutesHelper::Path("DisplayContact"); ?>">Contact</a></li>
+			</ul>
+		</footer>
+	</body>
+
+	<script type="text/javascript" src="../Assets/js/module/layout.js"></script>
 </html>
