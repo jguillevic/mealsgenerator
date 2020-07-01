@@ -5,6 +5,7 @@ namespace Controller\User;
 use Framework\View\View;
 use Framework\Tools\Helper\RoutesHelper;
 use Framework\Tools\Helper\PathHelper;
+use Framework\Tools\Helper\CommonHelper;
 use BLL\User\WebsiteUserBLL;
 use BLL\User\FacebookUserBLL;
 use Model\User\WebsiteUser;
@@ -115,7 +116,7 @@ class UserController
                 if ($isLoginExists === false && $isEmailExists === false)
                 {
                     // Création du code d'activation (GUID).
-                    $activationCode = str_replace("}", "", str_replace("{", "", com_create_guid()));
+                    $activationCode = CommonHelper::GetGuid();
                     $wu->SetActivationCode($activationCode);
 
                     $wuBLL->Register($wu, $passwordHash);
